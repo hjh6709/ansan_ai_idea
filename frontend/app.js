@@ -19,17 +19,17 @@ const MOCK_COMPANIES = [
         "EMPLOYEE_COUNT": 45
     },
     {
-        "BZPLC_NM": "안산케미칼(주)",
+        "BZPLC_NM": "(주)세진케미칼",
         "INDUTY_CD": "C20499",  // 기타 화학제품 제조업
         "REFINE_ROADNM_ADDR": "경기도 안산시 단원구 신원로 45",
         "PRDCT_DESC": "반도체 세정용 고순도 화학 물질 배합, 석유화학 원료 혼합 및 실험 분석, 화학 반응기 조작 및 모니터링",
         "SIGUN_NM": "안산시",
         "COMPANY_SCALE": "중소기업",
-        "E9_FOREIGN_LICENSE": false,  // E-9 없음
+        "E9_FOREIGN_LICENSE": false,  // E-9 쿼터 없음
         "EMPLOYEE_COUNT": 28
     },
     {
-        "BZPLC_NM": "신라물류포장",
+        "BZPLC_NM": "(주)안산통합물류",
         "INDUTY_CD": "C38210",  // 단순 박스 포장 및 물류 적재
         "REFINE_ROADNM_ADDR": "경기도 안산시 상록구 사동 78",
         "PRDCT_DESC": "완제품 상자 수작업 박스 포장, 테이핑 작업, 제품 적재 및 창고 단순 분류, 파레트 래핑 (단순노무 작업)",
@@ -39,7 +39,7 @@ const MOCK_COMPANIES = [
         "EMPLOYEE_COUNT": 12
     },
     {
-        "BZPLC_NM": "한성오토모티브(주)",
+        "BZPLC_NM": "(주)한성오토텍",
         "INDUTY_CD": "C30391",  // 자동차 차체 및 트레일러 제조업
         "REFINE_ROADNM_ADDR": "경기도 안산시 단원구 성곡로 210",
         "PRDCT_DESC": "자동차 프레스 부품 로봇 용접 보조, 스폿 용접기 조작, 자동차 현가장치 프레스 프레임 조립 및 품질 검사",
@@ -49,7 +49,7 @@ const MOCK_COMPANIES = [
         "EMPLOYEE_COUNT": 115
     },
     {
-        "BZPLC_NM": "글로벌피앤씨",
+        "BZPLC_NM": "(주)글로벌플라스틱",
         "INDUTY_CD": "C22299",  // 기타 플라스틱 제품 제조업
         "REFINE_ROADNM_ADDR": "경기도 안산시 단원구 번영로 89",
         "PRDCT_DESC": "플라스틱 사출 성형기 조작, 사출물 게이트 커팅, 외관 수작업 사포질 및 검사, 단순 포장",
@@ -59,28 +59,28 @@ const MOCK_COMPANIES = [
         "EMPLOYEE_COUNT": 35
     },
     {
-        "BZPLC_NM": "(주)에이치디일렉트릭 (가칭 대기업)",
-        "INDUTY_CD": "C28111",  // 발전기 및 전동기 제조업
+        "BZPLC_NM": "대덕전자(주)",
+        "INDUTY_CD": "C26211",  // 인쇄회로기판 제조업 (PCB 대표 대기업)
         "REFINE_ROADNM_ADDR": "경기도 안산시 단원구 산업단지로 300",
-        "PRDCT_DESC": "초고압 변압기 코일 권선기 조작, 중전기기 제어반 전기 배선 작업, 송배전 설비 시스템 테스트",
+        "PRDCT_DESC": "인쇄회로기판(PCB) 자동화 세정 라인 운용, 에칭 장비 기계 조작 및 공정 모니터링, 다층 회로기판 설계 보조",
         "SIGUN_NM": "안산시",
-        "COMPANY_SCALE": "대기업",  // 대기업
+        "COMPANY_SCALE": "대기업",
         "E9_FOREIGN_LICENSE": false,
         "EMPLOYEE_COUNT": 650
     },
     {
-        "BZPLC_NM": "동양푸드(주)",
-        "INDUTY_CD": "C10795",  // 도시락 및 식사대용 준비식품 제조업
+        "BZPLC_NM": "(주)SPC삼립 안산공장",
+        "INDUTY_CD": "C10795",  // 도시락 및 식사대용 준비식품 제조업 (단순노무 위주의 대기업 공장)
         "REFINE_ROADNM_ADDR": "경기도 안산시 단원구 원시로 88",
-        "PRDCT_DESC": "삼각김밥 및 샌드위치 재료 투입, 야채 세척, 완제품 컨베이어 벨트 라인 단순 박스 포장 및 스티커 부착 (단순노무 작업)",
+        "PRDCT_DESC": "샌드위치/빵 생산 재료 공급 투입, 야채 세척기 조작, 완제품 컨베이어 벨트 라인 단순 박스 포장 및 스티커 부착 (단순노무 작업)",
         "SIGUN_NM": "안산시",
-        "COMPANY_SCALE": "중소기업",
+        "COMPANY_SCALE": "대기업",
         "E9_FOREIGN_LICENSE": true,
-        "EMPLOYEE_COUNT": 52
+        "EMPLOYEE_COUNT": 520
     },
     {
-        "BZPLC_NM": "태양정밀테크",
-        "INDUTY_CD": "C26211",  // 인쇄회로기판 제조업
+        "BZPLC_NM": "(주)에스제이테크",
+        "INDUTY_CD": "C26211",  // 인쇄회로기판 제조업 (PCB 강소기업)
         "REFINE_ROADNM_ADDR": "경기도 안산시 단원구 해봉로 12",
         "PRDCT_DESC": "PCB 기판 노광기 및 에칭 설비 조작, 현상 검사 장비 운용, 회로 불량 패턴 납땜 수정 및 현미경 전수 검사",
         "SIGUN_NM": "안산시",
