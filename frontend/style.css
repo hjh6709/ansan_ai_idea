@@ -498,7 +498,8 @@ body {
 }
 
 /* 입력창 & 텍스트 영역 */
-input[type="text"], textarea {
+/* 입력창 & 텍스트 영역 */
+input[type="text"] {
     background: #ffffff;
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius-lg);
@@ -508,6 +509,22 @@ input[type="text"], textarea {
     font-family: var(--font-family);
     outline: none;
     transition: var(--transition);
+    width: 100%;
+}
+
+textarea {
+    background: #ffffff;
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius-lg);
+    color: var(--text-primary);
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    font-family: var(--font-family);
+    outline: none;
+    transition: var(--transition);
+    width: 100%;
+    resize: vertical;
+    min-height: 120px;
 }
 
 input[type="text"]:focus, textarea:focus {
@@ -522,7 +539,18 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .visa-option {
+    position: relative;
     cursor: pointer;
+}
+
+.visa-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
 }
 
 .visa-box {
@@ -536,6 +564,7 @@ input[type="text"]:focus, textarea:focus {
     justify-content: center;
     gap: 2px;
     transition: var(--transition);
+    width: 100%;
 }
 
 .visa-option input[type="radio"]:checked + .visa-box {
@@ -589,6 +618,30 @@ input[type="text"]:focus, textarea:focus {
 .btn-submit-wrapper {
     display: flex;
     justify-content: flex-end;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background: #191e2e;
+    color: #ffffff;
+    border: 1px solid #191e2e;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 16px 28px;
+    border-radius: var(--border-radius-lg);
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary:hover {
+    background: var(--secondary);
+    border-color: var(--secondary);
 }
 
 /* 결과 패널 전개 영역 */
