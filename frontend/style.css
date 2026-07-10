@@ -1,40 +1,49 @@
-/* --- 전역 CSS 스타일 & 변수 정의 --- */
+/* ==========================================================
+   REDESIGN STYLE SYSTEM - 안산 스마트허브 외국인 안심 채용 플랫폼
+   Inspired by Yokohama Bank IT Recruitment Portal aesthetics (boy.co.jp)
+   ========================================================== */
+
 :root {
-    --bg-dark: #0b0f19;
-    --card-bg: rgba(17, 24, 39, 0.55);
-    --card-border: rgba(255, 255, 255, 0.08);
+    --bg-dark: #070a13;
+    --card-bg: rgba(13, 19, 36, 0.65);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --card-border-hover: rgba(59, 130, 246, 0.4);
+    
     --text-primary: #f3f4f6;
     --text-secondary: #9ca3af;
+    --text-muted: #6b7280;
     
-    --primary: #10b981; /* 네온 에메랄드 그린 */
-    --primary-glow: rgba(16, 185, 129, 0.35);
-    --secondary: #3b82f6; /* 네온 블루 */
-    --secondary-glow: rgba(59, 130, 246, 0.3);
+    --primary: #10b981; /* 네온 민트 에메랄드 */
+    --primary-glow: rgba(16, 185, 129, 0.25);
+    --secondary: #3b82f6; /* 요코하마 딥 블루 악센트 */
+    --secondary-glow: rgba(59, 130, 246, 0.25);
+    --warning: #f43f5e; /* 소프트 크림슨 */
+    --warning-glow: rgba(244, 63, 94, 0.15);
     
-    --warning: #ef4444; /* 위험 (불법고용 차단) */
-    --warning-glow: rgba(239, 68, 68, 0.25);
-    
-    --border-radius-lg: 20px;
-    --border-radius-md: 12px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --border-radius-lg: 12px; /* 좀 더 현대적이고 정돈된 12px 둥글기 */
+    --border-radius-md: 8px;
+    --transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    --font-family: 'Inter', 'Noto Sans KR', sans-serif;
 }
 
 * {
     margin: 0;
     padding: 0;
+    box-shadow: none;
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Inter', 'Noto Sans KR', sans-serif;
+    font-family: var(--font-family);
     background-color: var(--bg-dark);
     color: var(--text-primary);
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+    letter-spacing: -0.01em;
 }
 
-/* --- 동적 배경 글로우 레이어 --- */
+/* --- 배경 글로우 기하학 데코레이터 --- */
 .glow-bg {
     position: absolute;
     top: 0;
@@ -48,129 +57,118 @@ body {
 
 .glow-1 {
     position: absolute;
-    top: -10%;
-    left: -15%;
+    top: -20%;
+    left: -10%;
     width: 60%;
-    height: 70%;
-    background: radial-gradient(circle, var(--secondary-glow) 0%, rgba(11, 15, 25, 0) 70%);
-    filter: blur(120px);
+    height: 80%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(7, 10, 19, 0) 70%);
+    filter: blur(140px);
 }
 
 .glow-2 {
     position: absolute;
-    bottom: -10%;
+    bottom: -15%;
     right: -10%;
     width: 50%;
-    height: 60%;
-    background: radial-gradient(circle, var(--primary-glow) 0%, rgba(11, 15, 25, 0) 70%);
-    filter: blur(120px);
+    height: 70%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(7, 10, 19, 0) 70%);
+    filter: blur(140px);
 }
 
-/* --- 메인 컨테이너 --- */
+/* --- 메인 레이아웃 컨테이너 --- */
 .app-container {
-    max-width: 1280px;
+    max-width: 1240px;
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 40px 24px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    gap: 30px;
 }
 
-/* --- 헤더 영역 --- */
+/* --- 헤더 영역 (Yokohama Bank Style - Thin & Crisp) --- */
 .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 25px;
-    border-bottom: 1px solid var(--card-border);
-    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1.5px solid var(--card-border);
 }
 
 .header-logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
 }
 
 .logo-icon {
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     background: linear-gradient(135deg, var(--secondary), var(--primary));
-    border-radius: 12px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
 }
 
 .logo-text h1 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    background: linear-gradient(to right, #ffffff, #d1d5db);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    background: linear-gradient(to right, #ffffff, #9ca3af);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-}
-
-.badge-poc {
-    font-size: 0.75rem;
-    background: rgba(59, 130, 246, 0.15);
-    color: var(--secondary);
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-weight: 500;
 }
 
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 16px;
 }
 
 .api-status {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
     border: 1px solid var(--card-border);
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.01);
+    letter-spacing: -0.02em;
 }
 
 .api-status.connected {
     color: var(--primary);
-    border-color: rgba(16, 185, 129, 0.3);
-    background: rgba(16, 185, 129, 0.05);
+    border-color: rgba(16, 185, 129, 0.25);
+    background: rgba(16, 185, 129, 0.04);
 }
 
 .api-status.connected .status-dot {
     background-color: var(--primary);
-    box-shadow: 0 0 10px var(--primary);
+    box-shadow: 0 0 8px var(--primary);
 }
 
 .api-status.disconnected {
-    color: var(--text-secondary);
+    color: var(--text-muted);
 }
 
 .api-status .status-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background-color: var(--text-secondary);
+    background-color: var(--text-muted);
 }
 
 .btn-icon {
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.05);
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--card-border);
     color: var(--text-primary);
-    border-radius: 50%;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -179,18 +177,17 @@ body {
 }
 
 .btn-icon:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(59, 130, 246, 0.1);
     color: var(--secondary);
-    border-color: rgba(59, 130, 246, 0.5);
-    transform: rotate(45deg);
+    border-color: var(--secondary);
+    transform: rotate(90deg);
 }
 
-/* --- 메인 콘텐츠 2단 레이아웃 --- */
+/* --- 메인 콘텐츠 2단 그리드 --- */
 .app-main {
     display: grid;
-    grid-template-columns: 4.5fr 5.5fr;
-    gap: 30px;
-    flex-grow: 1;
+    grid-template-columns: 4.8fr 5.2fr;
+    gap: 32px;
 }
 
 @media (max-width: 968px) {
@@ -199,68 +196,79 @@ body {
     }
 }
 
-/* --- Glassmorphism 카드 공통 --- */
+/* --- 초정밀 글래스모피즘 카드 --- */
 .card.glass {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius-lg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    padding: 32px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     height: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.card.glass:hover {
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .card-header {
-    margin-bottom: 25px;
+    margin-bottom: 28px;
+    border-left: 3px solid var(--secondary);
+    padding-left: 12px;
 }
 
 .card-header h2 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
 }
 
 .subtitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 /* --- 입력 폼 그룹 --- */
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 25px;
+    gap: 8px;
+    margin-bottom: 24px;
 }
 
 label {
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 0.88rem;
+    font-weight: 600;
     color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 
 input[type="text"], textarea {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.01);
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius-md);
     color: var(--text-primary);
-    padding: 12px 16px;
-    font-size: 0.95rem;
+    padding: 14px 16px;
+    font-size: 0.92rem;
     outline: none;
+    font-family: var(--font-family);
     transition: var(--transition);
 }
 
 input[type="text"]:focus, textarea:focus {
     border-color: var(--secondary);
-    background: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 0 10px var(--secondary-glow);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
 }
 
-/* --- 비자 선택 라디오 박스 --- */
+/* --- 비자 선택 박스 (Yokohama Grid Style) --- */
 .visa-selector {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -276,32 +284,38 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .visa-box {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--card-border);
+    background: rgba(255, 255, 255, 0.01);
+    border: 1.5px solid var(--card-border);
     border-radius: var(--border-radius-md);
-    padding: 15px 10px;
+    padding: 16px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 4px;
     transition: var(--transition);
 }
 
+.visa-option:hover .visa-box {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.02);
+}
+
 .visa-option input[type="radio"]:checked + .visa-box {
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(59, 130, 246, 0.06);
     border-color: var(--secondary);
-    box-shadow: 0 0 15px var(--secondary-glow);
+    box-shadow: 0 0 16px rgba(59, 130, 246, 0.15);
 }
 
 .visa-code {
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
 }
 
 .visa-label {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 500;
     color: var(--text-secondary);
 }
 
@@ -310,17 +324,17 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .visa-info-box {
-    font-size: 0.85rem;
-    line-height: 1.45;
-    background: rgba(59, 130, 246, 0.06);
-    border: 1px dashed rgba(59, 130, 246, 0.3);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    background: rgba(59, 130, 246, 0.03);
+    border: 1px solid rgba(59, 130, 246, 0.12);
     border-radius: var(--border-radius-md);
-    padding: 12px 15px;
+    padding: 14px 16px;
     color: #93c5fd;
-    margin-top: 5px;
+    margin-top: 6px;
 }
 
-/* --- 텍스트 폼 가이드 --- */
+/* --- 경력 프리셋 버튼 --- */
 .label-row {
     display: flex;
     justify-content: space-between;
@@ -328,8 +342,8 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .char-count {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
+    font-size: 0.78rem;
+    color: var(--text-muted);
 }
 
 .preset-buttons {
@@ -340,89 +354,89 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .btn-preset {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.01);
     border: 1px solid var(--card-border);
     color: var(--text-secondary);
-    font-size: 0.82rem;
-    padding: 8px 12px;
-    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 10px 14px;
+    border-radius: var(--border-radius-md);
     cursor: pointer;
     text-align: left;
     transition: var(--transition);
 }
 
 .btn-preset:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.04);
     color: var(--text-primary);
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* --- 매칭 버튼 --- */
+/* --- 진단 시작 버튼 --- */
 .btn-primary {
-    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    background: linear-gradient(135deg, var(--secondary), #1d4ed8);
     color: white;
     border: none;
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     padding: 16px;
     border-radius: var(--border-radius-md);
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
     transition: var(--transition);
-    box-shadow: 0 4px 20px var(--secondary-glow);
+    box-shadow: 0 4px 16px rgba(29, 78, 216, 0.3);
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(16, 185, 129, 0.4);
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
 }
 
 .btn-primary:active {
     transform: translateY(0);
 }
 
-/* --- 우측 패널 대기상태 (Empty) --- */
+/* --- 우측 대기 패널 --- */
 .empty-state {
     align-items: center;
     justify-content: center;
     text-align: center;
     color: var(--text-secondary);
-    min-height: 500px;
+    min-height: 520px;
+    border: 1.5px dashed var(--card-border) !important;
 }
 
 .empty-icon {
     margin-bottom: 20px;
-    color: var(--text-secondary);
-    opacity: 0.6;
+    color: var(--text-muted);
 }
 
 .empty-state h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1.15rem;
+    font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .empty-state p {
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
 }
 
-/* --- 로딩 상태 (스캐너) --- */
+/* --- 로딩 인디케이터 (요코하마 테크니컬 스킨) --- */
 .loading-state {
     align-items: center;
     justify-content: center;
-    text-align: center;
-    min-height: 500px;
-    position: relative;
+    min-height: 520px;
 }
 
 .loader-container {
     position: relative;
-    width: 140px;
-    height: 140px;
-    margin-bottom: 40px;
+    width: 160px;
+    height: 120px;
+    margin-bottom: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -430,12 +444,12 @@ input[type="text"]:focus, textarea:focus {
 
 .circles {
     display: flex;
-    gap: 8px;
+    gap: 12px;
 }
 
 .circle {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     background: var(--secondary);
     border-radius: 50%;
     animation: bounce 0.6s infinite alternate;
@@ -454,16 +468,14 @@ input[type="text"]:focus, textarea:focus {
 .loader-scan {
     position: absolute;
     width: 100%;
-    height: 2px;
-    background: linear-gradient(to right, transparent, var(--primary), transparent);
-    box-shadow: 0 0 10px var(--primary);
+    height: 1px;
+    background: var(--secondary);
+    box-shadow: 0 0 8px var(--secondary);
     animation: scan 2s infinite ease-in-out;
 }
 
 @keyframes bounce {
-    to {
-        transform: translateY(-16px);
-    }
+    to { transform: translateY(-12px); }
 }
 
 @keyframes scan {
@@ -474,8 +486,7 @@ input[type="text"]:focus, textarea:focus {
 
 .loading-timeline {
     width: 100%;
-    max-width: 400px;
-    text-align: left;
+    max-width: 380px;
     margin-top: 10px;
 }
 
@@ -483,8 +494,8 @@ input[type="text"]:focus, textarea:focus {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 15px;
-    opacity: 0.4;
+    margin-bottom: 16px;
+    opacity: 0.35;
     transition: var(--transition);
 }
 
@@ -498,7 +509,7 @@ input[type="text"]:focus, textarea:focus {
 
 .timeline-step.done .step-dot {
     background-color: var(--primary);
-    box-shadow: 0 0 8px var(--primary);
+    box-shadow: 0 0 6px var(--primary);
 }
 
 .timeline-step.active .step-dot {
@@ -508,59 +519,58 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .step-dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background-color: var(--text-secondary);
+    background-color: var(--text-muted);
 }
 
 .step-label {
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 @keyframes pulse {
-    to {
-        transform: scale(1.3);
-        opacity: 0.7;
-    }
+    to { transform: scale(1.35); opacity: 0.8; }
 }
 
-/* --- 결과 대시보드 구조 --- */
+/* --- 결과 레이아웃 --- */
 .results-layout {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    animation: fadeIn 0.5s ease-out;
+    animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .match-summary-card.glass {
-    padding: 20px 25px;
+    padding: 20px 24px;
     border-radius: var(--border-radius-md);
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-left: 4px solid var(--primary);
+    border-left: 3px solid var(--secondary);
     height: auto;
 }
 
 .summary-info h3 {
-    font-size: 1.15rem;
-    font-weight: 600;
+    font-size: 1.05rem;
+    font-weight: 700;
     margin-bottom: 4px;
 }
 
 .summary-info p {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-secondary);
 }
 
 .source-badge {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     color: var(--secondary);
-    font-weight: 600;
-    letter-spacing: 0.03em;
+    font-weight: 700;
+    letter-spacing: 0.05em;
     margin-bottom: 4px;
+    text-transform: uppercase;
 }
 
 .nlp-badge {
@@ -568,10 +578,10 @@ input[type="text"]:focus, textarea:focus {
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    background: rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--card-border);
 }
 
@@ -587,131 +597,133 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .results-header-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-top: 10px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-top: 8px;
     display: flex;
     align-items: center;
     gap: 8px;
+    letter-spacing: -0.02em;
 }
 
-/* --- 추천 카드 리스트 --- */
+/* --- 추천 일자리 카드 리스트 (Yokohama Clean Minimal) --- */
 .recommendations-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
 }
 
 .company-card.glass {
-    padding: 20px;
+    padding: 24px;
     border-radius: var(--border-radius-md);
-    border-left: 4px solid var(--secondary);
+    border-left: 3.5px solid var(--secondary);
     transition: var(--transition);
     cursor: pointer;
     height: auto;
-    position: relative;
-    overflow: hidden;
 }
 
 .company-card.glass:hover {
-    transform: translateX(5px);
-    background: rgba(255, 255, 255, 0.03);
+    transform: translateX(4px);
     border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .card-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .comp-info-title {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
 }
 
 .comp-name {
     font-size: 1.15rem;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .comp-meta {
     display: flex;
-    gap: 10px;
-    font-size: 0.8rem;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 500;
     color: var(--text-secondary);
 }
 
 .comp-meta span {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--card-border);
+    padding: 2px 8px;
     border-radius: 4px;
 }
 
 .match-score-badge {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2));
-    border: 1px solid var(--primary);
-    border-radius: 12px;
-    padding: 8px 12px;
+    background: rgba(59, 130, 246, 0.06);
+    border: 1px solid var(--secondary);
+    border-radius: 4px;
+    padding: 6px 12px;
     text-align: center;
-    min-width: 75px;
+    min-width: 80px;
 }
 
 .score-num {
     display: block;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--primary);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--secondary);
 }
 
 .score-lbl {
     display: block;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
+    font-weight: 600;
     color: var(--text-secondary);
-    text-transform: uppercase;
 }
 
 .comp-desc {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
-    line-height: 1.45;
-    margin-bottom: 12px;
+    line-height: 1.55;
+    margin-bottom: 14px;
 }
 
 .comp-addr {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 12px;
 }
 
-/* --- 안전 진단 리포트 --- */
+/* --- 안전 인증 마킹 --- */
 .safety-indicator {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
+    font-weight: 600;
     color: var(--primary);
-    font-weight: 500;
-    background: rgba(16, 185, 129, 0.06);
+    background: rgba(16, 185, 129, 0.03);
     padding: 6px 12px;
-    border-radius: 8px;
-    border: 1px solid rgba(16, 185, 129, 0.15);
-    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(16, 185, 129, 0.12);
+    margin-top: 12px;
 }
 
-/* --- 스크리닝 아웃된 리스트 --- */
+/* --- 제외된 리스트 아코디언 --- */
 .screened-out-container {
-    margin-top: 15px;
+    margin-top: 12px;
 }
 
 .glass-collapse {
-    background: rgba(17, 24, 39, 0.25);
+    background: rgba(7, 10, 19, 0.4);
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius-md);
     overflow: hidden;
@@ -719,8 +731,8 @@ input[type="text"]:focus, textarea:focus {
 
 .collapse-header {
     padding: 16px 20px;
-    font-size: 0.92rem;
-    font-weight: 500;
+    font-size: 0.88rem;
+    font-weight: 600;
     color: var(--text-secondary);
     cursor: pointer;
     display: flex;
@@ -728,10 +740,6 @@ input[type="text"]:focus, textarea:focus {
     align-items: center;
     list-style: none;
     user-select: none;
-}
-
-.collapse-header::-webkit-details-marker {
-    display: none;
 }
 
 .arrow-icon {
@@ -746,143 +754,43 @@ input[type="text"]:focus, textarea:focus {
     padding: 0 20px 20px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-height: 250px;
+    gap: 12px;
+    max-height: 260px;
     overflow-y: auto;
 }
 
 .screened-card {
-    background: rgba(244, 63, 94, 0.02);
-    border: 1px solid rgba(244, 63, 94, 0.15);
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 0.85rem;
+    background: rgba(244, 63, 94, 0.01);
+    border: 1px solid rgba(244, 63, 94, 0.12);
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 0.82rem;
 }
 
 .screened-card-top {
     display: flex;
     justify-content: space-between;
-    font-weight: 600;
+    font-weight: 700;
     color: #fda2b9;
     margin-bottom: 6px;
 }
 
 .screened-reason {
     color: #f43f5e;
-    line-height: 1.4;
-    background: rgba(244, 63, 94, 0.05);
-    padding: 8px 10px;
+    line-height: 1.5;
+    background: rgba(244, 63, 94, 0.03);
+    padding: 8px 12px;
     border-radius: 4px;
-    margin-top: 4px;
-}
-
-/* --- 모달 오버레이 및 카드 --- */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(8px);
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-}
-
-.modal-card {
-    width: 100%;
-    max-width: 500px;
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius-lg);
-    padding: 30px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-header h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-}
-
-.modal-tip {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    line-height: 1.45;
-    background: rgba(255, 255, 255, 0.02);
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--card-border);
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--card-border);
-    color: var(--text-primary);
-    padding: 12px 20px;
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
+    margin-top: 6px;
     font-weight: 500;
-    transition: var(--transition);
 }
 
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.connection-status-msg {
-    font-size: 0.85rem;
-    padding: 10px 12px;
-    border-radius: var(--border-radius-md);
-    margin-top: 5px;
-    line-height: 1.4;
-}
-
-.connection-status-msg.success {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    color: var(--primary);
-}
-
-.connection-status-msg.error {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: var(--warning);
-}
-
-/* --- 헬퍼 클래스 --- */
-.hide {
-    display: none !important;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- 정책 통계 대시보드 스타일 --- */
+/* --- 하단: 정책 통계 대시보드 그리드 --- */
 .statistics-charts {
     display: grid;
     grid-template-columns: 5.5fr 4.5fr;
-    gap: 25px;
-    margin-top: 10px;
+    gap: 30px;
+    margin-top: 12px;
 }
 
 @media (max-width: 900px) {
@@ -894,11 +802,11 @@ input[type="text"]:focus, textarea:focus {
 .chart-bar-container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
     background: rgba(255, 255, 255, 0.01);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.02);
     border-radius: var(--border-radius-md);
-    padding: 20px;
+    padding: 24px;
 }
 
 .chart-bar-item {
@@ -910,8 +818,8 @@ input[type="text"]:focus, textarea:focus {
 .bar-label-row {
     display: flex;
     justify-content: space-between;
-    font-size: 0.85rem;
-    font-weight: 500;
+    font-size: 0.82rem;
+    font-weight: 600;
 }
 
 .bar-lbl-name {
@@ -920,13 +828,13 @@ input[type="text"]:focus, textarea:focus {
 
 .bar-lbl-val {
     color: var(--secondary);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .bar-track {
-    height: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 3px;
     overflow: hidden;
     position: relative;
 }
@@ -934,11 +842,12 @@ input[type="text"]:focus, textarea:focus {
 .bar-fill {
     height: 100%;
     background: linear-gradient(to right, var(--secondary), var(--primary));
-    border-radius: 4px;
+    border-radius: 3px;
     width: 0;
     transition: width 1.2s cubic-bezier(0.1, 0.8, 0.3, 1);
 }
 
+/* --- 통계 미니 카드 리스트 --- */
 .stats-cards-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -952,34 +861,137 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .stat-mini-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.01);
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius-md);
-    padding: 15px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     transition: var(--transition);
 }
 
 .stat-mini-card:hover {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(59, 130, 246, 0.3);
+    background: rgba(59, 130, 246, 0.02);
+    border-color: rgba(59, 130, 246, 0.25);
 }
 
 .stat-mini-code {
-    font-size: 0.95rem;
-    font-weight: 700;
+    font-size: 0.88rem;
+    font-weight: 800;
     color: var(--primary);
 }
 
 .stat-mini-val {
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1.15rem;
+    font-weight: 800;
 }
 
 .stat-mini-desc {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--text-secondary);
-    line-height: 1.35;
+    line-height: 1.4;
+}
+
+/* --- 설정 모달창 --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 480px;
+    background: rgba(11, 15, 27, 0.95);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--border-radius-lg);
+    padding: 32px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.modal-tip {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 14px;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--card-border);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 10px 18px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.connection-status-msg {
+    font-size: 0.82rem;
+    padding: 10px 14px;
+    border-radius: var(--border-radius-md);
+    margin-top: 4px;
+    line-height: 1.45;
+}
+
+.connection-status-msg.success {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: var(--primary);
+}
+
+.connection-status-msg.error {
+    background: rgba(244, 63, 94, 0.05);
+    border: 1px solid rgba(244, 63, 94, 0.2);
+    color: var(--warning);
+}
+
+/* --- 유틸리티 --- */
+.hide {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
 }
