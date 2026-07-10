@@ -801,6 +801,9 @@ async function loadAndRenderForeignerStats(apiKey) {
 const TRANSLATIONS = {
     "ko": {
         "badge-poc": "안산시청 스마트도시과 AI빅데이터팀 공모 PoC",
+        "logo-title": "<span class=\"color-ansan-green\">안산</span><span class=\"color-ansan-orange\">스마트허브</span> <span class=\"text-white-dark\">안심채용 플랫폼</span>",
+        "api-status-connected": "경기 OpenAPI 연동 활성",
+        "api-status-disconnected": "연동 대기 중",
         "hero-sub": "안산 스마트허브 맞춤형 안심 일자리",
         "hero-main-title": "체류 비자를 <span class=\"highlight-green\">검증</span>하고,<br>적법한 일자리를 <span class=\"highlight-blue\">연결</span>합니다.",
         "hero-desc": "안산 스마트허브 관내 제조업체 정보 및 체류 비자별 법적 규정을 실시간으로 필터링하는 AI 매칭 플랫폼입니다. 불법 고용 리스크를 사전에 원천 차단하고 구직자 경력 맞춤형 일자리를 최적으로 시뮬레이션합니다.",
@@ -878,6 +881,9 @@ const TRANSLATIONS = {
     },
     "en": {
         "badge-poc": "Ansan City Smart City Div & AI Team PoC",
+        "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Safe Job Platform</span>",
+        "api-status-connected": "Gyeonggi OpenAPI Active",
+        "api-status-disconnected": "Waiting for Connection",
         "hero-sub": "Ansan SmartHub Custom Job Service",
         "hero-main-title": "Verify <span class=\"highlight-green\">Visa status</span>,<br>Connect <span class=\"highlight-blue\">Legal jobs</span>.",
         "hero-desc": "This AI matching platform screens local manufacturing company datasets and visa restrictions. It prevents illegal employment and matches job seekers based on their experience.",
@@ -955,6 +961,9 @@ const TRANSLATIONS = {
     },
     "vi": {
         "badge-poc": "Sở Đô thị Thông minh Ansan & Nhóm AI PoC",
+        "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Nền tảng việc làm an toàn</span>",
+        "api-status-connected": "Kết nối OpenAPI Hoạt động",
+        "api-status-disconnected": "Đang chờ kết nối",
         "hero-sub": "Việc làm An tâm tại Ansan SmartHub",
         "hero-main-title": "Xác thực <span class=\"highlight-green\">Thị thực</span>,<br>Kết nối <span class=\"highlight-blue\">Việc làm Hợp pháp</span>.",
         "hero-desc": "Nền tảng AI hỗ trợ tra cứu dữ liệu doanh nghiệp sản xuất và quy định thị thực tại Ansan SmartHub. Phòng ngừa rủi ro lao động bất hợp pháp và đề xuất việc làm tối ưu theo kinh nghiệm.",
@@ -1032,6 +1041,9 @@ const TRANSLATIONS = {
     },
     "zh": {
         "badge-poc": "安山市厅智能城市科 & AI大数据团队 PoC",
+        "logo-title": "<span class=\"color-ansan-green\">安山</span> <span class=\"color-ansan-orange\">智能集聚区</span> <span class=\"text-white-dark\">安心就业平台</span>",
+        "api-status-connected": "京畿道 OpenAPI 已激活",
+        "api-status-disconnected": "等待连接中",
         "hero-sub": "安山智能集聚区定制型安心就业",
         "hero-main-title": "验证 <span class=\"highlight-green\">签证状态</span>,<br>连接 <span class=\"highlight-blue\">合法工作</span>.",
         "hero-desc": "利用AI技术实时筛选安山智能集聚区内企业信息及各签证类型的法律规定。从源头上预防非法雇用风险，并根据求职者的工作经历模拟推荐最适合的岗位。",
@@ -1109,6 +1121,9 @@ const TRANSLATIONS = {
     },
     "ru": {
         "badge-poc": "Конкурсный PoC от отдела умного города и AI Ансана",
+        "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Платформа безопасной работы</span>",
+        "api-status-connected": "OpenAPI Кёнгидо активен",
+        "api-status-disconnected": "Ожидание подключения",
         "hero-sub": "Безопасная работа под визовый статус в Ansan SmartHub",
         "hero-main-title": "Проверяем <span class=\"highlight-green\">визовый статус</span>,<br>находим <span class=\"highlight-blue\">легальную работу</span>.",
         "hero-desc": "ИИ-платформа, которая сверяет данные производственных компаний Ansan SmartHub с визовыми ограничениями в реальном времени. Предотвращает риски нелегального трудоустройства.",
@@ -1186,6 +1201,9 @@ const TRANSLATIONS = {
     },
     "id": {
         "badge-poc": "PoC kompetisi dari Divisi Smart City & Tim AI Kota Ansan",
+        "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Platform Pekerjaan Aman</span>",
+        "api-status-connected": "OpenAPI Gyeonggi Aktif",
+        "api-status-disconnected": "Menunggu Koneksi",
         "hero-sub": "Pekerjaan Aman berbasis Visa di Ansan SmartHub",
         "hero-main-title": "Verifikasi <span class=\"highlight-green\">status Visa</span>,<br>Hubungkan <span class=\"highlight-blue\">Pekerjaan Legal</span>.",
         "hero-desc": "Platform pencocokan AI yang menyaring data perusahaan manufaktur lokal Ansan SmartHub terhadap batasan visa secara real-time. Mencegah risiko perekrutan ilegal.",
@@ -1270,6 +1288,14 @@ function changeLanguage(lang) {
 
     // 1. 헤더 & 인포 배지
     document.querySelector(".badge-poc").textContent = t["badge-poc"];
+    
+    const logoEl = document.getElementById("main-logo-text") || document.querySelector(".logo-text h1");
+    if (logoEl) {
+        logoEl.innerHTML = t["logo-title"];
+    }
+
+    const isConnected = apiStatusIndicator.classList.contains("connected");
+    updateHeaderApiBadge(isConnected);
     
     // 2. 히어로 배너
     document.querySelector(".hero-sub").textContent = t["hero-sub"];
