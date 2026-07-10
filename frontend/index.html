@@ -3,94 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>반월산단 외국인 체류 비자 맞춤형 고용 매칭 AI 플랫폼 (PoC)</title>
-    <!-- Google Fonts -->
+    <title>안산 스마트허브 외국인 안심채용 플랫폼</title>
+    
+    <!-- Noto Sans KR & Inter Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS Stylesheet -->
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <!-- 배경 글로우 데코레이션 -->
-    <div class="glow-bg">
-        <div class="glow-1"></div>
-        <div class="glow-2"></div>
-    </div>
+    <!-- MI-6 스타일 눈금 그리드 데코레이터 -->
+    <div class="glow-bg"></div>
 
     <div class="app-container">
-        <!-- 헤더 영역 -->
+        <!-- [1] 상단 네비게이션 헤더 -->
         <header class="app-header">
             <div class="header-logo">
                 <div class="logo-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
                     </svg>
                 </div>
                 <div class="logo-text">
-                    <h1 style="font-size: 1.25rem; font-weight: 800; letter-spacing: -0.03em; display: flex; align-items: center; gap: 6px;">
-                        <span style="color: #65BB50;">안산</span><span style="color: #f16d23;">스마트허브</span> <span style="color: #ffffff;">안심채용 플랫폼</span>
+                    <h1>
+                        <span class="color-ansan-green">안산</span><span class="color-ansan-orange">스마트허브</span> <span class="text-white-dark">안심채용 플랫폼</span>
                     </h1>
-                    <span class="badge-poc" style="font-size: 0.68rem; font-weight: 600; background: rgba(241, 109, 35, 0.1); border: 1px solid rgba(241, 109, 35, 0.3); color: #f16d23; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.02em;">안산시청 스마트도시과 AI빅데이터팀 공모 PoC</span>
+                    <span class="badge-poc">안산시청 스마트도시과 AI빅데이터팀 공모 PoC</span>
                 </div>
             </div>
             <div class="header-actions">
-                <div id="api-status-indicator" class="api-status disconnected">
+                <div class="api-status disconnected" id="api-status-indicator">
                     <span class="status-dot"></span>
-                    <span class="status-text">로컬 프리셋 데이터 모드</span>
+                    <span id="api-status-text">연동 대기 중</span>
                 </div>
-                <button id="btn-open-settings" class="btn-icon" title="API 설정">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill="currentColor"/>
+                <button class="btn-icon" id="btn-open-settings" title="OpenAPI 인증 키 설정">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                     </svg>
                 </button>
             </div>
         </header>
 
-        <!-- 메인 콘텐츠 영역 -->
-        <main class="app-main">
-            <!-- 좌측: 입력 폼 -->
-            <section class="panel-input">
-                <div class="card glass">
+        <!-- [2] 웅장한 히어로 슬로건 배너 영역 -->
+        <section class="section-hero">
+            <div class="hero-left">
+                <div class="hero-num">01</div>
+                <div class="hero-title-group">
+                    <p class="hero-sub">REDESIGN SMARTHUB MATCHING</p>
+                    <h2 class="hero-main-title">
+                        체류 비자를 <span class="highlight-green">검증</span>하고,<br>
+                        적법한 일자리를 <span class="highlight-blue">연결</span>합니다.
+                    </h2>
+                </div>
+            </div>
+            <div class="hero-right">
+                <p class="hero-desc">
+                    안산 스마트허브 관내 제조업체 정보 및 체류 비자별 법적 규정을 실시간으로 필터링하는 AI 매칭 플랫폼입니다. 
+                    불법 고용 리스크를 사전에 원천 차단하고 구직자 경력 맞춤형 일자리를 최적으로 시뮬레이션합니다.
+                </p>
+                <div class="hero-action-row">
+                    <a href="#section-diagnostic" class="btn-hero-scroll">
+                        <span>적격 일자리 진단하기</span>
+                        <div class="btn-arrow-circle">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <polyline points="19 12 12 19 5 12"></polyline>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- [3] 안산시 외국인 체류 모니터링 대시보드 (상시 노출) -->
+        <section class="section-dashboard">
+            <div class="section-meta-row">
+                <span class="sect-num">02</span>
+                <span class="sect-title">안산시 외국인 주민 체류 현황 (지역 맞춤형 인력 공급 진단)</span>
+                <div class="stats-data-badge" id="stats-source-badge">데이터 연동: 실시간 API</div>
+            </div>
+            
+            <div class="dashboard-grid">
+                <!-- 통계 가로 막대 차트 -->
+                <div class="chart-box" id="stats-container">
+                    <!-- JS에 의해 차트 아이템이 로드됩니다. -->
+                </div>
+                
+                <!-- 미니 스펙 칩 카드 -->
+                <div class="stats-quick-cards" id="stats-mini-container">
+                    <!-- JS에 의해 미니 요약 카드가 로드됩니다. -->
+                </div>
+            </div>
+        </section>
+
+        <!-- [4] 구직자 조건 진단 및 실시간 매칭 결과 1단 와이드 컴포넌트 -->
+        <section class="section-diagnostic" id="section-diagnostic">
+            <div class="section-meta-row">
+                <span class="sect-num">03</span>
+                <span class="sect-title">1:1 맞춤 일자리 안심 매칭 시뮬레이터</span>
+            </div>
+
+            <!-- 진단 입력 폼 영역 (시원한 1단 와이드 양식) -->
+            <div class="diagnostic-grid-layout">
+                <div class="card glass diagnostic-form-card">
                     <div class="card-header">
-                        <h2>외국인 구직자 조건 진단</h2>
-                        <p class="subtitle">체류 비자별 적법 고용 여부를 실시간 확인하고, 구직자의 경험에 맞는 최적의 반월산단 일자리를 추천합니다.</p>
+                        <h2>외국인 구직자 정보 입력</h2>
+                        <p class="subtitle">체류 자격과 보유 경력을 작성해 주세요. 안산시 공공데이터를 전수 대조하여 적격 일자리를 즉각 진단합니다.</p>
                     </div>
-                    <form id="matching-form" class="card-body">
-                        <div class="form-group">
-                            <label for="seeker-name">구직자 성명</label>
-                            <input type="text" id="seeker-name" placeholder="성명을 입력하세요" required value="한정현">
+
+                    <form id="matching-form" class="card-body-wide">
+                        <div class="form-row-2col">
+                            <div class="form-group">
+                                <label for="seeker-name">구직자 성명</label>
+                                <input type="text" id="seeker-name" placeholder="성명을 입력하세요" required value="한정현">
+                            </div>
+                            <div class="form-group">
+                                <label>보유 체류 자격 (비자 선택)</label>
+                                <div class="visa-selector">
+                                    <label class="visa-option">
+                                        <input type="radio" name="visa-type" value="F-4" checked>
+                                        <div class="visa-box">
+                                            <span class="visa-code">F-4</span>
+                                            <span class="visa-label">재외동포</span>
+                                        </div>
+                                    </label>
+                                    <label class="visa-option">
+                                        <input type="radio" name="visa-type" value="H-2">
+                                        <div class="visa-box">
+                                            <span class="visa-code">H-2</span>
+                                            <span class="visa-label">방문취업</span>
+                                        </div>
+                                    </label>
+                                    <label class="visa-option">
+                                        <input type="radio" name="visa-type" value="E-9">
+                                        <div class="visa-box">
+                                            <span class="visa-code">E-9</span>
+                                            <span class="visa-label">비전문취업</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
 
+                        <!-- 동적 비자 규정 팁 -->
                         <div class="form-group">
-                            <label>체류 자격 비자 유형</label>
-                            <div class="visa-selector">
-                                <label class="visa-option">
-                                    <input type="radio" name="visa_type" value="F-4" checked>
-                                    <div class="visa-box">
-                                        <span class="visa-code">F-4</span>
-                                        <span class="visa-label">재외동포</span>
-                                    </div>
-                                </label>
-                                <label class="visa-option">
-                                    <input type="radio" name="visa_type" value="H-2">
-                                    <div class="visa-box">
-                                        <span class="visa-code">H-2</span>
-                                        <span class="visa-label">방문취업</span>
-                                    </div>
-                                </label>
-                                <label class="visa-option">
-                                    <input type="radio" name="visa_type" value="E-9">
-                                    <div class="visa-box">
-                                        <span class="visa-code">E-9</span>
-                                        <span class="visa-label">비전문취업</span>
-                                    </div>
-                                </label>
-                            </div>
-                            <div id="visa-rule-info" class="visa-info-box">
-                                <!-- 비자 규제 팁 동적 삽입 -->
-                                💡 F-4 비자는 단순노무(단순 박스 포장, 식품 세척 등) 직종 취업이 제한됩니다.
+                            <div class="visa-info-box" id="visa-rule-tip">
+                                F-4(재외동포) 비자는 제조업 생산직 중에서 단순 노무 업무(단순 포장, 단순 운반 등)를 제외한 모든 기술/조립/기계 조작 업무에 자유롭게 취업이 가능합니다.
                             </div>
                         </div>
 
@@ -99,7 +160,7 @@
                                 <label for="seeker-resume">주요 경력 및 보유 기술 (자유 기술)</label>
                                 <span class="char-count"><span id="curr-len">0</span>/500자</span>
                             </div>
-                            <textarea id="seeker-resume" rows="6" placeholder="이전에 일하셨던 공장이나 업무 경험, 잘하시는 기술을 편하게 입력해 주세요.
+                            <textarea id="seeker-resume" rows="4" placeholder="이전에 일하셨던 공장이나 업무 경험, 잘하시는 기술을 편하게 입력해 주세요.
 예: '안산 시화공단 부품 조립 공장에서 기계 세팅하고 프레스 부품 조립하는 일을 1년 반 동안 해봤습니다.'" required></textarea>
                             <div class="preset-buttons">
                                 <button type="button" class="btn-preset" data-text="자동차 부품 제조 공장에서 프레스 조립과 로봇 용접 조작원으로 2년 경력이 있습니다. 금형 조작 및 품질 검사 작업도 가능합니다.">🔧 제조 기계 조작 및 프레스 조립 경력 예시</button>
@@ -108,38 +169,40 @@
                             </div>
                         </div>
 
-                        <button type="submit" id="btn-match" class="btn-primary">
-                            <span class="btn-text">적격 일자리 진단 및 추천받기</span>
-                            <span class="btn-glow"></span>
-                        </button>
+                        <div class="btn-submit-wrapper">
+                            <button type="submit" id="btn-match" class="btn-primary">
+                                <span class="btn-text">적격 일자리 진단 및 추천받기</span>
+                            </button>
+                        </div>
                     </form>
                 </div>
-            </section>
+            </div>
 
-            <!-- 우측: 매칭 결과 대시보드 -->
-            <section class="panel-output">
-                <!-- 1단계: 매칭 전 안내화면 -->
-                <div id="state-idle" class="card glass empty-state">
+            <!-- 매칭 결과 및 로더 통합 표시 구역 -->
+            <div class="diagnostic-result-wrapper">
+                
+                <!-- [4-1] 매칭 전 대기 상태 -->
+                <div class="card glass empty-state" id="state-idle">
                     <div class="empty-icon">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                     </div>
                     <h3>맞춤 일자리 분석 대기 중</h3>
-                    <p>비자 조건과 경력 정보를 채워 넣고 하단 버튼을 클릭하시면,<br>안산시 공공데이터를 전수 대조하여 안심 일자리 매칭 연산을 시작합니다.</p>
+                    <p>비자 조건과 경력 정보를 채워 넣고 상단 버튼을 클릭하시면,<br>안산시 공공데이터를 전수 대조하여 안심 일자리 매칭 연산을 시작합니다.</p>
                 </div>
 
-                <!-- 2단계: 실시간 매칭 시뮬레이터 (진행 중) -->
-                <div id="state-loading" class="card glass loading-state hide">
+                <!-- [4-2] 실시간 매칭 시뮬레이터 (진행 중) -->
+                <div class="card glass loading-state hide" id="state-loading">
                     <div class="loader-container">
                         <div class="circles">
-                            <div class="circle"></div>
-                            <div class="circle"></div>
-                            <div class="circle"></div>
+                            <span class="circle"></span>
+                            <span class="circle"></span>
+                            <span class="circle"></span>
                         </div>
                         <div class="loader-scan"></div>
                     </div>
-                    
                     <div class="loading-timeline">
                         <div class="timeline-step" id="step-data">
                             <span class="step-dot"></span>
@@ -156,8 +219,8 @@
                     </div>
                 </div>
 
-                <!-- 3단계: 매칭 완료 대시보드 -->
-                <div id="state-results" class="results-layout hide">
+                <!-- [4-3] 매칭 연산 완료 결과 패널 -->
+                <div class="results-layout hide" id="state-results">
                     <!-- 매칭 서머리 배너 -->
                     <div class="match-summary-card glass">
                         <div class="summary-info">
@@ -175,6 +238,7 @@
                     <div class="results-header-title">
                         <span>🎯 구직자 경력 맞춤 추천 기업 TOP 3</span>
                     </div>
+                    
                     <div class="recommendations-list" id="recommendations-container">
                         <!-- 동적으로 TOP 3 카드 주입 -->
                     </div>
@@ -194,61 +258,34 @@
                         </details>
                     </div>
                 </div>
-            </section>
-        </main>
 
-        <!-- 하단: 정책 대시보드 (안산시 외국인 주민 현황 통계) -->
-        <section class="panel-statistics" style="margin-top: 30px;">
-            <div class="card glass">
-                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
-                    <div>
-                        <h2 style="font-size: 1.25rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <line x1="18" y1="20" x2="18" y2="10"/>
-                                <line x1="12" y1="20" x2="12" y2="4"/>
-                                <line x1="6" y1="20" x2="6" y2="14"/>
-                            </svg>
-                            안산시 외국인 주민 체류 현황 (지역 맞춤형 인력 공급 진단)
-                        </h2>
-                        <p class="subtitle" style="margin-top: 4px;">경기데이터드림 등록외국인인구현황 OpenAPI 연동으로 안산 스마트허브 비자 공급 추이를 진단합니다</p>
-                    </div>
-                    <div class="source-badge" id="stats-source-badge" style="font-size: 0.72rem; color: var(--secondary); font-weight: 600; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); padding: 4px 12px; border-radius: 20px;">
-                        데이터 연동: 실시간 API
-                    </div>
-                </div>
-                <div class="statistics-charts" id="stats-container">
-                    <!-- 자바스크립트로 차트 및 카드 동적 렌더링 -->
-                </div>
             </div>
         </section>
     </div>
 
-    <!-- API 키 설정 모달 -->
-    <div id="settings-modal" class="modal-overlay hide">
-        <div class="modal-card glass">
+    <!-- [설정 모달창] OpenAPI 키 수동 입력 관리자 모달 -->
+    <div class="modal-overlay hide" id="settings-modal">
+        <div class="modal-card">
             <div class="modal-header">
                 <h3>경기데이터드림 OpenAPI 연동 설정</h3>
-                <button id="btn-close-settings" class="btn-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
+                <button class="btn-icon" id="btn-close-settings" style="border: none; background: transparent; font-size: 1.2rem; cursor: pointer; color: var(--text-primary);">✕</button>
             </div>
-            <div class="modal-body">
-                <p class="modal-tip">경기도 지식산업센터 현황 OpenAPI 데이터를 실시간으로 수집하여 실시간 안산 반월산단 기업 풀을 구성합니다. 키가 없어도 내장된 룰베이스 프리셋 데이터로 체험하실 수 있습니다.</p>
-                <div class="form-group">
-                    <label for="openapi-key">경기데이터드림 인증키 (KEY)</label>
-                    <input type="password" id="openapi-key" placeholder="OpenAPI 인증키를 입력하세요">
-                </div>
-                <div class="modal-actions">
-                    <button id="btn-test-connection" class="btn-secondary">연결 테스트</button>
-                    <button id="btn-save-settings" class="btn-primary">설정 저장</button>
-                </div>
-                <div id="connection-status-msg" class="connection-status-msg hide"></div>
+            <div class="modal-tip">
+                <p><strong>공개 깃허브 보안 준수:</strong> 본 플랫폼은 Vercel 환경 변수(<code>VITE_GG_API_KEY</code>)를 감지하여 구동됩니다. 로컬 환경 테스트용 인증키를 임시로 아래에 수동 등록하여 작동 상태를 점검하실 수도 있습니다.</p>
+            </div>
+            <div class="form-group">
+                <label for="input-api-key">인증키 (32자리)</label>
+                <input type="text" id="input-api-key" placeholder="키 값을 입력하세요" value="">
+                <div class="connection-status-msg hide" id="connection-status-msg"></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="btn-test-connection">연결 테스트</button>
+                <button class="btn-primary" id="btn-save-settings" style="padding: 10px 20px; font-size: 0.88rem;">설정 저장</button>
             </div>
         </div>
     </div>
 
-    <script src="./app.js" type="module"></script>
+    <!-- Javascript Logic -->
+    <script type="module" src="./app.js"></script>
 </body>
 </html>
