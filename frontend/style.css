@@ -1,35 +1,35 @@
 /* ==========================================================
-   AN SAN CITY LIGHT STYLE SYSTEM - 안산 스마트허브 외국인 안심 채용 플랫폼
-   Official Municipal Portal White & CI Hybrid Aesthetics
+   MI-6 & ANSAN HYBRID STYLE SYSTEM
+   Minimal Grid Line & Official Municipal Light Hybrid Aesthetics
    ========================================================== */
 
 :root {
-    --bg-dark: #f4f6f9; /* 안산시청 공식 포털 스타일의 밝고 부드러운 그레이 배경 */
-    --card-bg: #ffffff; /* 깨끗하고 깔끔한 화이트 카드 */
-    --card-border: #e2e8f0; /* 카드 구분용 미세 그레이 보더 */
-    --card-border-hover: rgba(59, 130, 246, 0.4);
+    --bg-dark: #fafbfc; /* 극도로 깨끗하고 투명한 미니멀 오프화이트 배경 */
+    --card-bg: #ffffff;
+    --card-border: #e8ebf0; /* MI-6 스타일의 정교한 1px 연한 회색 라인 */
+    --card-border-focus: #1c1c1c; /* 포커싱 시 진한 블랙 테두리 */
     
-    --text-primary: #0f172a; /* 가독성 높은 다크 슬레이트 */
-    --text-secondary: #475569; /* 부드러운 서브 차콜 */
-    --text-muted: #64748b; /* 보조 쿨 그레이 */
+    --text-primary: #191e2e; /* 깊이 있고 세련된 다크 차콜 */
+    --text-secondary: #4b5563; /* 부드러운 아웃라인 텍스트용 회색 */
+    --text-muted: #9ca3af; /* 미세한 정보용 그레이 */
     
     /* 안산시 공식 CI 컬러 기반 매핑 */
     --ansan-blue: #321a88;
     --ansan-orange: #f16d23;
     --ansan-green: #65bb50;
     
-    --primary: var(--ansan-green); /* 안산녹색: 안심/승인 고용 */
-    --primary-glow: rgba(101, 187, 80, 0.1);
+    --primary: var(--ansan-green); /* 적합/안심 고용 */
+    --primary-glow: rgba(101, 187, 80, 0.08);
     
-    --secondary: #1e3a8a; /* 안산청색 연계 로열 네이비 */
-    --secondary-glow: rgba(30, 58, 138, 0.08);
+    --secondary: #0451c4; /* MI-6 메인 브랜드 블루 */
+    --secondary-glow: rgba(4, 81, 196, 0.08);
     
-    --warning: var(--ansan-orange); /* 안산주황: 고용제한 알림 */
+    --warning: var(--ansan-orange); /* 제한/주의 대상 */
     --warning-glow: rgba(241, 109, 35, 0.08);
     
-    --border-radius-lg: 12px;
-    --border-radius-md: 8px;
-    --transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    --border-radius-lg: 6px; /* MI-6 스타일의 날카롭고 미니멀한 6px 라운딩 */
+    --border-radius-md: 4px;
+    --transition: all 0.22s cubic-bezier(0.25, 0.8, 0.25, 1);
     --font-family: 'Inter', 'Noto Sans KR', sans-serif;
 }
 
@@ -47,10 +47,10 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em; /* 아시아 서체 특유의 긴밀한 자간 설정 */
 }
 
-/* --- 라이트 모드용 화사한 파스텔톤 배경 글로우 --- */
+/* --- 배경 기하학 데코레이션 라인 (MI-6 SVG 라인 아트 스타일) --- */
 .glow-bg {
     position: absolute;
     top: 0;
@@ -62,44 +62,38 @@ body {
     pointer-events: none;
 }
 
-.glow-1 {
+/* 흐릿한 원 대신, 얇은 격자(Grid)나 미세 라인으로 공간을 분할 */
+.glow-bg::before {
+    content: '';
     position: absolute;
-    top: -20%;
-    left: -10%;
-    width: 60%;
-    height: 80%;
-    background: radial-gradient(circle, rgba(50, 26, 136, 0.05) 0%, rgba(244, 246, 249, 0) 70%);
-    filter: blur(140px);
-}
-
-.glow-2 {
-    position: absolute;
-    bottom: -15%;
-    right: -10%;
-    width: 50%;
-    height: 70%;
-    background: radial-gradient(circle, rgba(101, 187, 80, 0.06) 0%, rgba(244, 246, 249, 0) 70%);
-    filter: blur(140px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(var(--card-border) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--card-border) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.15;
 }
 
 /* --- 메인 레이아웃 컨테이너 --- */
 .app-container {
-    max-width: 1240px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 40px 24px;
+    padding: 60px 32px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    gap: 30px;
+    gap: 40px;
 }
 
-/* --- 헤더 영역 (안산시청 공식 포털 스타일 - Clean & Bright) --- */
+/* --- 헤더 영역 (MI-6 스타일 - 얇고 간결하며 볼드한 로고 라인) --- */
 .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--card-border);
+    padding-bottom: 24px;
+    border-bottom: 1.5px solid #191e2e; /* 두껍고 명확한 블랙 마감선 */
 }
 
 .header-logo {
@@ -109,10 +103,10 @@ body {
 }
 
 .logo-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, var(--secondary), var(--primary));
-    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    background: #191e2e;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,10 +114,20 @@ body {
 }
 
 .logo-text h1 {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 800;
     letter-spacing: -0.04em;
     color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge-poc {
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    border-radius: 2px !important;
+    letter-spacing: 0.05em !important;
 }
 
 .header-actions {
@@ -136,25 +140,23 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 14px;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 2px;
+    font-size: 0.78rem;
+    font-weight: 700;
     border: 1px solid var(--card-border);
     background: #ffffff;
     color: var(--text-secondary);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .api-status.connected {
-    color: var(--primary);
-    border-color: rgba(101, 187, 80, 0.4);
-    background: rgba(101, 187, 80, 0.05);
+    color: var(--secondary);
+    border-color: rgba(4, 81, 196, 0.3);
+    background: rgba(4, 81, 196, 0.03);
 }
 
 .api-status.connected .status-dot {
-    background-color: var(--primary);
-    box-shadow: 0 0 6px var(--primary);
+    background-color: var(--secondary);
 }
 
 .api-status.disconnected {
@@ -162,8 +164,8 @@ body {
 }
 
 .api-status .status-dot {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background-color: var(--text-muted);
 }
@@ -174,69 +176,69 @@ body {
     background: #ffffff;
     border: 1px solid var(--card-border);
     color: var(--text-secondary);
-    border-radius: 4px;
+    border-radius: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .btn-icon:hover {
-    background: rgba(30, 58, 138, 0.05);
-    color: var(--secondary);
-    border-color: var(--secondary);
-    transform: rotate(90deg);
+    background: #191e2e;
+    color: #ffffff;
+    border-color: #191e2e;
 }
 
 /* --- 메인 콘텐츠 2단 그리드 --- */
 .app-main {
     display: grid;
     grid-template-columns: 4.8fr 5.2fr;
-    gap: 32px;
+    gap: 40px;
 }
 
 @media (max-width: 968px) {
     .app-main {
         grid-template-columns: 1fr;
+        gap: 30px;
     }
 }
 
-/* --- 순백색 미니멀 라이트 카드 --- */
+/* --- MI-6 스타일 정밀 라인 카드 (쉐도우 배제, 칼같은 선처리) --- */
 .card.glass {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius-lg);
-    padding: 32px;
-    box-shadow: 0 8px 24px rgba(148, 163, 184, 0.15);
+    padding: 40px;
+    box-shadow: none; /* 플랫한 그리드 느낌을 위해 그림자 제거 */
     display: flex;
     flex-direction: column;
     height: 100%;
     transition: var(--transition);
+    position: relative;
 }
 
 .card.glass:hover {
-    border-color: rgba(59, 130, 246, 0.25);
-    box-shadow: 0 12px 30px rgba(148, 163, 184, 0.22);
+    border-color: var(--card-border-focus);
 }
 
 .card-header {
-    margin-bottom: 28px;
-    border-left: 4.5px solid var(--secondary);
-    padding-left: 12px;
+    margin-bottom: 32px;
+    border-left: 3px solid #191e2e;
+    padding-left: 14px;
 }
 
 .card-header h2 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
     color: var(--text-primary);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
 }
 
 .subtitle {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: var(--text-secondary);
     line-height: 1.5;
 }
@@ -246,36 +248,34 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
 }
 
 label {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--text-primary);
-    text-transform: uppercase;
     letter-spacing: 0.02em;
 }
 
 input[type="text"], textarea {
-    background: #f8fafc;
-    border: 1.5px solid #cbd5e1;
-    border-radius: var(--border-radius-md);
+    background: #ffffff;
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius-lg);
     color: var(--text-primary);
     padding: 14px 16px;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     outline: none;
     font-family: var(--font-family);
     transition: var(--transition);
 }
 
 input[type="text"]:focus, textarea:focus {
-    border-color: var(--secondary);
+    border-color: var(--card-border-focus);
     background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.08);
 }
 
-/* --- 비자 선택 박스 (라이트 그리드) --- */
+/* --- 비자 선택 박스 (MI-6 미니멀 그리드) --- */
 .visa-selector {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -291,10 +291,10 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .visa-box {
-    background: #f8fafc;
-    border: 1.5px solid #cbd5e1;
-    border-radius: var(--border-radius-md);
-    padding: 16px 10px;
+    background: #ffffff;
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius-lg);
+    padding: 18px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -304,26 +304,23 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .visa-option:hover .visa-box {
-    border-color: #94a3b8;
-    background: #f1f5f9;
+    border-color: #888888;
 }
 
 .visa-option input[type="radio"]:checked + .visa-box {
-    background: rgba(30, 58, 138, 0.04);
-    border-color: var(--secondary);
-    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.08);
+    border-color: var(--card-border-focus);
+    background: rgba(25, 30, 46, 0.02);
 }
 
 .visa-code {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 800;
-    letter-spacing: -0.01em;
     color: var(--text-primary);
 }
 
 .visa-label {
-    font-size: 0.78rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 700;
     color: var(--text-secondary);
 }
 
@@ -332,14 +329,14 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .visa-info-box {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     line-height: 1.5;
-    background: rgba(37, 99, 235, 0.05);
-    border: 1px solid rgba(37, 99, 235, 0.15);
-    border-radius: var(--border-radius-md);
+    background: #f8fafc;
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius-lg);
     padding: 14px 16px;
-    color: #1e3a8a;
-    margin-top: 6px;
+    color: var(--text-primary);
+    margin-top: 8px;
     font-weight: 500;
 }
 
@@ -351,7 +348,7 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .char-count {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
@@ -364,12 +361,12 @@ input[type="text"]:focus, textarea:focus {
 
 .btn-preset {
     background: #ffffff;
-    border: 1px solid #cbd5e1;
+    border: 1px solid var(--card-border);
     color: var(--text-secondary);
     font-size: 0.8rem;
     font-weight: 600;
     padding: 10px 14px;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-lg);
     cursor: pointer;
     text-align: left;
     transition: var(--transition);
@@ -378,28 +375,27 @@ input[type="text"]:focus, textarea:focus {
 .btn-preset:hover {
     background: #f8fafc;
     color: var(--text-primary);
-    border-color: #94a3b8;
+    border-color: #888888;
 }
 
-/* --- 진단 시작 버튼 --- */
+/* --- 진단 시작 버튼 (MI-6 스타일 원형 애니메이션 버튼 형태 차용) --- */
 .btn-primary {
-    background: linear-gradient(135deg, var(--secondary), var(--ansan-blue));
+    background: #191e2e; /* 시크한 다크 블랙 바탕 */
     color: white;
     border: none;
-    font-size: 0.98rem;
+    font-size: 0.95rem;
     font-weight: 700;
-    letter-spacing: -0.01em;
-    padding: 16px;
-    border-radius: var(--border-radius-md);
+    letter-spacing: 0.05em;
+    padding: 18px;
+    border-radius: var(--border-radius-lg);
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 4px 12px rgba(50, 26, 136, 0.2);
+    text-transform: uppercase;
 }
 
 .btn-primary:hover {
+    background: var(--secondary);
     transform: translateY(-1px);
-    background: linear-gradient(135deg, #1e3a8a, #111827);
-    box-shadow: 0 6px 16px rgba(50, 26, 136, 0.3);
 }
 
 .btn-primary:active {
@@ -413,7 +409,7 @@ input[type="text"]:focus, textarea:focus {
     text-align: center;
     color: var(--text-secondary);
     min-height: 520px;
-    border: 2px dashed #cbd5e1 !important;
+    border: 1px dashed #cbd5e1 !important;
 }
 
 .empty-icon {
@@ -422,19 +418,19 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .empty-state h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
+    font-size: 1.1rem;
+    font-weight: 800;
     color: var(--text-primary);
     margin-bottom: 8px;
 }
 
 .empty-state p {
-    font-size: 0.88rem;
-    line-height: 1.55;
+    font-size: 0.85rem;
+    line-height: 1.6;
     color: var(--text-secondary);
 }
 
-/* --- 로딩 인디케이터 (라이트 스킨) --- */
+/* --- 로딩 인디케이터 (MI-6 미니멀 테크) --- */
 .loading-state {
     align-items: center;
     justify-content: center;
@@ -443,8 +439,8 @@ input[type="text"]:focus, textarea:focus {
 
 .loader-container {
     position: relative;
-    width: 160px;
-    height: 120px;
+    width: 140px;
+    height: 100px;
     margin-bottom: 30px;
     display: flex;
     align-items: center;
@@ -457,34 +453,33 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .circle {
-    width: 12px;
-    height: 12px;
-    background: var(--secondary);
+    width: 10px;
+    height: 10px;
+    background: #191e2e;
     border-radius: 50%;
     animation: bounce 0.6s infinite alternate;
 }
 
 .circle:nth-child(2) {
-    background: var(--primary);
+    background: var(--secondary);
     animation-delay: 0.2s;
 }
 
 .circle:nth-child(3) {
-    background: var(--secondary);
+    background: var(--primary);
     animation-delay: 0.4s;
 }
 
 .loader-scan {
     position: absolute;
     width: 100%;
-    height: 2px;
+    height: 1.5px;
     background: var(--secondary);
-    box-shadow: 0 0 6px var(--secondary);
     animation: scan 2s infinite ease-in-out;
 }
 
 @keyframes bounce {
-    to { transform: translateY(-12px); }
+    to { transform: translateY(-10px); }
 }
 
 @keyframes scan {
@@ -504,7 +499,7 @@ input[type="text"]:focus, textarea:focus {
     align-items: center;
     gap: 12px;
     margin-bottom: 16px;
-    opacity: 0.4;
+    opacity: 0.35;
     transition: var(--transition);
 }
 
@@ -518,24 +513,21 @@ input[type="text"]:focus, textarea:focus {
 
 .timeline-step.done .step-dot {
     background-color: var(--primary);
-    box-shadow: 0 0 4px var(--primary);
 }
 
 .timeline-step.active .step-dot {
     background-color: var(--secondary);
-    box-shadow: 0 0 6px var(--secondary);
-    animation: pulse 1.2s infinite alternate;
 }
 
 .step-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background-color: var(--text-muted);
 }
 
 .step-label {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 700;
     color: var(--text-primary);
 }
@@ -550,35 +542,34 @@ input[type="text"]:focus, textarea:focus {
 
 .match-summary-card.glass {
     padding: 20px 24px;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-lg);
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-left: 4.5px solid var(--secondary);
+    border-left: 3px solid #191e2e;
     height: auto;
     background: #ffffff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    box-shadow: none;
 }
 
 .summary-info h3 {
-    font-size: 1.05rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 800;
     color: var(--text-primary);
     margin-bottom: 4px;
 }
 
 .summary-info p {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
 }
 
 .source-badge {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     color: var(--secondary);
-    font-weight: 700;
-    letter-spacing: 0.03em;
+    font-weight: 800;
+    letter-spacing: 0.05em;
     margin-bottom: 4px;
-    text-transform: uppercase;
 }
 
 .nlp-badge {
@@ -586,27 +577,26 @@ input[type="text"]:focus, textarea:focus {
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 0.78rem;
+    border-radius: 2px;
+    font-size: 0.75rem;
     font-weight: 700;
-    background: #f1f5f9;
+    background: #f3f4f6;
     border: 1px solid var(--card-border);
     color: var(--text-secondary);
 }
 
 .badge-dot {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
 }
 
 .badge-dot.green {
     background-color: var(--primary);
-    box-shadow: 0 0 6px var(--primary);
 }
 
 .results-header-title {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 800;
     margin-top: 8px;
     display: flex;
@@ -615,7 +605,7 @@ input[type="text"]:focus, textarea:focus {
     color: var(--text-primary);
 }
 
-/* --- 추천 일자리 카드 리스트 (라이트 고용 카드) --- */
+/* --- 추천 일자리 카드 리스트 (MI-6 스타일 라인 카드) --- */
 .recommendations-list {
     display: flex;
     flex-direction: column;
@@ -623,24 +613,24 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .company-card.glass {
-    padding: 24px;
-    border-radius: var(--border-radius-md);
-    border-left: 4.5px solid var(--secondary);
+    padding: 24px 32px;
+    border-radius: var(--border-radius-lg);
+    border-left: 3.5px solid #191e2e;
     background: #ffffff;
-    box-shadow: 0 4px 15px rgba(148, 163, 184, 0.08);
+    transition: var(--transition);
 }
 
 .company-card.glass:hover {
-    transform: translateX(4px);
-    border-color: var(--primary);
-    box-shadow: 0 6px 20px rgba(148, 163, 184, 0.15);
+    transform: translateY(-2px);
+    border-left-color: var(--secondary);
+    border-color: #888888;
 }
 
 .card-top {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .comp-info-title {
@@ -651,30 +641,30 @@ input[type="text"]:focus, textarea:focus {
 
 .comp-name {
     font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     color: var(--text-primary);
 }
 
 .comp-meta {
     display: flex;
     gap: 8px;
-    font-size: 0.78rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    font-weight: 700;
     color: var(--text-secondary);
 }
 
 .comp-meta span {
-    background: #f1f5f9;
+    background: #f3f4f6;
     border: 1px solid var(--card-border);
     padding: 2px 8px;
-    border-radius: 4px;
+    border-radius: 2px;
 }
 
 .match-score-badge {
-    background: rgba(30, 58, 138, 0.03);
-    border: 1.5px solid var(--secondary);
-    border-radius: 4px;
+    background: #ffffff;
+    border: 1.5px solid #191e2e;
+    border-radius: 2px;
     padding: 6px 12px;
     text-align: center;
     min-width: 80px;
@@ -682,20 +672,20 @@ input[type="text"]:focus, textarea:focus {
 
 .score-num {
     display: block;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 800;
-    color: var(--secondary);
+    color: #191e2e;
 }
 
 .score-lbl {
     display: block;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-weight: 700;
     color: var(--text-secondary);
 }
 
 .comp-desc {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: 14px;
@@ -705,43 +695,42 @@ input[type="text"]:focus, textarea:focus {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-secondary);
     border-top: 1px solid var(--card-border);
     padding-top: 12px;
 }
 
-/* --- 안심 인증 마킹 --- */
+/* --- 안심 인증 마킹 (MI-6 심플 아웃라인) --- */
 .safety-indicator {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 0.78rem;
     font-weight: 700;
-    color: #15803d; /* 짙은 녹색 */
-    background: rgba(34, 197, 94, 0.06);
-    padding: 6px 12px;
-    border-radius: 4px;
-    border: 1px solid rgba(34, 197, 94, 0.15);
+    color: #166534;
+    background: #f0fdf4;
+    padding: 8px 12px;
+    border-radius: 2px;
+    border: 1px solid #bbf7d0;
     margin-top: 12px;
 }
 
-/* --- 제외된 리스트 아코디언 --- */
+/* --- 제외된 리스트 아코디언 (MI-6 플랫 라인) --- */
 .screened-out-container {
     margin-top: 12px;
 }
 
 .glass-collapse {
     background: #ffffff;
-    border: 1.5px solid var(--card-border);
-    border-radius: var(--border-radius-md);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius-lg);
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(148, 163, 184, 0.05);
 }
 
 .collapse-header {
     padding: 16px 20px;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--text-primary);
     cursor: pointer;
@@ -755,7 +744,7 @@ input[type="text"]:focus, textarea:focus {
 
 .arrow-icon {
     transition: var(--transition);
-    color: var(--text-secondary);
+    color: var(--text-primary);
 }
 
 .glass-collapse[open] .arrow-icon {
@@ -773,32 +762,32 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .screened-card {
-    background: rgba(241, 109, 35, 0.02);
-    border: 1px solid rgba(241, 109, 35, 0.18);
-    border-radius: 6px;
+    background: #fffaf8;
+    border: 1px solid #ffd6c5;
+    border-radius: 4px;
     padding: 14px 18px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
 }
 
 .screened-card-top {
     display: flex;
     justify-content: space-between;
     font-weight: 700;
-    color: #c2410c; /* 주황색 짙게 */
+    color: #c2410c;
     margin-bottom: 6px;
 }
 
 .screened-reason {
     color: #c2410c;
     line-height: 1.5;
-    background: rgba(241, 109, 35, 0.04);
+    background: #fff3ed;
     padding: 8px 12px;
-    border-radius: 4px;
+    border-radius: 2px;
     margin-top: 6px;
     font-weight: 600;
 }
 
-/* --- 하단: 정책 통계 대시보드 그리드 --- */
+/* --- 하단: 정책 통계 대시보드 그리드 (MI-6 테크 그리드) --- */
 .statistics-charts {
     display: grid;
     grid-template-columns: 5.5fr 4.5fr;
@@ -809,6 +798,7 @@ input[type="text"]:focus, textarea:focus {
 @media (max-width: 900px) {
     .statistics-charts {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 }
 
@@ -818,9 +808,8 @@ input[type="text"]:focus, textarea:focus {
     gap: 18px;
     background: #ffffff;
     border: 1px solid var(--card-border);
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-lg);
     padding: 24px;
-    box-shadow: 0 4px 12px rgba(148, 163, 184, 0.05);
 }
 
 .chart-bar-item {
@@ -832,7 +821,7 @@ input[type="text"]:focus, textarea:focus {
 .bar-label-row {
     display: flex;
     justify-content: space-between;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 700;
 }
 
@@ -841,22 +830,22 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .bar-lbl-val {
-    color: var(--ansan-blue);
+    color: var(--secondary);
     font-weight: 800;
 }
 
 .bar-track {
-    height: 8px;
-    background: #f1f5f9;
-    border-radius: 4px;
+    height: 6px;
+    background: #f3f4f6;
+    border-radius: 3px;
     overflow: hidden;
     position: relative;
 }
 
 .bar-fill {
     height: 100%;
-    background: linear-gradient(to right, var(--secondary), var(--primary));
-    border-radius: 4px;
+    background: var(--secondary); /* 단색 플랫 블루로 MI-6화 */
+    border-radius: 3px;
     width: 0;
     transition: width 1.2s cubic-bezier(0.1, 0.8, 0.3, 1);
 }
@@ -876,26 +865,23 @@ input[type="text"]:focus, textarea:focus {
 
 .stat-mini-card {
     background: #ffffff;
-    border: 1.5px solid var(--card-border);
-    border-radius: var(--border-radius-md);
+    border: 1px solid var(--card-border);
+    border-radius: var(--border-radius-lg);
     padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 4px;
     transition: var(--transition);
-    box-shadow: 0 4px 12px rgba(148, 163, 184, 0.05);
 }
 
 .stat-mini-card:hover {
-    background: rgba(30, 58, 138, 0.02);
-    border-color: rgba(30, 58, 138, 0.25);
-    box-shadow: 0 6px 16px rgba(148, 163, 184, 0.12);
+    border-color: #191e2e;
 }
 
 .stat-mini-code {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 800;
-    color: var(--primary);
+    color: var(--secondary);
 }
 
 .stat-mini-val {
@@ -910,15 +896,15 @@ input[type="text"]:focus, textarea:focus {
     line-height: 1.4;
 }
 
-/* --- 설정 모달창 --- */
+/* --- 설정 모달창 (MI-6 팝업) --- */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(8px);
+    background: rgba(25, 30, 46, 0.3);
+    backdrop-filter: blur(6px);
     z-index: 100;
     display: flex;
     align-items: center;
@@ -930,10 +916,10 @@ input[type="text"]:focus, textarea:focus {
     width: 100%;
     max-width: 480px;
     background: #ffffff;
-    border: 1.5px solid var(--card-border);
+    border: 1.5px solid #191e2e;
     border-radius: var(--border-radius-lg);
     padding: 32px;
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+    box-shadow: 0 10px 30px rgba(25, 30, 46, 0.1);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -948,17 +934,17 @@ input[type="text"]:focus, textarea:focus {
 
 .modal-header h3 {
     font-size: 1.15rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.02em;
 }
 
 .modal-tip {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
     line-height: 1.5;
     background: #f8fafc;
     padding: 14px;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-lg);
     border: 1px solid var(--card-border);
 }
 
@@ -974,34 +960,35 @@ input[type="text"]:focus, textarea:focus {
     color: var(--text-secondary);
     padding: 10px 18px;
     font-size: 0.88rem;
-    font-weight: 600;
-    border-radius: var(--border-radius-md);
+    font-weight: 700;
+    border-radius: var(--border-radius-lg);
     cursor: pointer;
     transition: var(--transition);
 }
 
 .btn-secondary:hover {
-    background: #f1f5f9;
+    background: #f3f4f6;
+    color: var(--text-primary);
 }
 
 .connection-status-msg {
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     padding: 10px 14px;
-    border-radius: var(--border-radius-md);
+    border-radius: var(--border-radius-lg);
     margin-top: 4px;
     line-height: 1.45;
 }
 
 .connection-status-msg.success {
-    background: rgba(16, 185, 129, 0.05);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    color: var(--primary);
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
 }
 
 .connection-status-msg.error {
-    background: rgba(241, 109, 35, 0.05);
-    border: 1px solid rgba(241, 109, 35, 0.2);
-    color: var(--warning);
+    background: #fff3ed;
+    border: 1px solid #ffd6c5;
+    color: #c2410c;
 }
 
 /* --- 유틸리티 --- */
