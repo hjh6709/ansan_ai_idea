@@ -153,6 +153,9 @@ const screenedListContainer = document.getElementById("screened-list-container")
 const statsSourceBadge = document.getElementById("stats-source-badge");
 const statsContainer = document.getElementById("stats-container");
 const statsMiniContainer = document.getElementById("stats-mini-container");
+const langSelector = document.getElementById("lang-selector");
+
+let currentLang = "ko";
 
 const VISA_LEGAL_TIPS = {
     "F-4": "💡 F-4(재외동포) 비자는 법령상 단순노무행위 취업이 엄격히 제한됩니다. (예: 단순 물류 분류, 단순 박스 포장, 수작업 세척 등은 법적 처벌 대상)",
@@ -188,6 +191,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 4. 외국인 주민 통계 대시보드 로드
     loadAndRenderForeignerStats(savedKey || DEFAULT_API_KEY || "");
+
+    // 5. 다국어 셀렉터 이벤트 등록
+    if (langSelector) {
+        langSelector.addEventListener("change", (e) => {
+            changeLanguage(e.target.value);
+        });
+    }
 });
 
 // 글자 수 실시간 계산
@@ -208,7 +218,14 @@ visaRadioButtons.forEach(radio => {
     });
 });
 function updateVisaInfoTip(visaType) {
-    visaRuleInfo.textContent = VISA_LEGAL_TIPS[visaType] || "";
+    const t = TRANSLATIONS[currentLang];
+    if (t) {
+        if (visaType === "F-4") visaRuleInfo.textContent = t["tip-f4"];
+        else if (visaType === "H-2") visaRuleInfo.textContent = t["tip-h2"];
+        else if (visaType === "E-9") visaRuleInfo.textContent = t["tip-e9"];
+    } else {
+        visaRuleInfo.textContent = VISA_LEGAL_TIPS[visaType] || "";
+    }
 }
 
 // 헤더 API 배지 변경
@@ -779,3 +796,196 @@ async function loadAndRenderForeignerStats(apiKey) {
         }, 100);
     });
 }
+
+// --- 8. 다국어 지원 사전 및 번역 적용 로직 ---
+const TRANSLATIONS = {
+    "ko": {
+        "badge-poc": "안산시청 스마트도시과 AI빅데이터팀 공모 PoC",
+        "hero-sub": "안산 스마트허브 맞춤형 안심 일자리",
+        "hero-main-title": "체류 비자를 <span class=\"highlight-green\">검증</span>하고,<br>적법한 일자리를 <span class=\"highlight-blue\">연결</span>합니다.",
+        "hero-desc": "안산 스마트허브 관내 제조업체 정보 및 체류 비자별 법적 규정을 실시간으로 필터링하는 AI 매칭 플랫폼입니다. 불법 고용 리스크를 사전에 원천 차단하고 구직자 경력 맞춤형 일자리를 최적으로 시뮬레이션합니다.",
+        "btn-hero-scroll": "적격 일자리 진단하기",
+        "sect-dashboard-title": "안산시 외국인 주민 체류 현황 (지역 맞춤형 인력 공급 진단)",
+        "sect-diagnostic-title": "1:1 맞춤 일자리 안심 매칭 시뮬레이터",
+        "diag-card-title": "외국인 구직자 정보 입력",
+        "diag-card-sub": "체류 자격과 보유 경력을 작성해 주세요. 안산시 공공데이터를 전수 대조하여 적격 일자리를 즉각 진단합니다.",
+        "label-name": "구직자 성명",
+        "label-visa": "보유 체류 자격 (비자 선택)",
+        "label-resume": "주요 경력 및 보유 기술 (자유 기술)",
+        "placeholder-name": "성명을 입력하세요",
+        "placeholder-resume": "이전에 일하셨던 공장이나 업무 경험, 잘하시는 기술을 편하게 입력해 주세요.\n예: '안산 시화공단 부품 조립 공장에서 기계 세팅하고 프레스 부품 조립하는 일을 1년 반 동안 해봤습니다.'",
+        "btn-preset-1": "🔧 제조 기계 조작 및 프레스 조립 경력 예시",
+        "btn-preset-2": "📦 단순 수작업 포장 및 물류 적재 경력 예시",
+        "btn-preset-3": "⚡ PCB 도금 설비 운영 및 품질 검사 경력 예시",
+        "btn-match": "적격 일자리 진단 및 추천받기",
+        "state-idle-title": "맞춤 일자리 분석 대기 중",
+        "state-idle-desc": "비자 조건과 경력 정보를 채워 넣고 상단 버튼을 클릭하시면,<br>안산시 공공데이터를 전수 대조하여 안심 일자리 매칭 연산을 시작합니다.",
+        "state-loading-step1": "반월산단 지식산업센터 입주 기업 실시간 정보 조회 중...",
+        "state-loading-step2": "1단계: 출입국관리법 기준 비자별 취업제한 업종 스크리닝...",
+        "state-loading-step3": "2단계: 자연어 맥락 유사도 기반 직무 매칭율 스코어링...",
+        "visa-f4-label": "재외동포",
+        "visa-h2-label": "방문취업",
+        "visa-e9-label": "비전문취업",
+        "tip-f4": "💡 F-4(재외동포) 비자는 법령상 단순노무행위 취업이 엄격히 제한됩니다. (예: 단순 물류 분류, 단순 박스 포장, 수작업 세척 등은 법적 처벌 대상)",
+        "tip-h2": "💡 H-2(방문취업) 비자는 300인 미만 중소 제조업체에서만 취업이 가능합니다. (대기업 및 허용되지 않은 일부 업종은 취업 불가능)",
+        "tip-e9": "💡 E-9(비전문취업) 비자는 관할 고용센터를 통해 정식으로 외국인 고용허가서(쿼터)를 발급받은 사업장에만 근무가 허용됩니다."
+    },
+    "en": {
+        "badge-poc": "Ansan City Smart City Div & AI Team PoC",
+        "hero-sub": "Ansan SmartHub Custom Job Service",
+        "hero-main-title": "Verify <span class=\"highlight-green\">Visa status</span>,<br>Connect <span class=\"highlight-blue\">Legal jobs</span>.",
+        "hero-desc": "This AI matching platform screens local manufacturing company datasets and visa restrictions. It prevents illegal employment and matches job seekers based on their experience.",
+        "btn-hero-scroll": "Start Suitability Test",
+        "sect-dashboard-title": "Ansan Foreign Resident Status (Regional Labor Supply Analytics)",
+        "sect-diagnostic-title": "1:1 Custom Safe Job Simulator",
+        "diag-card-title": "Enter Foreign Job Seeker Info",
+        "diag-card-sub": "Enter your visa status and work experiences. We'll cross-reference the municipal databases for safe jobs.",
+        "label-name": "Full Name",
+        "label-visa": "Visa Status (Select Visa)",
+        "label-resume": "Work Experience & Skills (Describe freely)",
+        "placeholder-name": "Enter your name",
+        "placeholder-resume": "Please describe your previous factory work, tasks, or technical skills.\ne.g. 'I worked at a press assembly factory in Ansan for a year and a half, setting up machines and assembling components.'",
+        "btn-preset-1": "🔧 Manufacturing Machine Operation & Press Assembly",
+        "btn-preset-2": "📦 Manual Packaging & Logistics Warehouse work",
+        "btn-preset-3": "⚡ PCB Electroplating Equipment Operation & Inspection",
+        "btn-match": "Analyze Job Suitability",
+        "state-idle-title": "Waiting for Job Diagnostics",
+        "state-idle-desc": "Please enter your visa and experiences, then click the button above to begin cross-referencing safe jobs.",
+        "state-loading-step1": "Fetching factory datasets from Gyeonggi open databases...",
+        "state-loading-step2": "Step 1: Screening company industry codes against visa restrictions...",
+        "state-loading-step3": "Step 2: Scoring job contextual similarities with natural language processing...",
+        "visa-f4-label": "Korean Origin (F-4)",
+        "visa-h2-label": "Working Visit (H-2)",
+        "visa-e9-label": "Non-Professional (E-9)",
+        "tip-f4": "💡 F-4 visa is legally restricted from simple manual labor. (e.g. Simple packaging, manual loading, labeling are subject to legal penalties)",
+        "tip-h2": "💡 H-2 visa is only allowed to work in small-medium manufacturers with under 300 employees. (Large corporations are prohibited)",
+        "tip-e9": "💡 E-9 visa is only permitted to work in workplaces that have officially acquired an employment permit (quota) from the Job Center."
+    },
+    "vi": {
+        "badge-poc": "Sở Đô thị Thông minh Ansan & Nhóm AI PoC",
+        "hero-sub": "Việc làm An tâm tại Ansan SmartHub",
+        "hero-main-title": "Xác thực <span class=\"highlight-green\">Thị thực</span>,<br>Kết nối <span class=\"highlight-blue\">Việc làm Hợp pháp</span>.",
+        "hero-desc": "Nền tảng AI hỗ trợ tra cứu dữ liệu doanh nghiệp sản xuất và quy định thị thực tại Ansan SmartHub. Phòng ngừa rủi ro lao động bất hợp pháp và đề xuất việc làm tối ưu theo kinh nghiệm.",
+        "btn-hero-scroll": "Chẩn đoán việc làm phù hợp",
+        "sect-dashboard-title": "Tình hình cư trú của cư dân nước ngoài tại Ansan (Phân tích nhân lực)",
+        "sect-diagnostic-title": "Trình giả lập kết nối việc làm an tâm 1:1",
+        "diag-card-title": "Nhập thông tin người tìm việc",
+        "diag-card-sub": "Vui lòng nhập loại thị thực và kinh nghiệm làm việc của bạn. Hệ thống sẽ đối chiếu dữ liệu để tìm việc làm an toàn.",
+        "label-name": "Họ và Tên",
+        "label-visa": "Loại Thị thực Cư trú (Chọn Visa)",
+        "label-resume": "Kinh nghiệm làm việc & Kỹ năng (Mô tả tự do)",
+        "placeholder-name": "Nhập họ và tên của bạn",
+        "placeholder-resume": "Vui lòng nhập kinh nghiệm nhà máy hoặc kỹ năng của bạn.\nVí dụ: 'Tôi đã làm việc tại một nhà máy sản xuất linh kiện ô tô ở Ansan trong một năm rưỡi, vận hành máy ép và lắp ráp linh kiện.'",
+        "btn-preset-1": "🔧 Vận hành máy sản xuất & Lắp ráp máy ép",
+        "btn-preset-2": "📦 Đóng gói thủ công & Xếp dỡ kho bãi logistic",
+        "btn-preset-3": "⚡ Vận hành thiết bị xi mạ PCB & Kiểm tra chất lượng",
+        "btn-match": "Phân tích và đề xuất việc làm hợp pháp",
+        "state-idle-title": "Đang chờ phân tích việc làm phù hợp",
+        "state-idle-desc": "Vui lòng nhập điều kiện thị thực và thông tin kinh nghiệm, sau đó nhấn nút phía trên để bắt đầu đối chiếu dữ liệu.",
+        "state-loading-step1": "Đang truy vấn dữ liệu doanh nghiệp thời gian thực từ cơ sở dữ liệu...",
+        "state-loading-step2": "Bước 1: Sàng lọc doanh nghiệp hạn chế theo quy định của Luật xuất nhập cảnh...",
+        "state-loading-step3": "Bước 2: Đánh giá độ phù hợp công việc bằng công cụ phân tích ngôn ngữ tự nhiên...",
+        "visa-f4-label": "Kiều bào (F-4)",
+        "visa-h2-label": "Lao động H-2",
+        "visa-e9-label": "Lao động E-9",
+        "tip-f4": "💡 Thị thực F-4 bị nghiêm cấm làm lao động phổ thông theo pháp luật. (Ví dụ: đóng gói đơn giản, bốc xếp thủ công, dán nhãn là đối tượng bị xử phạt hành chính)",
+        "tip-h2": "💡 Thị thực H-2 chỉ được phép làm việc tại các nhà sản xuất vừa và nhỏ có dưới 300 lao động. (Nghiêm cấm làm việc tại tập đoàn lớn)",
+        "tip-e9": "💡 Thị thực E-9 chỉ được phép làm việc tại nơi đã được cấp giấy phép tuyển dụng chính thức (chỉ tiêu) từ Trung tâm Việc làm."
+    },
+    "zh": {
+        "badge-poc": "安山市厅智能城市科 & AI大数据团队 PoC",
+        "hero-sub": "安山智能集聚区定制型安心就业",
+        "hero-main-title": "验证 <span class=\"highlight-green\">签证状态</span>,<br>连接 <span class=\"highlight-blue\">合法工作</span>.",
+        "hero-desc": "利用AI技术实时筛选安山智能集聚区内企业信息及各签证类型的法律规定。从源头上预防非法雇用风险，并根据求职者的工作经历模拟推荐最适合的岗位。",
+        "btn-hero-scroll": "诊断适合岗位",
+        "sect-dashboard-title": "安山市外国居民滞留现状 (区域定制型人力供给诊断)",
+        "sect-diagnostic-title": "1:1 定制安心就业匹配模拟器",
+        "diag-card-title": "外国人求职者信息输入",
+        "diag-card-sub": "请填写您的签证类型和工作经历。我们将与安山市公共数据进行全面核对，立即为您匹配合法工作。",
+        "label-name": "求职者姓名",
+        "label-visa": "持有的滞留资格 (选择签证)",
+        "label-resume": "主要工作经历及技能 (自由叙述)",
+        "placeholder-name": "请输入姓名",
+        "placeholder-resume": "请填写您以前的工厂工作经验或技能。\n例如：'我曾在安山市大德工区的一家零部件装配厂工作了一年半，负责设定机器并装配冲压零部件。'",
+        "btn-preset-1": "🔧 制造机械操作及冲压装配经历示例",
+        "btn-preset-2": "📦 纯手工包装及物流码垛经历示例",
+        "btn-preset-3": "⚡ PCB电镀设备运营及品质检验经历示例",
+        "btn-match": "获取合法就业诊断及推荐",
+        "state-idle-title": "等待匹配岗位分析",
+        "state-idle-desc": "请填写签证条件和经历信息后，点击上方按钮，系统将全面对比安山市公共数据开始安心就业匹配计算。",
+        "state-loading-step1": "正在实时查询智能集聚区企业信息数据...",
+        "state-loading-step2": "第1步：根据出入境管理法筛选限制雇用的行业类型...",
+        "state-loading-step3": "第2步：基于自然语言语义相似度计算岗位推荐匹配率...",
+        "visa-f4-label": "在外同胞 (F-4)",
+        "visa-h2-label": "访问就业 (H-2)",
+        "visa-e9-label": "非专业就业 (E-9)",
+        "tip-f4": "💡 法律严格限制持F-4签证的人从事简单劳务。 （例如：简单的包装，手工搬运，贴标签等属于违法行为，将受到处罚）",
+        "tip-h2": "💡 持H-2签证的人只允许在少于300名员工的中小制造企业工作。 （禁止在大企业就业）",
+        "tip-e9": "💡 持E-9签证的人只允许在已获得就业许可中心（配额）批准的雇主处工作。"
+    }
+};
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    const t = TRANSLATIONS[lang];
+    if (!t) return;
+
+    // 1. 헤더 & 인포 배지
+    document.querySelector(".badge-poc").textContent = t["badge-poc"];
+    
+    // 2. 히어로 배너
+    document.querySelector(".hero-sub").textContent = t["hero-sub"];
+    document.querySelector(".hero-main-title").innerHTML = t["hero-main-title"];
+    document.querySelector(".hero-desc").textContent = t["hero-desc"];
+    document.querySelector(".btn-hero-scroll span").textContent = t["btn-hero-scroll"];
+
+    // 3. 섹션 타이틀
+    document.querySelector(".section-dashboard .sect-title").textContent = t["sect-dashboard-title"];
+    document.querySelector(".section-diagnostic .sect-title").textContent = t["sect-diagnostic-title"];
+
+    // 4. 진단 폼 카드
+    document.querySelector(".diagnostic-form-card h2").textContent = t["diag-card-title"];
+    document.querySelector(".diagnostic-form-card .subtitle").textContent = t["diag-card-sub"];
+    document.querySelector("label[for='seeker-name']").textContent = t["label-name"];
+    document.querySelector("label[for='seeker-resume']").previousElementSibling ? null : document.querySelectorAll(".diagnostic-form-card label")[1].textContent = t["label-visa"];
+    document.querySelector("label[for='seeker-resume']").textContent = t["label-resume"];
+    
+    // 플레이스홀더
+    seekerNameInput.setAttribute("placeholder", t["placeholder-name"]);
+    seekerResumeTextarea.setAttribute("placeholder", t["placeholder-resume"]);
+
+    // 프리셋 버튼
+    const presets = document.querySelectorAll(".btn-preset");
+    if (presets.length >= 3) {
+        presets[0].textContent = t["btn-preset-1"];
+        presets[1].textContent = t["btn-preset-2"];
+        presets[2].textContent = t["btn-preset-3"];
+    }
+
+    // 진단하기 버튼
+    document.querySelector("#btn-match .btn-text").textContent = t["btn-match"];
+
+    // 5. 로딩 타임라인 단계 텍스트
+    stepData.querySelector(".step-label").textContent = t["state-loading-step1"];
+    stepRule.querySelector(".step-label").textContent = t["state-loading-step2"];
+    stepNlp.querySelector(".step-label").textContent = t["state-loading-step3"];
+
+    // 6. 대기 상태 카드
+    stateIdle.querySelector("h3").textContent = t["state-idle-title"];
+    stateIdle.querySelector("p").innerHTML = t["state-idle-desc"];
+
+    // 7. 라디오 뱃지 라벨 업데이트
+    const visaBoxes = document.querySelectorAll(".visa-box");
+    if (visaBoxes.length >= 3) {
+        visaBoxes[0].querySelector(".visa-label").textContent = t["visa-f4-label"];
+        visaBoxes[1].querySelector(".visa-label").textContent = t["visa-h2-label"];
+        visaBoxes[2].querySelector(".visa-label").textContent = t["visa-e9-label"];
+    }
+
+    // 8. 현재 선택된 비자에 맞춘 가이드 팁 강제 갱신
+    const activeRadio = document.querySelector('input[name="visa-type"]:checked');
+    if (activeRadio) {
+        updateVisaInfoTip(activeRadio.value);
+    }
+}
+
