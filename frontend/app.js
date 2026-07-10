@@ -579,18 +579,83 @@ function resetTimeline() {
     });
 }
 
+function generateAiReport(resumeText, name) {
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS["ko"];
+    let type = "general";
+    let keywords = [];
+
+    const text = (resumeText || "").toLowerCase();
+    
+    if (text.includes("mct") || text.includes("기계") || text.includes("machine") || text.includes("프레스") || text.includes("press") || text.includes("조작") || text.includes("조립") || text.includes("생산")) {
+        if (text.includes("pcb") || text.includes("기판") || text.includes("검사") || text.includes("inspect")) {
+            type = "pcb";
+            keywords = ["PCB", t["tag-inspect"] || "Inspect", t["tag-pcb"] || "PCB"];
+        } else {
+            type = "mct";
+            keywords = [t["tag-mct"] || "Machining", t["tag-mold"] || "Mold", "MCT/Press"];
+        }
+    } else if (text.includes("pcb") || text.includes("기판") || text.includes("검사") || text.includes("inspect") || text.includes("현미경") || text.includes("품질")) {
+        type = "pcb";
+        keywords = ["PCB", t["tag-inspect"] || "Inspect", t["tag-pcb"] || "PCB"];
+    } else if (text.includes("화학") || text.includes("도금") || text.includes("배합") || text.includes("액체") || text.includes("chem") || text.includes("chemical")) {
+        type = "chem";
+        keywords = [t["tag-chem"] || "Chemical", "Plating", t["tag-monitor"] || "Monitor"];
+    } else {
+        type = "general";
+        keywords = [t["tag-general"] || "General Mfg", t["tag-warehouse"] || "Warehouse", "Logistic"];
+    }
+
+    let summary = t[`feedback-${type}`] || "";
+    summary = summary.replace("{name}", name || "Seeker");
+
+    return {
+        title: t["ai-report-title"] || "🤖 AI Resume Analysis Report",
+        extractTitle: t["ai-extract-title"] || "Core Competency Extracted",
+        summary: summary,
+        keywords: keywords
+    };
+}
+
 function renderMatchingResults(data, seekerName, dataSource) {
     resSourceBadge.textContent = `데이터 수집 채널: ${dataSource}`;
     
     const totalChecked = data.total_screened_in + data.total_screened_out;
-    resStatText.textContent = `관내 기업 풀 ${totalChecked}개 전수 대조 | 1단계 적법성 통과: ${data.total_screened_in}개 | 2단계 직무 매칭 진단 완료`;
+    const t = TRANSLATIONS[currentLang] || TRANSLATIONS["ko"];
+    resStatText.textContent = t["res-stat-text"] ? t["res-stat-text"].replace("{total}", totalChecked).replace("{in}", data.total_screened_in) : `관내 기업 풀 ${totalChecked}개 전수 대조 | 1단계 적법성 통과: ${data.total_screened_in}개 | 2단계 직무 매칭 진단 완료`;
     
     // AI 모델 텍스트 상태 변경 (Standalone 모드로 표기)
-    nlpModelText.textContent = "직무 맥락 분석 엔진 활성";
+    nlpModelText.textContent = t["state-nlp-model"] || "직무 맥락 분석 엔진 활성";
     nlpModelText.parentElement.querySelector(".badge-dot").className = "badge-dot green";
 
     // 🏆 추천 TOP 3 기업 카드 렌더링
     recommendationsContainer.innerHTML = "";
+    
+    // 최상단 AI 리포트 렌더링
+    const resumeText = seekerResumeTextarea.value;
+    const aiReport = generateAiReport(resumeText, seekerName);
+    
+    const reportCard = document.createElement("div");
+    reportCard.className = "ai-report-card";
+    reportCard.innerHTML = `
+        <div class="ai-report-header">
+            <div class="ai-report-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1 0-3.12 3 3 0 0 1 0-3.88 2.5 2.5 0 0 1 0-3.12A2.5 2.5 0 0 1 9.5 2Z"/>
+                    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 0-3.12 3 3 0 0 0 0-3.88 2.5 2.5 0 0 0 0-3.12A2.5 2.5 0 0 0 14.5 2Z"/>
+                </svg>
+            </div>
+            <h4 class="ai-report-title">${aiReport.title}</h4>
+        </div>
+        <div class="ai-report-body">
+            <p class="ai-report-summary">${aiReport.summary}</p>
+            <div style="margin-top: 14px; font-size: 0.72rem; font-weight: 800; color: var(--secondary);">${aiReport.extractTitle}</div>
+            <div class="ai-report-keywords">
+                ${aiReport.keywords.map(kw => `<span class="ai-keyword-tag">${kw}</span>`).join("")}
+            </div>
+        </div>
+    `;
+    recommendationsContainer.appendChild(reportCard);
+
     if (data.recommended && data.recommended.length > 0) {
         data.recommended.forEach((comp, idx) => {
             const card = document.createElement("div");
@@ -804,6 +869,12 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">안산</span><span class=\"color-ansan-orange\">스마트허브</span> <span class=\"text-white-dark\">안심채용 플랫폼</span>",
         "api-status-connected": "경기 OpenAPI 연동 활성",
         "api-status-disconnected": "연동 대기 중",
+        "ai-report-title": "🤖 AI 이력 분석 요약 리포트",
+        "ai-extract-title": "AI가 추출한 구직자 핵심 역량",
+        "feedback-mct": "구직자 {name}님은 정밀 기계 조작 및 생산 공정 제어 분야에서 숙련된 실무 역량을 보유하고 있습니다. 반월산단 내 기계 가공 및 조립 제조 현장과의 직무 연관성 및 생산 효율성이 매우 높게 평가되어 법적 규정을 준수하는 해당 가공 기업을 우선 추천합니다.",
+        "feedback-pcb": "구직자 {name}님은 초정밀 PCB 회로 조립 및 육안/현미경 전수 검사 직무에 탁월한 미세 제어 및 집중력을 나타내고 있습니다. 반월산단 정밀 반도체 전장 분야 및 자동화 라인과 최적의 궁합을 보입니다.",
+        "feedback-chem": "구직자 {name}님은 화학 약품 교반, 실험 장비 계측 및 정밀 공정 모니터링 직무에서 숙련된 안전 보증 역량을 가지고 있습니다. 고도의 환경/안전 규격 준수가 필수적인 화학 제조 생산 라인을 맞춤 추천합니다.",
+        "feedback-gen": "구직자 {name}님은 제조 생산 라인 흐름에 대한 적응력 및 다양한 단순노무 직무에서의 성실한 기초 역량을 보이고 있습니다. 출입국관리법상 비자 취업제한 요소를 원천 제거한 최적의 안심 일반 제조 현장과 매칭되었습니다.",
         "hero-sub": "안산 스마트허브 맞춤형 안심 일자리",
         "hero-main-title": "체류 비자를 <span class=\"highlight-green\">검증</span>하고,<br>적법한 일자리를 <span class=\"highlight-blue\">연결</span>합니다.",
         "hero-desc": "안산 스마트허브 관내 제조업체 정보 및 체류 비자별 법적 규정을 실시간으로 필터링하는 AI 매칭 플랫폼입니다. 불법 고용 리스크를 사전에 원천 차단하고 구직자 경력 맞춤형 일자리를 최적으로 시뮬레이션합니다.",
@@ -884,6 +955,12 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Safe Job Platform</span>",
         "api-status-connected": "Gyeonggi OpenAPI Active",
         "api-status-disconnected": "Waiting for Connection",
+        "ai-report-title": "🤖 AI Resume Analysis Report",
+        "ai-extract-title": "AI-Extracted Core Competency",
+        "feedback-mct": "Job seeker {name} exhibits professional competency in precision machine operation and production line control. Highly compatible with manufacturing facilities in Banwon, yielding legal safety and productivity.",
+        "feedback-pcb": "Job seeker {name} shows outstanding micro-control and focus in precision PCB circuit assembly and microscope inspection. Shows best fit with semiconductor devices.",
+        "feedback-chem": "Job seeker {name} possesses stable safety verification capability in chemical compound mixing and equipment control. Custom matches chemical manufacturing plants requiring safety standards.",
+        "feedback-gen": "Job seeker {name} demonstrates flexibility in general manufacturing and diligent baseline operation. Safely matched with legal general manufacturing sites without visa violation risks.",
         "hero-sub": "Ansan SmartHub Custom Job Service",
         "hero-main-title": "Verify <span class=\"highlight-green\">Visa status</span>,<br>Connect <span class=\"highlight-blue\">Legal jobs</span>.",
         "hero-desc": "This AI matching platform screens local manufacturing company datasets and visa restrictions. It prevents illegal employment and matches job seekers based on their experience.",
@@ -964,6 +1041,12 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Nền tảng việc làm an toàn</span>",
         "api-status-connected": "Kết nối OpenAPI Hoạt động",
         "api-status-disconnected": "Đang chờ kết nối",
+        "ai-report-title": "🤖 Báo cáo phân tích lý lịch của AI",
+        "ai-extract-title": "Kỹ năng cốt lõi được trích xuất bởi AI",
+        "feedback-mct": "Người tìm việc {name} có năng lực vận hành máy móc cơ khí chính xác và kiểm soát dây chuyền sản xuất. Rất tương thích với các nhà máy sản xuất tại Banwon, đảm bảo tính hợp pháp và năng suất cao.",
+        "feedback-pcb": "Người tìm việc {name} thể hiện khả năng kiểm soát tỉ mỉ và tập trung cao trong lắp ráp mạch PCB và kiểm tra kính hiển vi. Phù hợp nhất với các công ty thiết bị bán dẫn.",
+        "feedback-chem": "Người tìm việc {name} có khả năng kiểm soát an toàn trong pha chế hợp chất hóa học và thiết bị đo đạc. Phù hợp với các nhà máy hóa chất yêu cầu tiêu chuẩn an toàn nghiêm ngặt.",
+        "feedback-gen": "Người tìm việc {name} thể hiện sự linh hoạt trong sản xuất chung và vận hành cần cù. Được kết nối an toàn với các doanh nghiệp sản xuất chung hợp pháp mà không có rủi ro vi phạm thị thực.",
         "hero-sub": "Việc làm An tâm tại Ansan SmartHub",
         "hero-main-title": "Xác thực <span class=\"highlight-green\">Thị thực</span>,<br>Kết nối <span class=\"highlight-blue\">Việc làm Hợp pháp</span>.",
         "hero-desc": "Nền tảng AI hỗ trợ tra cứu dữ liệu doanh nghiệp sản xuất và quy định thị thực tại Ansan SmartHub. Phòng ngừa rủi ro lao động bất hợp pháp và đề xuất việc làm tối ưu theo kinh nghiệm.",
@@ -1044,6 +1127,12 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">安山</span> <span class=\"color-ansan-orange\">智能集聚区</span> <span class=\"text-white-dark\">安心就业平台</span>",
         "api-status-connected": "京畿道 OpenAPI 已激活",
         "api-status-disconnected": "等待连接中",
+        "ai-report-title": "🤖 AI 简历分析综合报告",
+        "ai-extract-title": "AI 提取的求职者核心能力",
+        "feedback-mct": "求职者 {name} 在精密机械操作和生产流程控制方面具备熟练的实践能力。系统评估认为，您与半月工业园内的机械加工和装配制造岗位的契合度极高，推荐这几家合规企业。",
+        "feedback-pcb": "求职者 {name} 在超精密 PCB 电路板组装以及显微镜全数检测岗位上展现了出色的细微控制力与专注度。与精密半导体电子器件及自动化生产线具有最佳匹配度。",
+        "feedback-chem": "求职者 {name} 在化学药品搅拌、实验设备计量以及精密工序监控岗位具备扎实的安全生产能力。系统为您精准推荐了需要严格遵守环境安全规范的化学品制造企业。",
+        "feedback-gen": "求职者 {name} 表现出了对制造生产线流程的良好适应性，以及在多种基础事务岗位上的敬业精神。系统已为您成功过滤了签证受限职位，匹配了最稳妥的安心一般制造业岗位。",
         "hero-sub": "安山智能集聚区定制型安心就业",
         "hero-main-title": "验证 <span class=\"highlight-green\">签证状态</span>,<br>连接 <span class=\"highlight-blue\">合法工作</span>.",
         "hero-desc": "利用AI技术实时筛选安山智能集聚区内企业信息及各签证类型的法律规定。从源头上预防非法雇用风险，并根据求职者的工作经历模拟推荐最适合的岗位。",
@@ -1124,6 +1213,12 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Платформа безопасной работы</span>",
         "api-status-connected": "OpenAPI Кёнгидо активен",
         "api-status-disconnected": "Ожидание подключения",
+        "ai-report-title": "🤖 AI-Отчет об анализе резюме",
+        "ai-extract-title": "Ключевые компетенции соискателя",
+        "feedback-mct": "Соискатель {name} обладает профессиональной компетентностью в управлении высокоточными станками и производственными линиями. Отличная совместимость с заводами в Панвоне с соблюдением всех визовых законов.",
+        "feedback-pcb": "Соискатель {name} демонстрирует выдающуюся микромоторику и концентрацию при сборке печатных плат PCB и проверке под микроскопом. Лучшая совместимость с производителями микросхем.",
+        "feedback-chem": "Соискатель {name} имеет подтвержденный опыт безопасного смешивания химреагентов и контроля лабораторного оборудования. Совместимо с химическими заводами со строгими стандартами безопасности.",
+        "feedback-gen": "Соискатель {name} демонстрирует гибкость в общих производственных процессах и исполнительность. Совместимо с общими легальными производствами без риска депортации.",
         "hero-sub": "Безопасная работа под визовый статус в Ansan SmartHub",
         "hero-main-title": "Проверяем <span class=\"highlight-green\">визовый статус</span>,<br>находим <span class=\"highlight-blue\">легальную работу</span>.",
         "hero-desc": "ИИ-платформа, которая сверяет данные производственных компаний Ansan SmartHub с визовыми ограничениями в реальном времени. Предотвращает риски нелегального трудоустройства.",
@@ -1204,6 +1299,12 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Platform Pekerjaan Aman</span>",
         "api-status-connected": "OpenAPI Gyeonggi Aktif",
         "api-status-disconnected": "Menunggu Koneksi",
+        "ai-report-title": "🤖 AI Laporan Analisis Resume",
+        "ai-extract-title": "Kompetensi Utama Hasil Analisis AI",
+        "feedback-mct": "Pencari kerja {name} memiliki kompetensi kerja yang teruji dalam pengoperasian mesin perkakas presisi dan kontrol lini produksi. Sangat cocok dengan pabrik manufaktur di Banwon, terjamin legal dan produktif.",
+        "feedback-pcb": "Pencari kerja {name} menunjukkan fokus dan kontrol mikro luar biasa dalam perakitan sirkuit PCB dan inspeksi mikroskop. Sangat cocok dengan sektor peralatan semikonduktor.",
+        "feedback-chem": "Pencari kerja {name} mempunyai keahlian keselamatan kerja dalam pencampuran bahan kimia dan kontrol alat ukur lab. Sesuai dengan pabrik kimia yang membutuhkan standar regulasi tinggi.",
+        "feedback-gen": "Pencari kerja {name} membuktikan adaptasi tinggi dalam manufaktur umum dan ketekunan kerja fisik. Dicocokkan secara aman dengan pabrik umum tanpa risiko pelanggaran visa.",
         "hero-sub": "Pekerjaan Aman berbasis Visa di Ansan SmartHub",
         "hero-main-title": "Verifikasi <span class=\"highlight-green\">status Visa</span>,<br>Hubungkan <span class=\"highlight-blue\">Pekerjaan Legal</span>.",
         "hero-desc": "Platform pencocokan AI yang menyaring data perusahaan manufaktur lokal Ansan SmartHub terhadap batasan visa secara real-time. Mencegah risiko perekrutan ilegal.",
@@ -1351,6 +1452,23 @@ function changeLanguage(lang) {
     if (activeRadio) {
         updateVisaInfoTip(activeRadio.value);
     }
-};
+
+    // 9. 이미 출력된 AI 리포트가 있다면 실시간 번역
+    const activeReportCard = document.querySelector(".ai-report-card");
+    if (activeReportCard) {
+        const resumeText = seekerResumeTextarea.value;
+        const nameVal = seekerNameInput.value || "Seeker";
+        const aiReport = generateAiReport(resumeText, nameVal);
+        
+        activeReportCard.querySelector(".ai-report-title").textContent = aiReport.title;
+        activeReportCard.querySelector(".ai-report-summary").textContent = aiReport.summary;
+        activeReportCard.querySelector(".ai-report-body > div").textContent = aiReport.extractTitle;
+        
+        const keywordContainer = activeReportCard.querySelector(".ai-report-keywords");
+        if (keywordContainer) {
+            keywordContainer.innerHTML = aiReport.keywords.map(kw => `<span class="ai-keyword-tag">${kw}</span>`).join("");
+        }
+    }
+}
 
 
