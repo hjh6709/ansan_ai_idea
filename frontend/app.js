@@ -124,7 +124,7 @@ const btnCloseSettings = document.getElementById("btn-close-settings");
 const settingsModal = document.getElementById("settings-modal");
 const btnSaveSettings = document.getElementById("btn-save-settings");
 const btnTestConnection = document.getElementById("btn-test-connection");
-const openapiKeyInput = document.getElementById("openapi-key");
+const openapiKeyInput = document.getElementById("input-api-key");
 const connectionStatusMsg = document.getElementById("connection-status-msg");
 const apiStatusIndicator = document.getElementById("api-status-indicator");
 
@@ -132,8 +132,8 @@ const matchingForm = document.getElementById("matching-form");
 const seekerNameInput = document.getElementById("seeker-name");
 const seekerResumeTextarea = document.getElementById("seeker-resume");
 const charCountSpan = document.getElementById("curr-len");
-const visaRadioButtons = document.getElementsByName("visa_type");
-const visaRuleInfo = document.getElementById("visa-rule-info");
+const visaRadioButtons = document.getElementsByName("visa-type");
+const visaRuleInfo = document.getElementById("visa-rule-tip");
 
 const stateIdle = document.getElementById("state-idle");
 const stateLoading = document.getElementById("state-loading");
@@ -152,6 +152,7 @@ const screenedListContainer = document.getElementById("screened-list-container")
 
 const statsSourceBadge = document.getElementById("stats-source-badge");
 const statsContainer = document.getElementById("stats-container");
+const statsMiniContainer = document.getElementById("stats-mini-container");
 
 const VISA_LEGAL_TIPS = {
     "F-4": "💡 F-4(재외동포) 비자는 법령상 단순노무행위 취업이 엄격히 제한됩니다. (예: 단순 물류 분류, 단순 박스 포장, 수작업 세척 등은 법적 처벌 대상)",
@@ -212,12 +213,13 @@ function updateVisaInfoTip(visaType) {
 
 // 헤더 API 배지 변경
 function updateHeaderApiBadge(isConnected) {
+    const statusTextNode = apiStatusIndicator.querySelector("#api-status-text");
     if (isConnected) {
         apiStatusIndicator.className = "api-status connected";
-        apiStatusIndicator.querySelector(".status-text").textContent = "경기 OpenAPI 연동 활성";
+        if (statusTextNode) statusTextNode.textContent = "경기 OpenAPI 연동 활성";
     } else {
         apiStatusIndicator.className = "api-status disconnected";
-        apiStatusIndicator.querySelector(".status-text").textContent = "로컬 프리셋 데이터 모드";
+        if (statusTextNode) statusTextNode.textContent = "로컬 프리셋 데이터 모드";
     }
 }
 
@@ -485,7 +487,7 @@ function executeMatchingLocal(seekerResume, visaType, companyPool) {
 matchingForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const visaType = document.querySelector('input[name="visa_type"]:checked').value;
+    const visaType = document.querySelector('input[name="visa-type"]:checked').value;
     const seekerName = seekerNameInput.value.trim();
     const resumeText = seekerResumeTextarea.value.trim();
     const apiKey = localStorage.getItem("gg_openapi_key") || DEFAULT_API_KEY || "";
@@ -736,17 +738,13 @@ async function loadAndRenderForeignerStats(apiKey) {
         statsSourceBadge.textContent = `데이터 출처: ${dataSource}`;
     }
 
-    if (!statsContainer) return;
+    if (!statsContainer || !statsMiniContainer) return;
 
-    statsContainer.innerHTML = `
-        <div class="statistics-charts">
-            <div class="chart-bar-container" id="bar-chart-list"></div>
-            <div class="stats-cards-container" id="mini-cards-list"></div>
-        </div>
-    `;
+    statsContainer.innerHTML = "";
+    statsMiniContainer.innerHTML = "";
 
-    const barChartList = document.getElementById("bar-chart-list");
-    const miniCardsList = document.getElementById("mini-cards-list");
+    const barChartList = statsContainer;
+    const miniCardsList = statsMiniContainer;
 
     const maxVal = Math.max(...stats.map(s => s.count));
 
