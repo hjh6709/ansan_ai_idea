@@ -13,14 +13,21 @@
     --text-secondary: #9ca3af;
     --text-muted: #6b7280;
     
-    --primary: #10b981; /* 네온 민트 에메랄드 */
-    --primary-glow: rgba(16, 185, 129, 0.25);
-    --secondary: #3b82f6; /* 요코하마 딥 블루 악센트 */
-    --secondary-glow: rgba(59, 130, 246, 0.25);
-    --warning: #f43f5e; /* 소프트 크림슨 */
-    --warning-glow: rgba(244, 63, 94, 0.15);
+    /* 안산시 공식 CI 컬러 기반 매핑 */
+    --ansan-blue: #321a88;
+    --ansan-orange: #f16d23;
+    --ansan-green: #65bb50;
     
-    --border-radius-lg: 12px; /* 좀 더 현대적이고 정돈된 12px 둥글기 */
+    --primary: var(--ansan-green); /* 안산녹색: 적합/안심 고용 */
+    --primary-glow: rgba(101, 187, 80, 0.25);
+    
+    --secondary: #3b82f6; /* 요코하마 딥블루 (가시성 조화) */
+    --secondary-glow: rgba(59, 130, 246, 0.25);
+    
+    --warning: var(--ansan-orange); /* 안산주황: 고용제한 대상 */
+    --warning-glow: rgba(241, 109, 35, 0.15);
+    
+    --border-radius-lg: 12px;
     --border-radius-md: 8px;
     --transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
     --font-family: 'Inter', 'Noto Sans KR', sans-serif;
