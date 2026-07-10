@@ -1,31 +1,31 @@
 /* ==========================================================
-   REDESIGN STYLE SYSTEM - 안산 스마트허브 외국인 안심 채용 플랫폼
-   Inspired by Yokohama Bank IT Recruitment Portal aesthetics (boy.co.jp)
+   AN SAN CITY LIGHT STYLE SYSTEM - 안산 스마트허브 외국인 안심 채용 플랫폼
+   Official Municipal Portal White & CI Hybrid Aesthetics
    ========================================================== */
 
 :root {
-    --bg-dark: #070a13;
-    --card-bg: rgba(13, 19, 36, 0.65);
-    --card-border: rgba(255, 255, 255, 0.1);
+    --bg-dark: #f4f6f9; /* 안산시청 공식 포털 스타일의 밝고 부드러운 그레이 배경 */
+    --card-bg: #ffffff; /* 깨끗하고 깔끔한 화이트 카드 */
+    --card-border: #e2e8f0; /* 카드 구분용 미세 그레이 보더 */
     --card-border-hover: rgba(59, 130, 246, 0.4);
     
-    --text-primary: #f3f4f6;
-    --text-secondary: #9ca3af;
-    --text-muted: #6b7280;
+    --text-primary: #0f172a; /* 가독성 높은 다크 슬레이트 */
+    --text-secondary: #475569; /* 부드러운 서브 차콜 */
+    --text-muted: #64748b; /* 보조 쿨 그레이 */
     
     /* 안산시 공식 CI 컬러 기반 매핑 */
     --ansan-blue: #321a88;
     --ansan-orange: #f16d23;
     --ansan-green: #65bb50;
     
-    --primary: var(--ansan-green); /* 안산녹색: 적합/안심 고용 */
-    --primary-glow: rgba(101, 187, 80, 0.25);
+    --primary: var(--ansan-green); /* 안산녹색: 안심/승인 고용 */
+    --primary-glow: rgba(101, 187, 80, 0.1);
     
-    --secondary: #3b82f6; /* 요코하마 딥블루 (가시성 조화) */
-    --secondary-glow: rgba(59, 130, 246, 0.25);
+    --secondary: #1e3a8a; /* 안산청색 연계 로열 네이비 */
+    --secondary-glow: rgba(30, 58, 138, 0.08);
     
-    --warning: var(--ansan-orange); /* 안산주황: 고용제한 대상 */
-    --warning-glow: rgba(241, 109, 35, 0.15);
+    --warning: var(--ansan-orange); /* 안산주황: 고용제한 알림 */
+    --warning-glow: rgba(241, 109, 35, 0.08);
     
     --border-radius-lg: 12px;
     --border-radius-md: 8px;
@@ -50,7 +50,7 @@ body {
     letter-spacing: -0.01em;
 }
 
-/* --- 배경 글로우 기하학 데코레이터 --- */
+/* --- 라이트 모드용 화사한 파스텔톤 배경 글로우 --- */
 .glow-bg {
     position: absolute;
     top: 0;
@@ -68,7 +68,7 @@ body {
     left: -10%;
     width: 60%;
     height: 80%;
-    background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, rgba(7, 10, 19, 0) 70%);
+    background: radial-gradient(circle, rgba(50, 26, 136, 0.05) 0%, rgba(244, 246, 249, 0) 70%);
     filter: blur(140px);
 }
 
@@ -78,7 +78,7 @@ body {
     right: -10%;
     width: 50%;
     height: 70%;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(7, 10, 19, 0) 70%);
+    background: radial-gradient(circle, rgba(101, 187, 80, 0.06) 0%, rgba(244, 246, 249, 0) 70%);
     filter: blur(140px);
 }
 
@@ -93,13 +93,13 @@ body {
     gap: 30px;
 }
 
-/* --- 헤더 영역 (Yokohama Bank Style - Thin & Crisp) --- */
+/* --- 헤더 영역 (안산시청 공식 포털 스타일 - Clean & Bright) --- */
 .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 20px;
-    border-bottom: 1.5px solid var(--card-border);
+    border-bottom: 2px solid var(--card-border);
 }
 
 .header-logo {
@@ -123,9 +123,7 @@ body {
     font-size: 1.35rem;
     font-weight: 800;
     letter-spacing: -0.04em;
-    background: linear-gradient(to right, #ffffff, #9ca3af);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--text-primary);
 }
 
 .header-actions {
@@ -143,19 +141,20 @@ body {
     font-size: 0.8rem;
     font-weight: 600;
     border: 1px solid var(--card-border);
-    background: rgba(255, 255, 255, 0.01);
-    letter-spacing: -0.02em;
+    background: #ffffff;
+    color: var(--text-secondary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .api-status.connected {
     color: var(--primary);
-    border-color: rgba(16, 185, 129, 0.25);
-    background: rgba(16, 185, 129, 0.04);
+    border-color: rgba(101, 187, 80, 0.4);
+    background: rgba(101, 187, 80, 0.05);
 }
 
 .api-status.connected .status-dot {
     background-color: var(--primary);
-    box-shadow: 0 0 8px var(--primary);
+    box-shadow: 0 0 6px var(--primary);
 }
 
 .api-status.disconnected {
@@ -172,19 +171,20 @@ body {
 .btn-icon {
     width: 36px;
     height: 36px;
-    background: rgba(255, 255, 255, 0.02);
+    background: #ffffff;
     border: 1px solid var(--card-border);
-    color: var(--text-primary);
+    color: var(--text-secondary);
     border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: var(--transition);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .btn-icon:hover {
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(30, 58, 138, 0.05);
     color: var(--secondary);
     border-color: var(--secondary);
     transform: rotate(90deg);
@@ -203,28 +203,27 @@ body {
     }
 }
 
-/* --- 초정밀 글래스모피즘 카드 --- */
+/* --- 순백색 미니멀 라이트 카드 --- */
 .card.glass {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius-lg);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
     padding: 32px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 24px rgba(148, 163, 184, 0.15);
     display: flex;
     flex-direction: column;
     height: 100%;
-    transition: border-color 0.3s ease;
+    transition: var(--transition);
 }
 
 .card.glass:hover {
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(59, 130, 246, 0.25);
+    box-shadow: 0 12px 30px rgba(148, 163, 184, 0.22);
 }
 
 .card-header {
     margin-bottom: 28px;
-    border-left: 3px solid var(--secondary);
+    border-left: 4.5px solid var(--secondary);
     padding-left: 12px;
 }
 
@@ -232,6 +231,7 @@ body {
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: -0.03em;
+    color: var(--text-primary);
     margin-bottom: 6px;
 }
 
@@ -251,15 +251,15 @@ body {
 
 label {
     font-size: 0.88rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--text-primary);
     text-transform: uppercase;
     letter-spacing: 0.02em;
 }
 
 input[type="text"], textarea {
-    background: rgba(255, 255, 255, 0.01);
-    border: 1px solid var(--card-border);
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
     border-radius: var(--border-radius-md);
     color: var(--text-primary);
     padding: 14px 16px;
@@ -271,11 +271,11 @@ input[type="text"], textarea {
 
 input[type="text"]:focus, textarea:focus {
     border-color: var(--secondary);
-    background: rgba(255, 255, 255, 0.03);
-    box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.08);
 }
 
-/* --- 비자 선택 박스 (Yokohama Grid Style) --- */
+/* --- 비자 선택 박스 (라이트 그리드) --- */
 .visa-selector {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -291,8 +291,8 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .visa-box {
-    background: rgba(255, 255, 255, 0.01);
-    border: 1.5px solid var(--card-border);
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
     border-radius: var(--border-radius-md);
     padding: 16px 10px;
     display: flex;
@@ -304,25 +304,26 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .visa-option:hover .visa-box {
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.02);
+    border-color: #94a3b8;
+    background: #f1f5f9;
 }
 
 .visa-option input[type="radio"]:checked + .visa-box {
-    background: rgba(59, 130, 246, 0.06);
+    background: rgba(30, 58, 138, 0.04);
     border-color: var(--secondary);
-    box-shadow: 0 0 16px rgba(59, 130, 246, 0.15);
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.08);
 }
 
 .visa-code {
     font-size: 1.25rem;
     font-weight: 800;
     letter-spacing: -0.01em;
+    color: var(--text-primary);
 }
 
 .visa-label {
     font-size: 0.78rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-secondary);
 }
 
@@ -333,12 +334,13 @@ input[type="text"]:focus, textarea:focus {
 .visa-info-box {
     font-size: 0.82rem;
     line-height: 1.5;
-    background: rgba(59, 130, 246, 0.03);
-    border: 1px solid rgba(59, 130, 246, 0.12);
+    background: rgba(37, 99, 235, 0.05);
+    border: 1px solid rgba(37, 99, 235, 0.15);
     border-radius: var(--border-radius-md);
     padding: 14px 16px;
-    color: #93c5fd;
+    color: #1e3a8a;
     margin-top: 6px;
+    font-weight: 500;
 }
 
 /* --- 경력 프리셋 버튼 --- */
@@ -361,11 +363,11 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .btn-preset {
-    background: rgba(255, 255, 255, 0.01);
-    border: 1px solid var(--card-border);
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
     color: var(--text-secondary);
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: 600;
     padding: 10px 14px;
     border-radius: var(--border-radius-md);
     cursor: pointer;
@@ -374,14 +376,14 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .btn-preset:hover {
-    background: rgba(255, 255, 255, 0.04);
+    background: #f8fafc;
     color: var(--text-primary);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: #94a3b8;
 }
 
 /* --- 진단 시작 버튼 --- */
 .btn-primary {
-    background: linear-gradient(135deg, var(--secondary), #1d4ed8);
+    background: linear-gradient(135deg, var(--secondary), var(--ansan-blue));
     color: white;
     border: none;
     font-size: 0.98rem;
@@ -391,13 +393,13 @@ input[type="text"]:focus, textarea:focus {
     border-radius: var(--border-radius-md);
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 4px 16px rgba(29, 78, 216, 0.3);
+    box-shadow: 0 4px 12px rgba(50, 26, 136, 0.2);
 }
 
 .btn-primary:hover {
     transform: translateY(-1px);
-    background: linear-gradient(135deg, #2563eb, #1e40af);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    background: linear-gradient(135deg, #1e3a8a, #111827);
+    box-shadow: 0 6px 16px rgba(50, 26, 136, 0.3);
 }
 
 .btn-primary:active {
@@ -411,7 +413,7 @@ input[type="text"]:focus, textarea:focus {
     text-align: center;
     color: var(--text-secondary);
     min-height: 520px;
-    border: 1.5px dashed var(--card-border) !important;
+    border: 2px dashed #cbd5e1 !important;
 }
 
 .empty-icon {
@@ -432,7 +434,7 @@ input[type="text"]:focus, textarea:focus {
     color: var(--text-secondary);
 }
 
-/* --- 로딩 인디케이터 (요코하마 테크니컬 스킨) --- */
+/* --- 로딩 인디케이터 (라이트 스킨) --- */
 .loading-state {
     align-items: center;
     justify-content: center;
@@ -475,9 +477,9 @@ input[type="text"]:focus, textarea:focus {
 .loader-scan {
     position: absolute;
     width: 100%;
-    height: 1px;
+    height: 2px;
     background: var(--secondary);
-    box-shadow: 0 0 8px var(--secondary);
+    box-shadow: 0 0 6px var(--secondary);
     animation: scan 2s infinite ease-in-out;
 }
 
@@ -502,7 +504,7 @@ input[type="text"]:focus, textarea:focus {
     align-items: center;
     gap: 12px;
     margin-bottom: 16px;
-    opacity: 0.35;
+    opacity: 0.4;
     transition: var(--transition);
 }
 
@@ -516,12 +518,12 @@ input[type="text"]:focus, textarea:focus {
 
 .timeline-step.done .step-dot {
     background-color: var(--primary);
-    box-shadow: 0 0 6px var(--primary);
+    box-shadow: 0 0 4px var(--primary);
 }
 
 .timeline-step.active .step-dot {
     background-color: var(--secondary);
-    box-shadow: 0 0 10px var(--secondary);
+    box-shadow: 0 0 6px var(--secondary);
     animation: pulse 1.2s infinite alternate;
 }
 
@@ -534,12 +536,8 @@ input[type="text"]:focus, textarea:focus {
 
 .step-label {
     font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-}
-
-@keyframes pulse {
-    to { transform: scale(1.35); opacity: 0.8; }
+    font-weight: 700;
+    color: var(--text-primary);
 }
 
 /* --- 결과 레이아웃 --- */
@@ -556,13 +554,16 @@ input[type="text"]:focus, textarea:focus {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-left: 3px solid var(--secondary);
+    border-left: 4.5px solid var(--secondary);
     height: auto;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
 }
 
 .summary-info h3 {
     font-size: 1.05rem;
     font-weight: 700;
+    color: var(--text-primary);
     margin-bottom: 4px;
 }
 
@@ -575,7 +576,7 @@ input[type="text"]:focus, textarea:focus {
     font-size: 0.7rem;
     color: var(--secondary);
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
     margin-bottom: 4px;
     text-transform: uppercase;
 }
@@ -587,9 +588,10 @@ input[type="text"]:focus, textarea:focus {
     padding: 6px 12px;
     border-radius: 4px;
     font-size: 0.78rem;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.02);
+    font-weight: 700;
+    background: #f1f5f9;
     border: 1px solid var(--card-border);
+    color: var(--text-secondary);
 }
 
 .badge-dot {
@@ -605,15 +607,15 @@ input[type="text"]:focus, textarea:focus {
 
 .results-header-title {
     font-size: 1.05rem;
-    font-weight: 700;
+    font-weight: 800;
     margin-top: 8px;
     display: flex;
     align-items: center;
     gap: 8px;
-    letter-spacing: -0.02em;
+    color: var(--text-primary);
 }
 
-/* --- 추천 일자리 카드 리스트 (Yokohama Clean Minimal) --- */
+/* --- 추천 일자리 카드 리스트 (라이트 고용 카드) --- */
 .recommendations-list {
     display: flex;
     flex-direction: column;
@@ -623,16 +625,15 @@ input[type="text"]:focus, textarea:focus {
 .company-card.glass {
     padding: 24px;
     border-radius: var(--border-radius-md);
-    border-left: 3.5px solid var(--secondary);
-    transition: var(--transition);
-    cursor: pointer;
-    height: auto;
+    border-left: 4.5px solid var(--secondary);
+    background: #ffffff;
+    box-shadow: 0 4px 15px rgba(148, 163, 184, 0.08);
 }
 
 .company-card.glass:hover {
     transform: translateX(4px);
     border-color: var(--primary);
-    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 6px 20px rgba(148, 163, 184, 0.15);
 }
 
 .card-top {
@@ -652,26 +653,27 @@ input[type="text"]:focus, textarea:focus {
     font-size: 1.15rem;
     font-weight: 700;
     letter-spacing: -0.02em;
+    color: var(--text-primary);
 }
 
 .comp-meta {
     display: flex;
     gap: 8px;
     font-size: 0.78rem;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--text-secondary);
 }
 
 .comp-meta span {
-    background: rgba(255, 255, 255, 0.04);
+    background: #f1f5f9;
     border: 1px solid var(--card-border);
     padding: 2px 8px;
     border-radius: 4px;
 }
 
 .match-score-badge {
-    background: rgba(59, 130, 246, 0.06);
-    border: 1px solid var(--secondary);
+    background: rgba(30, 58, 138, 0.03);
+    border: 1.5px solid var(--secondary);
     border-radius: 4px;
     padding: 6px 12px;
     text-align: center;
@@ -680,22 +682,22 @@ input[type="text"]:focus, textarea:focus {
 
 .score-num {
     display: block;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 800;
     color: var(--secondary);
 }
 
 .score-lbl {
     display: block;
-    font-size: 0.62rem;
-    font-weight: 600;
+    font-size: 0.65rem;
+    font-weight: 700;
     color: var(--text-secondary);
 }
 
 .comp-desc {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     color: var(--text-secondary);
-    line-height: 1.55;
+    line-height: 1.6;
     margin-bottom: 14px;
 }
 
@@ -705,22 +707,22 @@ input[type="text"]:focus, textarea:focus {
     gap: 6px;
     font-size: 0.8rem;
     color: var(--text-secondary);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--card-border);
     padding-top: 12px;
 }
 
-/* --- 안전 인증 마킹 --- */
+/* --- 안심 인증 마킹 --- */
 .safety-indicator {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--primary);
-    background: rgba(16, 185, 129, 0.03);
+    font-weight: 700;
+    color: #15803d; /* 짙은 녹색 */
+    background: rgba(34, 197, 94, 0.06);
     padding: 6px 12px;
     border-radius: 4px;
-    border: 1px solid rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.15);
     margin-top: 12px;
 }
 
@@ -730,27 +732,30 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .glass-collapse {
-    background: rgba(7, 10, 19, 0.4);
-    border: 1px solid var(--card-border);
+    background: #ffffff;
+    border: 1.5px solid var(--card-border);
     border-radius: var(--border-radius-md);
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(148, 163, 184, 0.05);
 }
 
 .collapse-header {
     padding: 16px 20px;
     font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--text-secondary);
+    font-weight: 700;
+    color: var(--text-primary);
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
     list-style: none;
     user-select: none;
+    background: #f8fafc;
 }
 
 .arrow-icon {
     transition: var(--transition);
+    color: var(--text-secondary);
 }
 
 .glass-collapse[open] .arrow-icon {
@@ -758,17 +763,18 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .collapse-content {
-    padding: 0 20px 20px 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     max-height: 260px;
     overflow-y: auto;
+    background: #ffffff;
 }
 
 .screened-card {
-    background: rgba(244, 63, 94, 0.01);
-    border: 1px solid rgba(244, 63, 94, 0.12);
+    background: rgba(241, 109, 35, 0.02);
+    border: 1px solid rgba(241, 109, 35, 0.18);
     border-radius: 6px;
     padding: 14px 18px;
     font-size: 0.82rem;
@@ -778,18 +784,18 @@ input[type="text"]:focus, textarea:focus {
     display: flex;
     justify-content: space-between;
     font-weight: 700;
-    color: #fda2b9;
+    color: #c2410c; /* 주황색 짙게 */
     margin-bottom: 6px;
 }
 
 .screened-reason {
-    color: #f43f5e;
+    color: #c2410c;
     line-height: 1.5;
-    background: rgba(244, 63, 94, 0.03);
+    background: rgba(241, 109, 35, 0.04);
     padding: 8px 12px;
     border-radius: 4px;
     margin-top: 6px;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* --- 하단: 정책 통계 대시보드 그리드 --- */
@@ -810,10 +816,11 @@ input[type="text"]:focus, textarea:focus {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    background: rgba(255, 255, 255, 0.01);
-    border: 1px solid rgba(255, 255, 255, 0.02);
+    background: #ffffff;
+    border: 1px solid var(--card-border);
     border-radius: var(--border-radius-md);
     padding: 24px;
+    box-shadow: 0 4px 12px rgba(148, 163, 184, 0.05);
 }
 
 .chart-bar-item {
@@ -826,7 +833,7 @@ input[type="text"]:focus, textarea:focus {
     display: flex;
     justify-content: space-between;
     font-size: 0.82rem;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .bar-lbl-name {
@@ -834,14 +841,14 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .bar-lbl-val {
-    color: var(--secondary);
-    font-weight: 700;
+    color: var(--ansan-blue);
+    font-weight: 800;
 }
 
 .bar-track {
-    height: 6px;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 3px;
+    height: 8px;
+    background: #f1f5f9;
+    border-radius: 4px;
     overflow: hidden;
     position: relative;
 }
@@ -849,7 +856,7 @@ input[type="text"]:focus, textarea:focus {
 .bar-fill {
     height: 100%;
     background: linear-gradient(to right, var(--secondary), var(--primary));
-    border-radius: 3px;
+    border-radius: 4px;
     width: 0;
     transition: width 1.2s cubic-bezier(0.1, 0.8, 0.3, 1);
 }
@@ -868,19 +875,21 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .stat-mini-card {
-    background: rgba(255, 255, 255, 0.01);
-    border: 1px solid var(--card-border);
+    background: #ffffff;
+    border: 1.5px solid var(--card-border);
     border-radius: var(--border-radius-md);
     padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 4px;
     transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(148, 163, 184, 0.05);
 }
 
 .stat-mini-card:hover {
-    background: rgba(59, 130, 246, 0.02);
-    border-color: rgba(59, 130, 246, 0.25);
+    background: rgba(30, 58, 138, 0.02);
+    border-color: rgba(30, 58, 138, 0.25);
+    box-shadow: 0 6px 16px rgba(148, 163, 184, 0.12);
 }
 
 .stat-mini-code {
@@ -892,6 +901,7 @@ input[type="text"]:focus, textarea:focus {
 .stat-mini-val {
     font-size: 1.15rem;
     font-weight: 800;
+    color: var(--text-primary);
 }
 
 .stat-mini-desc {
@@ -907,8 +917,8 @@ input[type="text"]:focus, textarea:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(12px);
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(8px);
     z-index: 100;
     display: flex;
     align-items: center;
@@ -919,11 +929,11 @@ input[type="text"]:focus, textarea:focus {
 .modal-card {
     width: 100%;
     max-width: 480px;
-    background: rgba(11, 15, 27, 0.95);
-    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    background: #ffffff;
+    border: 1.5px solid var(--card-border);
     border-radius: var(--border-radius-lg);
     padding: 32px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -933,6 +943,7 @@ input[type="text"]:focus, textarea:focus {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: var(--text-primary);
 }
 
 .modal-header h3 {
@@ -945,7 +956,7 @@ input[type="text"]:focus, textarea:focus {
     font-size: 0.82rem;
     color: var(--text-secondary);
     line-height: 1.5;
-    background: rgba(255, 255, 255, 0.02);
+    background: #f8fafc;
     padding: 14px;
     border-radius: var(--border-radius-md);
     border: 1px solid var(--card-border);
@@ -958,9 +969,9 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.03);
+    background: #ffffff;
     border: 1px solid var(--card-border);
-    color: var(--text-primary);
+    color: var(--text-secondary);
     padding: 10px 18px;
     font-size: 0.88rem;
     font-weight: 600;
@@ -970,7 +981,7 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: #f1f5f9;
 }
 
 .connection-status-msg {
@@ -988,8 +999,8 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .connection-status-msg.error {
-    background: rgba(244, 63, 94, 0.05);
-    border: 1px solid rgba(244, 63, 94, 0.2);
+    background: rgba(241, 109, 35, 0.05);
+    border: 1px solid rgba(241, 109, 35, 0.2);
     color: var(--warning);
 }
 
