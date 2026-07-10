@@ -330,7 +330,9 @@ function showConnectionMessage(type, text) {
 // OpenAPI에서 가져온 원본 기업 데이터에 가이드 시뮬레이션용 데이터 추가
 function enrichCompanyData(rawRows) {
     return rawRows.map((raw, i) => {
-        const bzplc_nm = raw.BZPLC_NM || raw.ENTRPS_NM || `가상기업_${i}`;
+        const bzplc_nm = raw.KNOWLG_INDUST_CNTR_NM 
+            ? `${raw.KNOWLG_INDUST_CNTR_NM} 입주기업` 
+            : (raw.BZPLC_NM || raw.ENTRPS_NM || `안산 스마트허브 제조사_${i}`);
         const induty_cd = raw.INDUTY_CD || "C29111";
         const addr = raw.REFINE_ROADNM_ADDR || raw.REFINE_LOTNO_ADDR || "경기도 안산시 단원구 스마트허브로";
         let prdct_desc = raw.PRDCT_DESC || "";
