@@ -869,6 +869,8 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">안산</span><span class=\"color-ansan-orange\">스마트허브</span> <span class=\"text-white-dark\">안심채용 플랫폼</span>",
         "api-status-connected": "경기 OpenAPI 연동 활성",
         "api-status-disconnected": "연동 대기 중",
+        "summary-title-text": "체류자격 적법성 진단 완료",
+        "screened-collapse-title": "비자 규정 위반 취업 제한 기업 목록",
         "ai-report-title": "🤖 AI 이력 분석 요약 리포트",
         "ai-extract-title": "AI가 추출한 구직자 핵심 역량",
         "feedback-mct": "구직자 {name}님은 정밀 기계 조작 및 생산 공정 제어 분야에서 숙련된 실무 역량을 보유하고 있습니다. 반월산단 내 기계 가공 및 조립 제조 현장과의 직무 연관성 및 생산 효율성이 매우 높게 평가되어 법적 규정을 준수하는 해당 가공 기업을 우선 추천합니다.",
@@ -955,6 +957,8 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Safe Job Platform</span>",
         "api-status-connected": "Gyeonggi OpenAPI Active",
         "api-status-disconnected": "Waiting for Connection",
+        "summary-title-text": "Visa Law Compliance Diagnostic Completed",
+        "screened-collapse-title": "List of Restricted Companies due to Visa Regulations",
         "ai-report-title": "🤖 AI Resume Analysis Report",
         "ai-extract-title": "AI-Extracted Core Competency",
         "feedback-mct": "Job seeker {name} exhibits professional competency in precision machine operation and production line control. Highly compatible with manufacturing facilities in Banwon, yielding legal safety and productivity.",
@@ -1041,6 +1045,8 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Nền tảng việc làm an toàn</span>",
         "api-status-connected": "Kết nối OpenAPI Hoạt động",
         "api-status-disconnected": "Đang chờ kết nối",
+        "summary-title-text": "Chẩn đoán tuân thủ Luật Thị thực hoàn tất",
+        "screened-collapse-title": "Danh sách doanh nghiệp bị hạn chế theo quy định Visa",
         "ai-report-title": "🤖 Báo cáo phân tích lý lịch của AI",
         "ai-extract-title": "Kỹ năng cốt lõi được trích xuất bởi AI",
         "feedback-mct": "Người tìm việc {name} có năng lực vận hành máy móc cơ khí chính xác và kiểm soát dây chuyền sản xuất. Rất tương thích với các nhà máy sản xuất tại Banwon, đảm bảo tính hợp pháp và năng suất cao.",
@@ -1127,6 +1133,8 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">安山</span> <span class=\"color-ansan-orange\">智能集聚区</span> <span class=\"text-white-dark\">安心就业平台</span>",
         "api-status-connected": "京畿道 OpenAPI 已激活",
         "api-status-disconnected": "等待连接中",
+        "summary-title-text": "滞留资格合规性诊断完成",
+        "screened-collapse-title": "因签证法规限制就业的企业列表",
         "ai-report-title": "🤖 AI 简历分析综合报告",
         "ai-extract-title": "AI 提取的求职者核心能力",
         "feedback-mct": "求职者 {name} 在精密机械操作和生产流程控制方面具备熟练的实践能力。系统评估认为，您与半月工业园内的机械加工和装配制造岗位的契合度极高，推荐这几家合规企业。",
@@ -1213,6 +1221,8 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Платформа безопасной работы</span>",
         "api-status-connected": "OpenAPI Кёнгидо активен",
         "api-status-disconnected": "Ожидание подключения",
+        "summary-title-text": "Проверка визового соответствия завершена",
+        "screened-collapse-title": "Список ограниченных предприятий из-за визовых законов",
         "ai-report-title": "🤖 AI-Отчет об анализе резюме",
         "ai-extract-title": "Ключевые компетенции соискателя",
         "feedback-mct": "Соискатель {name} обладает профессиональной компетентностью в управлении высокоточными станками и производственными линиями. Отличная совместимость с заводами в Панвоне с соблюдением всех визовых законов.",
@@ -1299,6 +1309,8 @@ const TRANSLATIONS = {
         "logo-title": "<span class=\"color-ansan-green\">Ansan</span> <span class=\"color-ansan-orange\">SmartHub</span> <span class=\"text-white-dark\">Platform Pekerjaan Aman</span>",
         "api-status-connected": "OpenAPI Gyeonggi Aktif",
         "api-status-disconnected": "Menunggu Koneksi",
+        "summary-title-text": "Diagnosis Kepatuhan Visa Selesai",
+        "screened-collapse-title": "Daftar Perusahaan yang Dibatasi karena Aturan Visa",
         "ai-report-title": "🤖 AI Laporan Analisis Resume",
         "ai-extract-title": "Kompetensi Utama Hasil Analisis AI",
         "feedback-mct": "Pencari kerja {name} memiliki kompetensi kerja yang teruji dalam pengoperasian mesin perkakas presisi dan kontrol lini produksi. Sangat cocok dengan pabrik manufaktur di Banwon, terjamin legal dan produktif.",
@@ -1407,6 +1419,16 @@ function changeLanguage(lang) {
     // 3. 섹션 타이틀
     document.querySelector(".section-dashboard .sect-title").textContent = t["sect-dashboard-title"];
     document.querySelector(".section-diagnostic .sect-title").textContent = t["sect-diagnostic-title"];
+
+    // 결과 요약 배너 및 차단 리포트 타이틀 실시간 번역
+    const summaryTitleEl = document.getElementById("summary-title-text");
+    if (summaryTitleEl && t["summary-title-text"]) {
+        summaryTitleEl.textContent = t["summary-title-text"];
+    }
+    const screenedCollapseTitleEl = document.getElementById("screened-collapse-title");
+    if (screenedCollapseTitleEl && t["screened-collapse-title"]) {
+        screenedCollapseTitleEl.textContent = t["screened-collapse-title"];
+    }
 
     // 4. 진단 폼 카드
     document.querySelector(".diagnostic-form-card h2").textContent = t["diag-card-title"];

@@ -586,11 +586,24 @@ input[type="text"]:focus, textarea:focus {
 .visa-info-box {
     font-size: 0.8rem;
     background: #f8fafc;
-    border: 1px solid var(--card-border);
-    border-radius: var(--border-radius-lg);
-    padding: 14px 16px;
+    border: 1.5px solid #191e2e;
+    border-radius: var(--border-radius-md);
+    padding: 16px;
     color: var(--text-primary);
     font-weight: 500;
+    line-height: 1.65;
+    position: relative;
+    box-shadow: 2px 2px 0px rgba(25, 30, 46, 0.1);
+}
+
+.visa-info-box::before {
+    content: "🛡️ 출입국관리법 비자 검증 심사 기준 (Ansan Visa Compliance Standard)";
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--secondary);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
 }
 
 /* 프리셋 버튼 */
@@ -690,10 +703,11 @@ input[type="text"]:focus, textarea:focus {
     justify-content: space-between;
     align-items: center;
     background: #ffffff;
-    border: 1px solid var(--card-border);
-    border-left: 4px solid #191e2e;
+    border: 1.5px solid #191e2e;
+    border-left: 6px solid #10b981;
     padding: 24px 32px;
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: 2px 2px 0px rgba(25, 30, 46, 0.1);
 }
 
 .nlp-badge {
