@@ -3,7 +3,7 @@
 // Standalone (완전 독립형 브라우저 구동) app.js
 // ==========================================
 
-const DEFAULT_API_KEY = "87fe388db00b40498c1aec53f8b37bc8";
+const DEFAULT_API_KEY = import.meta.env.VITE_GG_API_KEY || "";
 
 // --- 1. 내장 데이터셋 및 룰셋 정의 (FastAPI 백엔드 로직 이식) ---
 
