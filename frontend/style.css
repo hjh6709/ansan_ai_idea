@@ -210,12 +210,12 @@ body {
 
 .hero-num {
     font-family: var(--font-family);
-    font-size: 1rem;
+    font-size: 0.78rem;
     font-weight: 800;
-    color: var(--secondary);
-    border: 1.5px solid var(--secondary);
-    padding: 2px 8px;
-    border-radius: 4px;
+    background: #191e2e;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 2px;
     line-height: 1;
 }
 
