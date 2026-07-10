@@ -361,15 +361,58 @@ function showConnectionMessage(type, text) {
 // OpenAPI에서 가져온 원본 기업 데이터에 가이드 시뮬레이션용 데이터 추가
 function enrichCompanyData(rawRows) {
     return rawRows.map((raw, i) => {
-        // API 리스폰스 필드의 대소문자 혼용 가드 처리
-        const centerName = raw.KNOWLG_INDUST_CNTR_NM || raw.knowlg_indust_cntr_nm || raw.KNOWLG_INDUST_CNTR_NM_1 || raw.KNOWLG_INDUST_CNTR_NM_2;
-        const bizName = raw.BZPLC_NM || raw.bzplc_nm || raw.ENTRPS_NM || raw.entrps_nm || raw.BIZPLC_NM || raw.bizplc_nm;
+        // 1. 동적 이름 감지 (Dynamic Name Detection)
+        let bzplc_nm = "";
+        const nameKeys = ["BZPLC_NM", "ENTRPS_NM", "KNOWLG_INDUST_CNTR_NM", "KNOWLGINDUSTCNTR_NM", "BIZPLC_NM", "CMPNY_NM", "CO_NM"];
         
-        const bzplc_nm = centerName 
-            ? `${centerName} 입주기업` 
-            : (bizName || `안산 스마트허브 제조사_${i}`);
-        const induty_cd = raw.INDUTY_CD || "C29111";
-        const addr = raw.REFINE_ROADNM_ADDR || raw.REFINE_LOTNO_ADDR || "경기도 안산시 단원구 스마트허브로";
+        for (const k of nameKeys) {
+            if (raw[k] || raw[k.toLowerCase()]) {
+                bzplc_nm = raw[k] || raw[k.toLowerCase()];
+                break;
+            }
+        }
+        
+        if (!bzplc_nm) {
+            for (const key in raw) {
+                if (key.toUpperCase().endsWith("_NM") || key.toUpperCase().includes("NAME") || key.toUpperCase().includes("CNTR") || key.toUpperCase().includes("CNTR_NM")) {
+                    if (raw[key] && String(raw[key]).trim().length > 2) {
+                        bzplc_nm = String(raw[key]).trim();
+                        break;
+                    }
+                }
+            }
+        }
+        
+        if (!bzplc_nm) {
+            bzplc_nm = `안산 스마트허브 제조사_${i}`;
+        } else {
+            if (bzplc_nm.includes("센터") || bzplc_nm.includes("타운") || bzplc_nm.includes("타크라") || bzplc_nm.includes("테크노")) {
+                bzplc_nm = `${bzplc_nm} 입주사`;
+            }
+        }
+
+        // 2. 동적 주소 감지 (Dynamic Address Detection)
+        let addr = "";
+        const addrKeys = ["REFINE_ROADNM_ADDR", "REFINE_LOTNO_ADDR", "ADDR", "ROAD_ADDR", "LOT_ADDR"];
+        for (const k of addrKeys) {
+            if (raw[k] || raw[k.toLowerCase()]) {
+                addr = raw[k] || raw[k.toLowerCase()];
+                break;
+            }
+        }
+        if (!addr) {
+            for (const key in raw) {
+                if (key.toUpperCase().endsWith("_ADDR") || key.toUpperCase().includes("ADDRESS") || key.toUpperCase().includes("소재지")) {
+                    if (raw[key] && String(raw[key]).trim().length > 5) {
+                        addr = String(raw[key]).trim();
+                        break;
+                    }
+                }
+            }
+        }
+        if (!addr) {
+            addr = "경기도 안산시 단원구 스마트허브로";
+        }
         let prdct_desc = raw.PRDCT_DESC || "";
         
         if (!prdct_desc.trim()) {
