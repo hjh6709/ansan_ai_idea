@@ -3,6 +3,8 @@
 // Standalone (완전 독립형 브라우저 구동) app.js
 // ==========================================
 
+const DEFAULT_API_KEY = "87fe388db00b40498c1aec53f8b37bc8";
+
 // --- 1. 내장 데이터셋 및 룰셋 정의 (FastAPI 백엔드 로직 이식) ---
 
 const MOCK_COMPANIES = [
@@ -160,7 +162,11 @@ const VISA_LEGAL_TIPS = {
 // --- 3. 초기화 로직 ---
 document.addEventListener("DOMContentLoaded", () => {
     // 1. API 키 로딩 및 헤더 상태 갱신
-    const savedKey = localStorage.getItem("gg_openapi_key");
+    let savedKey = localStorage.getItem("gg_openapi_key");
+    if (!savedKey) {
+        savedKey = DEFAULT_API_KEY;
+    }
+    
     if (savedKey) {
         openapiKeyInput.value = savedKey;
         updateHeaderApiBadge(true);
@@ -180,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 4. 외국인 주민 통계 대시보드 로드
-    loadAndRenderForeignerStats(savedKey || "");
+    loadAndRenderForeignerStats(savedKey || DEFAULT_API_KEY || "");
 });
 
 // 글자 수 실시간 계산
@@ -238,8 +244,9 @@ btnSaveSettings.addEventListener("click", () => {
         loadAndRenderForeignerStats(key);
     } else {
         localStorage.removeItem("gg_openapi_key");
-        updateHeaderApiBadge(false);
-        loadAndRenderForeignerStats("");
+        // 저장된 키 삭제 시 기본 내장 키로 자동 활성화
+        updateHeaderApiBadge(true);
+        loadAndRenderForeignerStats(DEFAULT_API_KEY);
     }
     closeModal();
 });
@@ -481,7 +488,7 @@ matchingForm.addEventListener("submit", async (e) => {
     const visaType = document.querySelector('input[name="visa_type"]:checked').value;
     const seekerName = seekerNameInput.value.trim();
     const resumeText = seekerResumeTextarea.value.trim();
-    const apiKey = localStorage.getItem("gg_openapi_key") || "";
+    const apiKey = localStorage.getItem("gg_openapi_key") || DEFAULT_API_KEY || "";
 
     // UI 상태 로딩으로 전환
     stateIdle.classList.add("hide");
