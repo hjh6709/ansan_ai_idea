@@ -755,16 +755,174 @@ input[type="text"]:focus, textarea:focus {
     border-radius: 2px;
 }
 
-/* 제외 목록 아코디언 */
-.glass-collapse {
-    border: 1px solid var(--card-border);
-    border-radius: var(--border-radius-lg);
+/* GNB 탭 내비게이션 */
+.gnb-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: -10px auto 30px auto;
+    max-width: var(--content-width);
+    padding: 0 24px;
+}
+
+.tab-btn {
+    flex: 1;
+    max-width: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
     background: #ffffff;
+    border: 1.5px solid #191e2e;
+    border-radius: var(--border-radius-md);
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 2px 2px 0px rgba(25, 30, 46, 0.1);
+}
+
+.tab-btn:hover {
+    background: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 3px 3px 0px rgba(25, 30, 46, 0.15);
+}
+
+.tab-btn.active {
+    background: #191e2e;
+    color: #ffffff;
+    border-color: #191e2e;
+    box-shadow: 2px 2px 0px rgba(25, 30, 46, 0.2);
+}
+
+/* 탭 페이지 전환 애니메이션 */
+.tab-page {
+    display: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.tab-page.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 제외 목록 아코디언 */
+details.glass-collapse summary {
+    list-style: none;
+    outline: none;
+    cursor: pointer;
+}
+details.glass-collapse summary::-webkit-details-marker {
+    display: none;
+}
+
+.glass-collapse {
+    border: 1.5px solid #191e2e;
+    border-radius: var(--border-radius-md);
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow: 2px 2px 0px rgba(25, 30, 46, 0.1);
 }
 
 .collapse-header {
-    background: #f8fafc;
-    border-radius: var(--border-radius-lg);
+    background: #fffaf0 !important;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    transition: background 0.3s;
+}
+
+.collapse-header:hover {
+    background: #fff5e6 !important;
+}
+
+.collapse-content {
+    padding: 20px;
+    background: #fdfdfd;
+    border-top: 1.5px solid #191e2e;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 차단 기업 카드 리뉴얼 */
+.screened-card {
+    background: #ffffff;
+    border: 1.5px solid #191e2e;
+    border-left: 6px solid #ef4444; /* 차단을 뜻하는 레드 칼라 */
+    border-radius: var(--border-radius-md);
+    padding: 16px;
+    box-shadow: 2px 2px 0px rgba(25, 30, 46, 0.05);
+    animation: fadeIn 0.4s ease-out;
+    text-align: left;
+}
+
+.screened-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.screened-comp-name {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #191e2e;
+}
+
+.screened-badge {
+    font-size: 0.65rem;
+    font-weight: 900;
+    background: #ef4444;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+}
+
+.screened-comp-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.screened-comp-meta span {
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid #cbd5e1;
+}
+
+.screened-reason-box {
+    margin-top: 12px;
+    background: rgba(239, 68, 68, 0.04);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: #b91c1c;
+    font-weight: 600;
+}
+
+.screened-reason-box strong {
+    font-weight: 900;
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+    color: #ef4444;
 }
 
 /* --- 모달 창 --- */
@@ -791,25 +949,26 @@ input[type="text"]:focus, textarea:focus {
 
 /* --- AI Analysis Report Card --- */
 .ai-report-card {
-    background: linear-gradient(135deg, rgba(50, 26, 136, 0.02) 0%, rgba(241, 109, 35, 0.02) 50%, rgba(101, 187, 80, 0.02) 100%);
-    border: 1.5px dashed var(--secondary);
-    border-radius: var(--border-radius-lg);
+    background: #ffffff;
+    border: 1.5px solid #191e2e;
+    border-radius: var(--border-radius-md);
     padding: 24px;
     margin-bottom: 24px;
     animation: fadeIn 0.6s ease-out;
     position: relative;
     overflow: hidden;
+    box-shadow: 2px 2px 0px rgba(25, 30, 46, 0.05);
 }
 
 .ai-report-card::before {
-    content: "AI POWERED";
+    content: "MATCH REPORT";
     position: absolute;
     top: 12px;
     right: 12px;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 900;
-    letter-spacing: 0.1em;
-    background: var(--secondary);
+    letter-spacing: 0.05em;
+    background: #191e2e;
     color: white;
     padding: 3px 8px;
     border-radius: 4px;

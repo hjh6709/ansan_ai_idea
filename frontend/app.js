@@ -165,6 +165,37 @@ const VISA_LEGAL_TIPS = {
 
 // --- 3. 초기화 로직 ---
 document.addEventListener("DOMContentLoaded", () => {
+    // 탭 페이지 라우팅 로직
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabPages = document.querySelectorAll(".tab-page");
+
+    function switchTab(targetId) {
+        tabButtons.forEach(btn => {
+            if (btn.getAttribute("data-target") === targetId) {
+                btn.classList.add("active");
+            } else {
+                btn.classList.remove("active");
+            }
+        });
+
+        tabPages.forEach(page => {
+            if (page.id === targetId) {
+                page.classList.add("active");
+            } else {
+                page.classList.remove("active");
+            }
+        });
+    }
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const target = btn.getAttribute("data-target");
+            switchTab(target);
+        });
+    });
+
+    window.switchTab = switchTab;
+
     // 1. API 키 로딩 및 헤더 상태 갱신
     let savedKey = localStorage.getItem("gg_openapi_key");
     if (!savedKey) {
@@ -394,14 +425,15 @@ function enrichCompanyData(rawRows) {
 // 1단계 법적 스크리닝
 function checkVisaRegulation(company, visaType) {
     const rule = VISA_RULES[visaType];
-    if (!rule) return { passed: true, reason: "통과" };
+    if (!rule) return { passed: true, reason_key: "pass", reason_params: {} };
 
     if (visaType === "F-4") {
         const induty = company.INDUTY_CD || "";
         if (rule.code_blacklist.includes(induty)) {
             return {
                 passed: false,
-                reason: `F-4(재외동포) 체류 자격은 관련 법령에 따라 단순노무 직종 취업이 제한됩니다. 해당 기업의 업종코드(${induty})는 단순노무형 생산 작업으로 분류되어 고용이 불가합니다.`
+                reason_key: "f4-code-err",
+                reason_params: { induty }
             };
         }
         const desc = company.PRDCT_DESC || "";
@@ -409,7 +441,8 @@ function checkVisaRegulation(company, visaType) {
             if (desc.includes(kw)) {
                 return {
                     passed: false,
-                    reason: `F-4(재외동포) 체류 자격은 수작업 분류·단순 조립 등 단순노무 직무 취업이 제한됩니다. 해당 기업의 작업 내용 중 '${kw}' 직무가 식별되어 고용이 불가합니다.`
+                    reason_key: "f4-kw-err",
+                    reason_params: { kw }
                 };
             }
         }
@@ -417,19 +450,21 @@ function checkVisaRegulation(company, visaType) {
         if (company.COMPANY_SCALE === "대기업" || company.EMPLOYEE_COUNT >= rule.max_employee_limit) {
             return {
                 passed: false,
-                reason: `H-2(방문취업) 체류 자격은 상시근로자 300인 미만 중소 제조업체에 한해 취업이 허용됩니다. 해당 기업은 대기업 규모(근로자 ${company.EMPLOYEE_COUNT}명)로 분류되어 고용이 불가합니다.`
+                reason_key: "h2-large-err",
+                reason_params: { count: company.EMPLOYEE_COUNT }
             };
         }
     } else if (visaType === "E-9") {
         if (!company.E9_FOREIGN_LICENSE) {
             return {
                 passed: false,
-                reason: "E-9(비전문취업) 체류 자격은 관할 고용센터의 고용허가서(E-9 쿼터)를 발급받지 않은 사업장 근무가 제한됩니다."
+                reason_key: "e9-license-err",
+                reason_params: {}
             };
         }
     }
 
-    return { passed: true, reason: "법적 고용 기준 충족" };
+    return { passed: true, reason_key: "pass", reason_params: {} };
 }
 
 // 2단계 자카드 어휘적 문맥 유사도 매칭 (Standalone 임베딩 매칭의 경량 대안)
@@ -474,7 +509,11 @@ function executeMatchingLocal(seekerResume, visaType, companyPool) {
         if (check.passed) {
             screened_in.append ? screened_in.push(company) : screened_in.push(company); // JS push
         } else {
-            const compCopy = { ...company, screen_reason: check.reason };
+            const compCopy = { 
+                ...company, 
+                screen_reason_key: check.reason_key, 
+                screen_reason_params: check.reason_params 
+            };
             screened_out.push(compCopy);
         }
     });
@@ -750,20 +789,35 @@ function renderMatchingResults(data, seekerName, dataSource) {
     
     if (data.screened_out && data.screened_out.length > 0) {
         data.screened_out.forEach(comp => {
+            const t = TRANSLATIONS[currentLang];
+            let reasonStr = "";
+            if (t && comp.screen_reason_key && t[comp.screen_reason_key]) {
+                let temp = t[comp.screen_reason_key];
+                const params = comp.screen_reason_params || {};
+                Object.keys(params).forEach(k => {
+                    temp = temp.replace(new RegExp(`\\{${k}\\}`, "g"), params[k]);
+                });
+                reasonStr = temp;
+            } else {
+                reasonStr = comp.screen_reason || "Immigration compliance screening failed.";
+            }
+
             const card = document.createElement("div");
             card.className = "screened-card";
             card.innerHTML = `
                 <div class="screened-card-top">
-                    <span>⚠️ ${comp.BZPLC_NM}</span>
-                    <span>[제한 대상]</span>
+                    <span class="screened-comp-name">⚠️ ${comp.BZPLC_NM}</span>
+                    <span class="screened-badge">RESTRICTED</span>
                 </div>
-                <div class="comp-meta" style="margin-bottom: 6px;">
+                <div class="screened-comp-meta">
                     <span>업종코드: ${comp.INDUTY_CD}</span>
-                    <span>규모: ${comp.COMPANY_SCALE} (근로자 ${comp.EMPLOYEE_COUNT}명)</span>
+                    <span>규모: ${comp.COMPANY_SCALE}</span>
+                    <span>상시 근로자: ${comp.EMPLOYEE_COUNT}명</span>
                 </div>
                 <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 4px;">직무 설명: ${comp.PRDCT_DESC}</p>
-                <div class="screened-reason">
-                    <strong>사유:</strong> ${comp.screen_reason}
+                <div class="screened-reason-box">
+                    <strong>🛡️ 출입국관리법 불합격 (Immigration Audit Failure Reason)</strong>
+                    ${reasonStr}
                 </div>
             `;
             screenedListContainer.appendChild(card);
@@ -879,8 +933,15 @@ const TRANSLATIONS = {
         "api-val-desc-2": "출입국관리법 비자 규정(F-4 단순노무 금지, H-2 대기업 근무 제한 등)을 OpenAPI 기업 규모/업종 데이터와 1차적으로 완전 대조함으로써, 공공 일자리 센터의 불법 고용 알선 리스크 및 과태료 행정 처분 확률을 0%로 통제합니다.",
         "api-val-title-3": "안산시 스마트 행정 자동화",
         "api-val-desc-3": "기존에 다문화가족 및 외국인 구직자 상담 시 상담원이 두꺼운 출입국 업무 지침서와 기업 대장을 일일이 수동 대조하던 행정 낭비를 AI의 자연어 이력 파싱과 OpenAPI 전수 스크리닝을 통해 단 1초 만에 자동 완성시킵니다.",
-        "ai-report-title": "🤖 AI 이력 분석 요약 리포트",
-        "ai-extract-title": "AI가 추출한 구직자 핵심 역량",
+        "ai-report-title": "📊 구직자 핵심 역량 매칭 리포트",
+        "ai-extract-title": "구직자 핵심 역량 분석",
+        "tab-dashboard": "체류 현황 대시보드",
+        "tab-matcher": "안심 일자리 진단",
+        "btn-hero-go-matcher": "적격 일자리 진단하기",
+        "f4-code-err": "출입국관리법 시행령 별표 1의2에 의거, 재외동포(F-4) 자격은 단순노무(한국표준직업분류 대분류 9) 직종 취업이 제한됩니다. 해당 기업의 표준산업분류 업종코드({induty})는 단순 노무형 포장/분류 생산 작업에 해당하여 합법적인 고용이 불가합니다.",
+        "f4-kw-err": "출입국관리법 시행령 별표 1의2 및 법무부 고시 제2018-193호에 의거, 수작업 단순 포장·분류·박스 적재 등 단순노무 직무 취업이 엄격히 제한됩니다. 해당 공정 설명에서 단순노무 작업('{kw}')이 식별되어 법적 채용 불가 대상입니다.",
+        "h2-large-err": "출입국관리법 시행령 별표 1에 의거, 방문취업(H-2) 자격은 상시근로자 300인 미만 또는 자본금 80억 이하의 중소/중견 제조업에서만 근무가 허용됩니다. 해당 기업은 대기업 규모(근로자 {count}명)로 분류되어 법적 취업 제한 대상입니다.",
+        "e9-license-err": "외국인근로자의 고용 등에 관한 법률 제8조에 의거, 비전문취업(E-9) 자격은 관할 고용노동청을 통해 고용허가서(E-9 쿼터)를 취득한 중소 제조업체에서만 유효합니다. 해당 기업은 고용허가 면허(E9 License) 미보유 사업장으로 법적 취업이 차단됩니다.",
         "feedback-mct": "구직자 {name}님은 정밀 기계 조작 및 생산 공정 제어 분야에서 숙련된 실무 역량을 보유하고 있습니다. 반월산단 내 기계 가공 및 조립 제조 현장과의 직무 연관성 및 생산 효율성이 매우 높게 평가되어 법적 규정을 준수하는 해당 가공 기업을 우선 추천합니다.",
         "feedback-pcb": "구직자 {name}님은 초정밀 PCB 회로 조립 및 육안/현미경 전수 검사 직무에 탁월한 미세 제어 및 집중력을 나타내고 있습니다. 반월산단 정밀 반도체 전장 분야 및 자동화 라인과 최적의 궁합을 보입니다.",
         "feedback-chem": "구직자 {name}님은 화학 약품 교반, 실험 장비 계측 및 정밀 공정 모니터링 직무에서 숙련된 안전 보증 역량을 가지고 있습니다. 고도의 환경/안전 규격 준수가 필수적인 화학 제조 생산 라인을 맞춤 추천합니다.",
@@ -973,8 +1034,15 @@ const TRANSLATIONS = {
         "api-val-desc-2": "Comparing immigration laws (F-4 simple labor ban, H-2 large enterprise limits) with OpenAPI metadata prevents illegal brokering risks and potential administrative fines for the City Council.",
         "api-val-title-3": "Smart Administration Automation",
         "api-val-desc-3": "Reduces heavy counseling overhead by automating manual checks between immigration guidelines and factory papers down to a 1-second AI semantic scanning pipeline.",
-        "ai-report-title": "🤖 AI Resume Analysis Report",
-        "ai-extract-title": "AI-Extracted Core Competency",
+        "ai-report-title": "📊 Core Competency Profile",
+        "ai-extract-title": "Profile-Extracted Core Competency",
+        "tab-dashboard": "Immigration Dashboard",
+        "tab-matcher": "Visa Compliance Matcher",
+        "btn-hero-go-matcher": "Start Profile Diagnostic",
+        "f4-code-err": "Pursuant to Presidential Decree of the Immigration Act, F-4 visa holders are restricted from simple manual labor (KSCO Code 9). This industry code ({induty}) is classified as manual packing/sorting and is legally ineligible.",
+        "f4-kw-err": "Pursuant to Presidential Decree of the Immigration Act, simple manual packaging, sorting, and wrapping tasks are strictly restricted. The task keyword '{kw}' has been identified, which constitutes a legal compliance failure.",
+        "h2-large-err": "Pursuant to Presidential Decree of the Immigration Act, H-2 visa holders are only permitted to work at small-and-medium enterprises (less than 300 employees). This company is classified as a large enterprise ({count} employees), causing an immediate compliance failure.",
+        "e9-license-err": "Pursuant to Act on the Employment of Foreign Workers, E-9 visa holders are only permitted to work at SMEs that have obtained an official Employment Permit (E-9 Quota) from the Ministry of Employment and Labor. This facility does not hold an E-9 license.",
         "feedback-mct": "Job seeker {name} exhibits professional competency in precision machine operation and production line control. Highly compatible with manufacturing facilities in Banwon, yielding legal safety and productivity.",
         "feedback-pcb": "Job seeker {name} shows outstanding micro-control and focus in precision PCB circuit assembly and microscope inspection. Shows best fit with semiconductor devices.",
         "feedback-chem": "Job seeker {name} possesses stable safety verification capability in chemical compound mixing and equipment control. Custom matches chemical manufacturing plants requiring safety standards.",
@@ -1067,8 +1135,15 @@ const TRANSLATIONS = {
         "api-val-desc-2": "Đối chiếu luật thị thực (F-4 cấm lao động chân tay, H-2 giới hạn quy mô) với OpenAPI loại bỏ rủi ro môi giới bất hợp pháp và các mức phạt hành chính.",
         "api-val-title-3": "Tự động hóa hành chính thông minh",
         "api-val-desc-3": "Giảm bớt gánh nặng tư vấn thủ công bằng cách tự động đối chiếu hướng dẫn thị thực với hồ sơ nhà máy thông qua hệ thống AI chỉ trong 1 giây.",
-        "ai-report-title": "🤖 Báo cáo phân tích lý lịch của AI",
-        "ai-extract-title": "Kỹ năng cốt lõi được trích xuất bởi AI",
+        "ai-report-title": "📊 Báo cáo hồ sơ năng lực cốt lõi",
+        "ai-extract-title": "Năng lực cốt lõi từ hồ sơ",
+        "tab-dashboard": "Bảng giám sát",
+        "tab-matcher": "Chẩn đoán việc làm",
+        "btn-hero-go-matcher": "Bắt đầu chẩn đoán",
+        "f4-code-err": "Theo Nghị định của Luật Nhập cảnh, thị thực F-4 bị hạn chế lao động chân tay (Phân loại KSCO 9). Mã ngành này ({induty}) là đóng gói/phân loại thủ công nên không được phép tuyển dụng.",
+        "f4-kw-err": "Theo quy định Nhập cảnh, các công việc đóng gói, phân loại và xếp hộp thủ công bị nghiêm cấm. Từ khóa '{kw}' đã bị phát hiện, cấu thành lỗi tuân thủ pháp lý.",
+        "h2-large-err": "Theo quy định Nhập cảnh, thị thực H-2 chỉ được làm việc tại doanh nghiệp nhỏ và vừa (dưới 300 nhân viên). Doanh nghiệp này là doanh nghiệp lớn ({count} nhân viên), không được tuyển dụng.",
+        "e9-license-err": "Theo Đạo luật Tuyển dụng Lao động Nước ngoài, thị thực E-9 chỉ được làm việc tại các doanh nghiệp đã được Bộ Việc làm và Lao động cấp Hạn ngạch (E-9 Quota). Nhà máy này không có giấy phép E-9.",
         "feedback-mct": "Người tìm việc {name} có năng lực vận hành máy móc cơ khí chính xác và kiểm soát dây chuyền sản xuất. Rất tương thích với các nhà máy sản xuất tại Banwon, đảm bảo tính hợp pháp và năng suất cao.",
         "feedback-pcb": "Người tìm việc {name} thể hiện khả năng kiểm soát tỉ mỉ và tập trung cao trong lắp ráp mạch PCB và kiểm tra kính hiển vi. Phù hợp nhất với các công ty thiết bị bán dẫn.",
         "feedback-chem": "Người tìm việc {name} có khả năng kiểm soát an toàn trong pha chế hợp chất hóa học và thiết bị đo đạc. Phù hợp với các nhà máy hóa chất yêu cầu tiêu chuẩn an toàn nghiêm ngặt.",
@@ -1161,8 +1236,15 @@ const TRANSLATIONS = {
         "api-val-desc-2": "将出入境法规与企业规模/行业代码进行自动对比，确保平台推荐的职位完全合法，将非法雇用的几率和行政罚款的风险降至0%。",
         "api-val-title-3": "智能政务审批流程自动化",
         "api-val-desc-3": "大幅缩短咨询窗口的业务处理时间。通过AI语义解析和OpenAPI过滤，将以往人工翻阅出入境手册和企业台账的复杂流程缩短至1秒钟。",
-        "ai-report-title": "🤖 AI 简历分析综合报告",
-        "ai-extract-title": "AI 提取的求职者核心能力",
+        "ai-report-title": "📊 求职者核心能力匹配报告",
+        "ai-extract-title": "求职者核心能力分析",
+        "tab-dashboard": "滞留现状大屏",
+        "tab-matcher": "安全就业诊断",
+        "btn-hero-go-matcher": "立即诊断职位",
+        "f4-code-err": "根据出入境管理法，持有F-4签证的人员严禁从事简单劳务（标准职业分类大类9）。该企业行业代码（{induty}）属于简单包装/分类生产，依法无法录用。",
+        "f4-kw-err": "根据出入境管理法，严禁从事手工包装、分类、装箱等简单劳务。该工艺描述中识别出简单劳务作业（'{kw}'），属于依法禁止录用对象。",
+        "h2-large-err": "根据出入境管理法，持有H-2签证的人员仅限在员工人数少于300人的中小制造企业工作。该企业属于大企业规模（员工数 {count}人），属于依法限制就业对象。",
+        "e9-license-err": "根据外国人工资雇佣法第8条，E-9签证人员仅限在获得劳动部正式雇佣许可（E-9配额）的中小制造企业工作。该企业未持有雇佣许可资质，依法禁止就业。",
         "feedback-mct": "求职者 {name} 在精密机械操作和生产流程控制方面具备熟练的实践能力。系统评估认为，您与半月工业园内的机械加工和装配制造岗位的契合度极高，推荐这几家合规企业。",
         "feedback-pcb": "求职者 {name} 在超精密 PCB 电路板组装以及显微镜全数检测岗位上展现了出色的细微控制力与专注度。与精密半导体电子器件及自动化生产线具有最佳匹配度。",
         "feedback-chem": "求职者 {name} 在化学药品搅拌、实验设备计量以及精密工序监控岗位具备扎实的安全生产能力。系统为您精准推荐了需要严格遵守环境安全规范的化学品制造企业。",
@@ -1255,8 +1337,15 @@ const TRANSLATIONS = {
         "api-val-desc-2": "Автоматическое сопоставление законов (ограничения F-4 и H-2) с метаданными компаний исключает риски незаконного найма со стороны администрации города.",
         "api-val-title-3": "Автоматизация умного администрирования",
         "api-val-desc-3": "Снижает нагрузку на консультантов, переводя проверку регламентов иммиграции и реестров заводов в секундный ИИ-конвейер.",
-        "ai-report-title": "🤖 AI-Отчет об анализе резюме",
-        "ai-extract-title": "Ключевые компетенции соискателя",
+        "ai-report-title": "📊 Отчет о ключевых компетенциях",
+        "ai-extract-title": "Анализ ключевых компетенций",
+        "tab-dashboard": "Панель иммиграции",
+        "tab-matcher": "Диагностика визы",
+        "btn-hero-go-matcher": "Начать проверку",
+        "f4-code-err": "Согласно Указу об иммиграции, владельцам визы F-4 запрещен простой физический труд (Класс 9 KSCO). Этот отраслевой код ({induty}) классифицирован как упаковка/сортировка.",
+        "f4-kw-err": "Согласно Указу об иммиграции, простая ручная упаковка и сортировка запрещены. Обнаружено ключевое слово простого труда '{kw}', что влечет отказ в соответствии.",
+        "h2-large-err": "Согласно Указу об иммиграции, владельцы визы H-2 могут работать только в малом и среднем бизнесе (до 300 сотрудников). Это крупное предприятие ({count} сотрудников), отказ.",
+        "e9-license-err": "Согласно Закону о занятости иностранцев, владельцы визы E-9 могут работать только на предприятиях с квотой Министерства труда. Этот завод не имеет активной лицензии E-9.",
         "feedback-mct": "Соискатель {name} обладает профессиональной компетентностью в управлении высокоточными станками и производственными линиями. Отличная совместимость с заводами в Панвоне с соблюдением всех визовых законов.",
         "feedback-pcb": "Соискатель {name} демонстрирует выдающуюся микромоторику и концентрацию при сборке печатных плат PCB и проверке под микроскопом. Лучшая совместимость с производителями микросхем.",
         "feedback-chem": "Соискатель {name} имеет подтвержденный опыт безопасного смешивания химреагентов и контроля лабораторного оборудования. Совместимо с химическими заводами со строгими стандартами безопасности.",
@@ -1349,8 +1438,15 @@ const TRANSLATIONS = {
         "api-val-desc-2": "Membandingkan aturan imigrasi dengan metadata OpenAPI mencegah risiko perantara ilegal dan menghindari potensi denda administrasi bagi dinas kota.",
         "api-val-title-3": "Otomatisasi Administrasi Pintar",
         "api-val-desc-3": "Mengurangi beban konsultasi manual dengan mengotomatiskan pencocokan dokumen pabrik dan aturan visa menjadi sistem pemindaian semantik AI dalam 1 detik.",
-        "ai-report-title": "🤖 AI Laporan Analisis Resume",
-        "ai-extract-title": "Kompetensi Utama Hasil Analisis AI",
+        "ai-report-title": "📊 Laporan Analisis Kompetensi Utama",
+        "ai-extract-title": "Analisis Kompetensi Utama",
+        "tab-dashboard": "Dasbor Imigrasi",
+        "tab-matcher": "Diagnosis Kerja Aman",
+        "btn-hero-go-matcher": "Mulai Diagnosis",
+        "f4-code-err": "Sesuai Keputusan Keimigrasian, pemegang visa F-4 dilarang melakukan pekerjaan manual sederhana (KSCO 9). Kode industri ini ({induty}) diklasifikasikan sebagai pengepakan manual.",
+        "f4-kw-err": "Sesuai Keputusan Keimigrasian, pekerjaan manual untuk pengepakan dan penyusunan kotak sangat dibatasi. Kata kunci '{kw}' terdeteksi, melanggar standar kepatuhan hukum.",
+        "h2-large-err": "Sesuai Keputusan Keimigrasian, pemegang visa H-2 hanya diizinkan bekerja di UKM (di bawah 300 karyawan). Perusahaan ini berskala besar ({count} karyawan), kerja dilarang.",
+        "e9-license-err": "Sesuai UU Ketenagakerjaan Asing, visa E-9 hanya diizinkan bekerja di UKM yang memiliki izin Kuota Resmi (E-9 Quota) dari Kemenaker. Pabrik ini tidak memiliki izin E-9.",
         "feedback-mct": "Pencari kerja {name} memiliki kompetensi kerja yang teruji dalam pengoperasian mesin perkakas presisi dan kontrol lini produksi. Sangat cocok dengan pabrik manufaktur di Banwon, terjamin legal dan produktif.",
         "feedback-pcb": "Pencari kerja {name} menunjukkan fokus dan kontrol mikro luar biasa dalam perakitan sirkuit PCB dan inspeksi mikroskop. Sangat cocok dengan sektor peralatan semikonduktor.",
         "feedback-chem": "Pencari kerja {name} mempunyai keahlian keselamatan kerja dalam pencampuran bahan kimia dan kontrol alat ukur lab. Sesuai dengan pabrik kimia yang membutuhkan standar regulasi tinggi.",
@@ -1452,11 +1548,27 @@ function changeLanguage(lang) {
     document.querySelector(".hero-sub").textContent = t["hero-sub"];
     document.querySelector(".hero-main-title").innerHTML = t["hero-main-title"];
     document.querySelector(".hero-desc").textContent = t["hero-desc"];
-    document.querySelector(".btn-hero-scroll span").textContent = t["btn-hero-scroll"];
+    
+    const goMatcherBtn = document.getElementById("btn-hero-go-matcher");
+    if (goMatcherBtn && t["btn-hero-go-matcher"]) {
+        goMatcherBtn.textContent = t["btn-hero-go-matcher"];
+    }
+
+    // GNB 탭 번역
+    const tabDashboardEl = document.getElementById("tab-dashboard");
+    if (tabDashboardEl && t["tab-dashboard"]) tabDashboardEl.textContent = t["tab-dashboard"];
+    const tabMatcherEl = document.getElementById("tab-matcher");
+    if (tabMatcherEl && t["tab-matcher"]) tabMatcherEl.textContent = t["tab-matcher"];
 
     // 3. 섹션 타이틀
-    document.querySelector(".section-dashboard .sect-title").textContent = t["sect-dashboard-title"];
-    document.querySelector(".section-diagnostic .sect-title").textContent = t["sect-diagnostic-title"];
+    const dashSectTitle = document.querySelector(".section-dashboard .sect-title");
+    if (dashSectTitle && t["sect-dashboard-title"]) {
+        dashSectTitle.textContent = t["sect-dashboard-title"];
+    }
+    const diagSectTitle = document.querySelector(".section-diagnostic .sect-title");
+    if (diagSectTitle && t["sect-diagnostic-title"]) {
+        diagSectTitle.textContent = t["sect-diagnostic-title"];
+    }
 
     // 결과 요약 배너 및 차단 리포트 타이틀 실시간 번역
     const summaryTitleEl = document.getElementById("summary-title-text");
@@ -1466,18 +1578,6 @@ function changeLanguage(lang) {
     const screenedCollapseTitleEl = document.getElementById("screened-collapse-title");
     if (screenedCollapseTitleEl && t["screened-collapse-title"]) {
         screenedCollapseTitleEl.textContent = t["screened-collapse-title"];
-    }
-
-    // OpenAPI 시너지 카드 실시간 번역
-    for (let i = 1; i <= 3; i++) {
-        const titleEl = document.getElementById(`api-val-title-${i}`);
-        if (titleEl && t[`api-val-title-${i}`]) {
-            titleEl.textContent = t[`api-val-title-${i}`];
-        }
-        const descEl = document.getElementById(`api-val-desc-${i}`);
-        if (descEl && t[`api-val-desc-${i}`]) {
-            descEl.textContent = t[`api-val-desc-${i}`];
-        }
     }
 
     // 4. 진단 폼 카드
