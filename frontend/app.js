@@ -828,7 +828,53 @@ const TRANSLATIONS = {
         "visa-e9-label": "비전문취업",
         "tip-f4": "💡 F-4(재외동포) 비자는 법령상 단순노무행위 취업이 엄격히 제한됩니다. (예: 단순 물류 분류, 단순 박스 포장, 수작업 세척 등은 법적 처벌 대상)",
         "tip-h2": "💡 H-2(방문취업) 비자는 300인 미만 중소 제조업체에서만 취업이 가능합니다. (대기업 및 허용되지 않은 일부 업종은 취업 불가능)",
-        "tip-e9": "💡 E-9(비전문취업) 비자는 관할 고용센터를 통해 정식으로 외국인 고용허가서(쿼터)를 발급받은 사업장에만 근무가 허용됩니다."
+        "tip-e9": "💡 E-9(비전문취업) 비자는 관할 고용센터를 통해 정식으로 외국인 고용허가서(쿼터)를 발급받은 사업장에만 근무가 허용됩니다.",
+        
+        "res-source-badge": "데이터 수집 채널",
+        "source-realtime": "실시간 OpenAPI 연동망",
+        "source-mock": "내장 스마트허브 가상 데이터셋",
+        "res-stat-text": "관내 기업 풀 {total}개 전수 대조 | 1단계 적법성 통과: {in}개 | 2단계 직무 매칭 진단 완료",
+        "state-nlp-model": "직무 맥락 분석 엔진 활성",
+        "card-best": "🏆 최적 추천 기업 (BEST)",
+        "card-rank": "추천 일자리 RANK {idx}",
+        "card-score-label": "직무 추천율",
+        "card-worker": "근로자수",
+        "card-worker-suffix": "명",
+        "card-scale": "규모",
+        "scale-large": "대기업",
+        "scale-sme": "중소기업",
+        "card-induty-label": "업종코드",
+        "safety-label": "안심 고용",
+        "safety-desc": "체류 자격 기준 적법 고용 안심 기업 (법적 고용 안정성 확보)",
+        "checkpoint-label": "체크 포인트",
+        "err-screen-count": "제한 대상",
+        "err-screen-reason-label": "제한 사유",
+        "empty-recommend": "1단계 비자 자격 필터링 결과, 구직자의 체류 비자로 일할 수 있는 적격 제조업체가 존재하지 않거나 매칭률이 낮습니다.",
+        "collapse-screened-title": "🛡️ 체류 자격상 취업 제한 기업 (안심 고용 필터링 {count}건)",
+        "collapse-screened-empty": "제한 대상인 기업이 없습니다.",
+        "passed-reason": "법적 고용 기준 충족",
+        
+        "err-f4-industry": "F-4(재외동포) 체류 자격은 관련 법령에 따라 단순노무 업종 취업이 제한됩니다. 해당 기업의 업종코드({induty})는 단순노무형 생산 작업으로 분류되어 고용이 불가합니다.",
+        "err-f4-keyword": "F-4(재외동포) 체류 자격은 수작업 분류·단순 조립 등 단순노무 직무 취업이 제한됩니다. 해당 기업의 작업 내용 중 '{kw}' 직무가 식별되어 고용이 불가합니다.",
+        "err-h2-scale": "H-2(방문취업) 체류 자격은 상시근로자 300인 미만 중소 제조업체에 한해 취업이 허용됩니다. 해당 기업은 대기업 규모(근로자 {count}명)로 분류되어 고용이 불가합니다.",
+        "err-e9-license": "E-9(비전문취업) 체류 자격은 관할 고용센터의 고용허가서(E-9 쿼터)를 발급받지 않은 사업장 근무가 제한됩니다.",
+        
+        "tag-mfg": "제조업",
+        "tag-sh": "반월산단",
+        "tag-mct": "정밀 기계",
+        "tag-mold": "금형 가공",
+        "tag-pcb": "PCB 기판",
+        "tag-inspect": "전수 검사",
+        "tag-chem": "화학 배합",
+        "tag-monitor": "설비 모니터링",
+        "tag-general": "일반 제조",
+        "tag-warehouse": "창고 관리",
+        "tag-sme": "중소기업 특별지원",
+        "tag-dorm": "기숙사/통근버스",
+        "match-point-mct": "기계 조작 및 가공 경력자 우대",
+        "match-point-pcb": "현미경 검사 및 세밀 조립 작업",
+        "match-point-chem": "화학 물질 배합 및 실험 장비 관리",
+        "match-point-gen": "교대 근무 가능 및 초보자 지원 가능"
     },
     "en": {
         "badge-poc": "Ansan City Smart City Div & AI Team PoC",
@@ -859,7 +905,53 @@ const TRANSLATIONS = {
         "visa-e9-label": "Non-Professional (E-9)",
         "tip-f4": "💡 F-4 visa is legally restricted from simple manual labor. (e.g. Simple packaging, manual loading, labeling are subject to legal penalties)",
         "tip-h2": "💡 H-2 visa is only allowed to work in small-medium manufacturers with under 300 employees. (Large corporations are prohibited)",
-        "tip-e9": "💡 E-9 visa is only permitted to work in workplaces that have officially acquired an employment permit (quota) from the Job Center."
+        "tip-e9": "💡 E-9 visa is only permitted to work in workplaces that have officially acquired an employment permit (quota) from the Job Center.",
+        
+        "res-source-badge": "Data Source",
+        "source-realtime": "Real-time OpenAPI Network",
+        "source-mock": "Local SmartHub Mock Dataset",
+        "res-stat-text": "Queried {total} local companies | Passed Step 1 (Visa check): {in} | Step 2 (Job Matching) finished",
+        "state-nlp-model": "Job Semantic Analysis Engine Active",
+        "card-best": "🏆 Best Matching Company (BEST)",
+        "card-rank": "Recommended Job RANK {idx}",
+        "card-score-label": "Job Fit Score",
+        "card-worker": "Employees",
+        "card-worker-suffix": " workers",
+        "card-scale": "Scale",
+        "scale-large": "Enterprise",
+        "scale-sme": "SME",
+        "card-induty-label": "Industry Code",
+        "safety-label": "Safe Job",
+        "safety-desc": "Certified compliant with visa regulations (Employment Legal Stability Secured)",
+        "checkpoint-label": "Check Point",
+        "err-screen-count": "Restricted",
+        "err-screen-reason-label": "Reason",
+        "empty-recommend": "Under Step 1 Visa Filtering, no eligible manufacturing companies were found or job matching scores were too low.",
+        "collapse-screened-title": "🛡️ Restricted Companies due to Visa Regulations ({count} filtered)",
+        "collapse-screened-empty": "No restricted companies found.",
+        "passed-reason": "Compliant with Legal Standards",
+        
+        "err-f4-industry": "F-4 visa holders are legally restricted from simple manual labor. The industry code ({induty}) of this company classifies as simple production labor, rendering employment illegal.",
+        "err-f4-keyword": "F-4 visa holders are legally restricted from manual sorting and simple assembly. The keyword '{kw}' was identified in this company's description, rendering employment illegal.",
+        "err-h2-scale": "H-2 visa holders are only permitted to work in manufacturing companies with less than 300 employees. This company is classified as a large enterprise ({count} workers), rendering employment illegal.",
+        "err-e9-license": "E-9 visa holders are prohibited from working at places that have not officially acquired an E-9 employment quota from the Job Center.",
+        
+        "tag-mfg": "Manufacturing",
+        "tag-sh": "SmartHub",
+        "tag-mct": "Machining",
+        "tag-mold": "Mold Process",
+        "tag-pcb": "PCB Plate",
+        "tag-inspect": "Quality Check",
+        "tag-chem": "Chemical Mix",
+        "tag-monitor": "Monitoring",
+        "tag-general": "General Mfg",
+        "tag-warehouse": "Warehouse",
+        "tag-sme": "SME Support",
+        "tag-dorm": "Dormitory/Bus",
+        "match-point-mct": "Preferred: Machine operation & tooling experience",
+        "match-point-pcb": "Preferred: Microscope inspection & fine assembly",
+        "match-point-chem": "Preferred: Chemical compound mixing & equipment control",
+        "match-point-gen": "Preferred: Shift work available & beginners welcome"
     },
     "vi": {
         "badge-poc": "Sở Đô thị Thông minh Ansan & Nhóm AI PoC",
@@ -890,7 +982,53 @@ const TRANSLATIONS = {
         "visa-e9-label": "Lao động E-9",
         "tip-f4": "💡 Thị thực F-4 bị nghiêm cấm làm lao động phổ thông theo pháp luật. (Ví dụ: đóng gói đơn giản, bốc xếp thủ công, dán nhãn là đối tượng bị xử phạt hành chính)",
         "tip-h2": "💡 Thị thực H-2 chỉ được phép làm việc tại các nhà sản xuất vừa và nhỏ có dưới 300 lao động. (Nghiêm cấm làm việc tại tập đoàn lớn)",
-        "tip-e9": "💡 Thị thực E-9 chỉ được phép làm việc tại nơi đã được cấp giấy phép tuyển dụng chính thức (chỉ tiêu) từ Trung tâm Việc làm."
+        "tip-e9": "💡 Thị thực E-9 chỉ được phép làm việc tại nơi đã được cấp giấy phép tuyển dụng chính thức (chỉ tiêu) từ Trung tâm Việc làm.",
+        
+        "res-source-badge": "Kênh thu thập dữ liệu",
+        "source-realtime": "Mạng liên kết API OpenAPI",
+        "source-mock": "Bộ dữ liệu mô phỏng SmartHub nội bộ",
+        "res-stat-text": "Đối chiếu tất cả {total} doanh nghiệp | Đạt chuẩn bước 1 (Visa): {in} | Hoàn tất bước 2 (Đánh giá công việc)",
+        "state-nlp-model": "Bộ máy phân tích ngữ nghĩa công việc đang hoạt động",
+        "card-best": "🏆 Công ty Đề xuất Tốt nhất (BEST)",
+        "card-rank": "Công việc được đề xuất hạng {idx}",
+        "card-score-label": "Điểm phù hợp công việc",
+        "card-worker": "Số lao động",
+        "card-worker-suffix": " người",
+        "card-scale": "Quy mô",
+        "scale-large": "Tập đoàn lớn",
+        "scale-sme": "Doanh nghiệp vừa và nhỏ",
+        "card-induty-label": "Mã ngành nghề",
+        "safety-label": "Tuyển dụng An tâm",
+        "safety-desc": "Chứng nhận tuân thủ quy định thị thực (Bảo đảm an toàn pháp lý lao động)",
+        "checkpoint-label": "Điểm mấu chốt",
+        "err-screen-count": "Bị hạn chế",
+        "err-screen-reason-label": "Lý do",
+        "empty-recommend": "Dưới bộ lọc bước 1, không tìm thấy công ty sản xuất phù hợp hoặc điểm đánh giá quá thấp.",
+        "collapse-screened-title": "🛡️ Các công ty bị hạn chế tuyển dụng do quy định Visa ({count} công ty bị lọc)",
+        "collapse-screened-empty": "Không có doanh nghiệp bị hạn chế nào.",
+        "passed-reason": "Đạt chuẩn quy định pháp lý",
+        
+        "err-f4-industry": "Thị thực F-4 bị nghiêm cấm làm lao động phổ thông. Mã ngành ({induty}) của công ty này thuộc nhóm lao động sản xuất thủ công phổ thông, tuyển dụng là bất hợp pháp.",
+        "err-f4-keyword": "Thị thực F-4 bị nghiêm cấm phân loại thủ công hoặc lắp ráp đơn giản. Phát hiện từ khóa tuyển dụng '{kw}' trong công ty này, tuyển dụng là bất hợp pháp.",
+        "err-h2-scale": "Thị thực H-2 chỉ được làm ở nhà máy dưới 300 lao động. Công ty này được phân loại là doanh nghiệp lớn ({count} người), tuyển dụng là bất hợp pháp.",
+        "err-e9-license": "Thị thực E-9 bị cấm làm việc tại nơi chưa có chỉ tiêu sử dụng lao động nước ngoài (quota) được phê duyệt từ Trung tâm Việc làm.",
+        
+        "tag-mfg": "Sản xuất",
+        "tag-sh": "SmartHub",
+        "tag-mct": "Cơ khí",
+        "tag-mold": "Gia công khuôn",
+        "tag-pcb": "Bảng PCB",
+        "tag-inspect": "Kiểm hàng",
+        "tag-chem": "Pha hóa chất",
+        "tag-monitor": "Giám sát",
+        "tag-general": "Sản xuất chung",
+        "tag-warehouse": "Kho bãi",
+        "tag-sme": "Hỗ trợ SME",
+        "tag-dorm": "Ký túc xá/Xe đưa đón",
+        "match-point-mct": "Ưu tiên: Có kinh nghiệm vận hành máy cơ khí & làm khuôn",
+        "match-point-pcb": "Ưu tiên: Có kinh nghiệm kiểm kính hiển vi & lắp linh kiện nhỏ",
+        "match-point-chem": "Ưu tiên: Có kinh nghiệm pha hóa chất & kiểm soát thiết bị",
+        "match-point-gen": "Ưu tiên: Có thể đi ca & hoan nghênh người mới"
     },
     "zh": {
         "badge-poc": "安山市厅智能城市科 & AI大数据团队 PoC",
@@ -921,7 +1059,271 @@ const TRANSLATIONS = {
         "visa-e9-label": "非专业就业 (E-9)",
         "tip-f4": "💡 法律严格限制持F-4签证的人从事简单劳务。 （例如：简单的包装，手工搬运，贴标签等属于违法行为，将受到处罚）",
         "tip-h2": "💡 持H-2签证的人只允许在少于300名员工的中小制造企业工作。 （禁止在大企业就业）",
-        "tip-e9": "💡 持E-9签证的人只允许在已获得就业许可中心（配额）批准的雇主处工作。"
+        "tip-e9": "💡 持E-9签证的人只允许在已获得就业许可中心（配额）批准的雇主处工作。",
+        
+        "res-source-badge": "数据采集渠道",
+        "source-realtime": "实时 OpenAPI 联动网",
+        "source-mock": "内置智能集聚区虚拟数据集",
+        "res-stat-text": "已全面对比 {total} 家本地企业 | 第1步验证通过：{in} 家 | 第2步匹配计算完成",
+        "state-nlp-model": "工作岗位语义分析引擎已激活",
+        "card-best": "🏆 最佳匹配推荐 (BEST)",
+        "card-rank": "推荐岗位 RANK {idx}",
+        "card-score-label": "岗位匹配率",
+        "card-worker": "员工人数",
+        "card-worker-suffix": " 人",
+        "card-scale": "企业规模",
+        "scale-large": "大型企业",
+        "scale-sme": "中小企业",
+        "card-induty-label": "行业代码",
+        "safety-label": "安心雇用",
+        "safety-desc": "经过签证法规合规验证（确保用工合法与稳定）",
+        "checkpoint-label": "核心要点",
+        "err-screen-count": "受限制企业",
+        "err-screen-reason-label": "限制原因",
+        "empty-recommend": "根据第1步签证筛选，未找到符合条件的制造企业，或岗位匹配度过低。",
+        "collapse-screened-title": "🛡️ 签证法规限制雇用的企业 ({count} 家已过滤)",
+        "collapse-screened-empty": "无限制雇用的企业。",
+        "passed-reason": "符合法律规定标准",
+        
+        "err-f4-industry": "F-4签证持有者被依法限制从事简单劳务。该公司的行业代码({induty})属于简单生产劳务，雇用属违法行为。",
+        "err-f4-keyword": "F-4签证持有者被依法限制从事手工分类及简单组装。在此公司招聘说明中检测出'{kw}'工作，雇用属违法行为。",
+        "err-h2-scale": "H-2签证持有者仅允许在少于300人的制造企业工作。该公司为大型企业({count}人)，雇用属违法行为。",
+        "err-e9-license": "E-9签证持有者禁止在未正式获得就业许可中心用工配额（Quota）的企业工作。",
+        
+        "tag-mfg": "制造业",
+        "tag-sh": "集聚区",
+        "tag-mct": "机械加工",
+        "tag-mold": "模具加工",
+        "tag-pcb": "PCB板",
+        "tag-inspect": "质量检测",
+        "tag-chem": "化学配比",
+        "tag-monitor": "设备监视",
+        "tag-general": "普通制造",
+        "tag-warehouse": "仓库管理",
+        "tag-sme": "扶持中小企业",
+        "tag-dorm": "提供食宿/通勤车",
+        "match-point-mct": "优先：有机械操作和模具加工经验者",
+        "match-point-pcb": "优先：有显微镜检测和精密组装经验者",
+        "match-point-chem": "优先：有化学品配比和实验设备控制经验者",
+        "match-point-gen": "优先：能接受轮班工作，欢迎新手报名"
+    },
+    "ru": {
+        "badge-poc": "Конкурсный PoC от отдела умного города и AI Ансана",
+        "hero-sub": "Безопасная работа под визовый статус в Ansan SmartHub",
+        "hero-main-title": "Проверяем <span class=\"highlight-green\">визовый статус</span>,<br>находим <span class=\"highlight-blue\">легальную работу</span>.",
+        "hero-desc": "ИИ-платформа, которая сверяет данные производственных компаний Ansan SmartHub с визовыми ограничениями в реальном времени. Предотвращает риски нелегального трудоустройства.",
+        "btn-hero-scroll": "Начать проверку вакансий",
+        "sect-dashboard-title": "Статус проживания иностранных резидентов в Ансане (Аналитика кадров)",
+        "sect-diagnostic-title": "Симулятор безопасного подбора работы 1:1",
+        "diag-card-title": "Ввод данных иностранного соискателя",
+        "diag-card-sub": "Укажите визовый статус и опыт работы. Мы проверим государственные базы данных для подбора легальной работы.",
+        "label-name": "Полное имя",
+        "label-visa": "Визовый статус (выберите визу)",
+        "label-resume": "Опыт работы и навыки (опишите в свободной форме)",
+        "placeholder-name": "Введите ваше имя",
+        "placeholder-resume": "Опишите вашу работу на заводах, задачи или технические навыки.\nНапример: 'Я работал на заводе по сборке прессов в Ансане полтора года, настраивал станки и собирал компоненты.'",
+        "btn-preset-1": "🔧 Работа на станках и сборка прессов",
+        "btn-preset-2": "📦 Ручная упаковка и логистические работы",
+        "btn-preset-3": "⚡ Работа на гальванических установках PCB и инспекция",
+        "btn-match": "Проверить совместимость вакансий",
+        "state-idle-title": "Ожидание диагностики вакансий",
+        "state-idle-desc": "Введите вашу визу и опыт работы, затем нажмите кнопку выше, чтобы запустить сверку вакансий.",
+        "state-loading-step1": "Загрузка базы данных заводов из открытых систем Кёнгидо...",
+        "state-loading-step2": "Шаг 1: Проверка соответствия отрасли кодам визовых ограничений...",
+        "state-loading-step3": "Шаг 2: Расчет оценки соответствия вакансии методами ИИ...",
+        "visa-f4-label": "Зарубежные корейцы (F-4)",
+        "visa-h2-label": "Рабочий визит (H-2)",
+        "visa-e9-label": "Непрофессиональная (E-9)",
+        "tip-f4": "💡 Виза F-4 законно ограничивает выполнение простого ручного труда. (Например: упаковка, погрузка, маркировка подлежат штрафам)",
+        "tip-h2": "💡 Владельцы визы H-2 могут работать только на малых и средних производствах (менее 300 сотрудников). Крупные заводы запрещены.",
+        "tip-e9": "💡 Виза E-9 позволяет работать только на предприятиях, официально получивших квоту на иностранных рабочих от Центра занятости.",
+        
+        "res-source-badge": "Источник данных",
+        "source-realtime": "Связь с OpenAPI в реальном времени",
+        "source-mock": "Локальная база данных SmartHub",
+        "res-stat-text": "Сверено компаний в базе: {total} | Прошли Шаг 1 (Визовый): {in} | Шаг 2 (Совместимость) завершен",
+        "state-nlp-model": "Активен ИИ-движок семантического анализа",
+        "card-best": "🏆 Лучший подбор (BEST)",
+        "card-rank": "Рекомендуемая вакансия RANK {idx}",
+        "card-score-label": "Совместимость",
+        "card-worker": "Сотрудники",
+        "card-worker-suffix": " чел.",
+        "card-scale": "Масштаб",
+        "scale-large": "Крупный бизнес",
+        "scale-sme": "Малый/Средний бизнес",
+        "card-induty-label": "Код отрасли",
+        "safety-label": "Безопасный наем",
+        "safety-desc": "Сертифицированное соответствие визовым правилам (Юридическая стабильность гарантирована)",
+        "checkpoint-label": "Важно знать",
+        "err-screen-count": "Ограничено",
+        "err-screen-reason-label": "Причина",
+        "empty-recommend": "На Шаге 1 (Фильтрация виз) не найдено подходящих производств либо баллы совместимости слишком низкие.",
+        "collapse-screened-title": "🛡️ Компании с визовыми ограничениями для вас ({count} отфильтровано)",
+        "collapse-screened-empty": "Ограниченных компаний не найдено.",
+        "passed-reason": "Юридически безопасно для найма",
+        
+        "err-f4-industry": "Держателям визы F-4 законно запрещено выполнять простой ручной труд. Код отрасли ({induty}) этой компании классифицируется как простое производство, наем незаконен.",
+        "err-f4-keyword": "Держателям визы F-4 запрещен ручной труд и простая сборка. Ключевое слово '{kw}' найдено в описании задач компании, наем незаконен.",
+        "err-h2-scale": "Держатели визы H-2 могут работать только на производствах с числом рабочих менее 300. Эта компания является крупной ({count} рабочих), наем незаконен.",
+        "err-e9-license": "Держателям визы E-9 запрещено работать на предприятиях, не имеющих официальной государственной квоты на иностранных работников от Центра занятости.",
+        
+        "tag-mfg": "Производство",
+        "tag-sh": "SmartHub",
+        "tag-mct": "Станки",
+        "tag-mold": "Штамповка",
+        "tag-pcb": "Платы PCB",
+        "tag-inspect": "Контроль кач-ва",
+        "tag-chem": "Хим. смеси",
+        "tag-monitor": "Мониторинг",
+        "tag-general": "Общее произв.",
+        "tag-warehouse": "Склад",
+        "tag-sme": "Поддержка SME",
+        "tag-dorm": "Жилье/Автобус",
+        "match-point-mct": "Предпочтительно: опыт работы на металлообрабатывающих станках",
+        "match-point-pcb": "Предпочтительно: сборка мелких деталей и контроль под микроскопом",
+        "match-point-chem": "Предпочтительно: смешивание химикатов и контроль лабораторного оборудования",
+        "match-point-gen": "Предпочтительно: готовность работать посменно, без опыта"
+    },
+    "id": {
+        "badge-poc": "PoC kompetisi dari Divisi Smart City & Tim AI Kota Ansan",
+        "hero-sub": "Pekerjaan Aman berbasis Visa di Ansan SmartHub",
+        "hero-main-title": "Verifikasi <span class=\"highlight-green\">status Visa</span>,<br>Hubungkan <span class=\"highlight-blue\">Pekerjaan Legal</span>.",
+        "hero-desc": "Platform pencocokan AI yang menyaring data perusahaan manufaktur lokal Ansan SmartHub terhadap batasan visa secara real-time. Mencegah risiko perekrutan ilegal.",
+        "btn-hero-scroll": "Mulai Cek Kelayakan",
+        "sect-dashboard-title": "Status Tinggal Warga Asing di Ansan (Analisis Tenaga Kerja)",
+        "sect-diagnostic-title": "Simulator Pencocokan Kerja Aman 1:1",
+        "diag-card-title": "Input Data Pencari Kerja Asing",
+        "diag-card-sub": "Masukkan status visa dan pengalaman kerja Anda. Kami akan memeriksa database kota untuk pekerjaan yang aman.",
+        "label-name": "Nama Lengkap",
+        "label-visa": "Status Visa (Pilih Visa)",
+        "label-resume": "Pengalaman Kerja & Keahlian (Tulis secara bebas)",
+        "placeholder-name": "Masukkan nama Anda",
+        "placeholder-resume": "Jelaskan pekerjaan pabrik sebelumnya, tugas, atau keahlian teknis Anda.\nContoh: 'Saya bekerja di pabrik perakitan mesin pres di Ansan selama 1,5 tahun, mengatur mesin dan merakit komponen.'",
+        "btn-preset-1": "🔧 Operator Mesin & Perakitan Pres",
+        "btn-preset-2": "📦 Pengemasan Manual & Pekerjaan Gudang Logistik",
+        "btn-preset-3": "⚡ Operasional Alat Elektroplating PCB & Inspeksi kualitas",
+        "btn-match": "Analisis Kelayakan Kerja",
+        "state-idle-title": "Menunggu Diagnostik Pekerjaan",
+        "state-idle-desc": "Masukkan visa dan pengalaman Anda, lalu klik tombol di atas untuk mulai mencocokkan pekerjaan.",
+        "state-loading-step1": "Mengambil data pabrik dari database publik Provinsi Gyeonggi...",
+        "state-loading-step2": "Langkah 1: Menyaring kode industri perusahaan terhadap pembatasan visa...",
+        "state-loading-step3": "Langkah 2: Menghitung skor kecocokan kerja menggunakan teknologi AI...",
+        "visa-f4-label": "Keturunan Korea (F-4)",
+        "visa-h2-label": "Kunjungan Kerja (H-2)",
+        "visa-e9-label": "Non-Profesional (E-9)",
+        "tip-f4": "💡 Pemegang visa F-4 dilarang melakukan pekerjaan kasar secara hukum. (Contoh: Pengemasan sederhana, pemuatan manual, pelabelan dikenakan denda hukum)",
+        "tip-h2": "💡 Pemegang visa H-2 hanya diizinkan bekerja di pabrik manufaktur kecil dan menengah (di bawah 300 pekerja). Perusahaan besar dilarang.",
+        "tip-e9": "💡 Visa E-9 hanya diizinkan bekerja di tempat kerja yang secara resmi memperoleh kuota mempekerjakan pekerja asing dari Job Center.",
+        
+        "res-source-badge": "Sumber Data",
+        "source-realtime": "Koneksi API Real-time",
+        "source-mock": "Dataset Simulasi Lokal SmartHub",
+        "res-stat-text": "Memeriksa {total} perusahaan lokal | Lolos Langkah 1 (Visa): {in} | Langkah 2 (Pencocokan Kerja) selesai",
+        "state-nlp-model": "Mesin Analisis Semantik Kerja Aktif",
+        "card-best": "🏆 Rekomendasi Terbaik (BEST)",
+        "card-rank": "Rekomendasi Kerja RANK {idx}",
+        "card-score-label": "Skor Kecocokan",
+        "card-worker": "Pekerja",
+        "card-worker-suffix": " orang",
+        "card-scale": "Skala",
+        "scale-large": "Perusahaan Besar",
+        "scale-sme": "UKM",
+        "card-induty-label": "Kode Industri",
+        "safety-label": "Pekerjaan Aman",
+        "safety-desc": "Sertifikasi kepatuhan terhadap aturan visa (Keamanan Hukum Pekerja Terjamin)",
+        "checkpoint-label": "Titik Penting",
+        "err-screen-count": "Dibatasi",
+        "err-screen-reason-label": "Alasan",
+        "empty-recommend": "Berdasarkan Penyaringan Langkah 1 Visa, tidak ditemukan pabrik manufaktur yang memenuhi syarat atau skor kecocokan terlalu rendah.",
+        "collapse-screened-title": "🛡️ Perusahaan yang Dibatasi karena Aturan Visa ({count} tersaring)",
+        "collapse-screened-empty": "Tidak ada perusahaan dibatasi yang ditemukan.",
+        "passed-reason": "Memenuhi Standar Hukum",
+        
+        "err-f4-industry": "Pemegang visa F-4 dilarang melakukan pekerjaan kasar. Kode industri ({induty}) perusahaan ini termasuk jenis kerja produksi sederhana, perekrutan tidak sah secara hukum.",
+        "err-f4-keyword": "Pemegang visa F-4 dilarang melakukan pemilahan manual dan perakitan sederhana. Kata kunci '{kw}' terdeteksi pada perusahaan ini, perekrutan tidak sah secara hukum.",
+        "err-h2-scale": "Pemegang visa H-2 hanya boleh bekerja di manufaktur dengan pekerja kurang dari 300. Perusahaan ini berkategori perusahaan besar ({count} pekerja), perekrutan tidak sah secara hukum.",
+        "err-e9-license": "Pemegang visa E-9 dilarang bekerja di tempat kerja yang belum mendapatkan izin penggunaan tenaga kerja asing (quota) secara resmi dari Job Center.",
+        
+        "tag-mfg": "Manufaktur",
+        "tag-sh": "SmartHub",
+        "tag-mct": "Pemesinan",
+        "tag-mold": "Cetakan Logam",
+        "tag-pcb": "Papan PCB",
+        "tag-inspect": "Cek Kualitas",
+        "tag-chem": "Campuran Kimia",
+        "tag-monitor": "Pemantauan",
+        "tag-general": "Manufaktur Umum",
+        "tag-warehouse": "Gudang",
+        "tag-sme": "Dukungan UKM",
+        "tag-dorm": "Asrama/Bis Jemputan",
+        "match-point-mct": "Pilihan Utama: Pengalaman operasional mesin perkakas & pembuatan cetakan",
+        "match-point-pcb": "Pilihan Utama: Pengalaman cek mikroskop & perakitan komponen mikro",
+        "match-point-chem": "Pilihan Utama: Pengalaman pencampuran bahan kimia & kontrol alat lab",
+        "match-point-gen": "Pilihan Utama: Bersedia kerja shift, pemula diterima"
+    }
+};
+
+function changeLanguage(lang) {
+    currentLang = lang;
+    const t = TRANSLATIONS[lang];
+    if (!t) return;
+
+    // 1. 헤더 & 인포 배지
+    document.querySelector(".badge-poc").textContent = t["badge-poc"];
+    
+    // 2. 히어로 배너
+    document.querySelector(".hero-sub").textContent = t["hero-sub"];
+    document.querySelector(".hero-main-title").innerHTML = t["hero-main-title"];
+    document.querySelector(".hero-desc").textContent = t["hero-desc"];
+    document.querySelector(".btn-hero-scroll span").textContent = t["btn-hero-scroll"];
+
+    // 3. 섹션 타이틀
+    document.querySelector(".section-dashboard .sect-title").textContent = t["sect-dashboard-title"];
+    document.querySelector(".section-diagnostic .sect-title").textContent = t["sect-diagnostic-title"];
+
+    // 4. 진단 폼 카드
+    document.querySelector(".diagnostic-form-card h2").textContent = t["diag-card-title"];
+    document.querySelector(".diagnostic-form-card .subtitle").textContent = t["diag-card-sub"];
+    document.querySelector("label[for='seeker-name']").textContent = t["label-name"];
+    document.querySelector("label[for='seeker-resume']").previousElementSibling ? null : document.querySelectorAll(".diagnostic-form-card label")[1].textContent = t["label-visa"];
+    document.querySelector("label[for='seeker-resume']").textContent = t["label-resume"];
+    
+    // 플레이스홀더
+    seekerNameInput.setAttribute("placeholder", t["placeholder-name"]);
+    seekerResumeTextarea.setAttribute("placeholder", t["placeholder-resume"]);
+
+    // 프리셋 버튼
+    const presets = document.querySelectorAll(".btn-preset");
+    if (presets.length >= 3) {
+        presets[0].textContent = t["btn-preset-1"];
+        presets[1].textContent = t["btn-preset-2"];
+        presets[2].textContent = t["btn-preset-3"];
+    }
+
+    // 진단하기 버튼
+    document.querySelector("#btn-match .btn-text").textContent = t["btn-match"];
+
+    // 5. 로딩 타임라인 단계 텍스트
+    stepData.querySelector(".step-label").textContent = t["state-loading-step1"];
+    stepRule.querySelector(".step-label").textContent = t["state-loading-step2"];
+    stepNlp.querySelector(".step-label").textContent = t["state-loading-step3"];
+
+    // 6. 대기 상태 카드
+    stateIdle.querySelector("h3").textContent = t["state-idle-title"];
+    stateIdle.querySelector("p").innerHTML = t["state-idle-desc"];
+
+    // 7. 라디오 뱃지 라벨 업데이트
+    const visaBoxes = document.querySelectorAll(".visa-box");
+    if (visaBoxes.length >= 3) {
+        visaBoxes[0].querySelector(".visa-label").textContent = t["visa-f4-label"];
+        visaBoxes[1].querySelector(".visa-label").textContent = t["visa-h2-label"];
+        visaBoxes[2].querySelector(".visa-label").textContent = t["visa-e9-label"];
+    }
+
+    // 8. 현재 선택된 비자에 맞춘 가이드 팁 강제 갱신
+    const activeRadio = document.querySelector('input[name="visa-type"]:checked');
+    if (activeRadio) {
+        updateVisaInfoTip(activeRadio.value);
     }
 };
 
