@@ -380,7 +380,7 @@ function checkVisaRegulation(company, visaType) {
         if (rule.code_blacklist.includes(induty)) {
             return {
                 passed: false,
-                reason: `F-4(재외동포) 비자는 법령상 단순노무 직종 취업이 제한됩니다. 해당 기업의 주요 업종(${induty})은 단순노무 성격으로 분류되어 채용이 불가합니다.`
+                reason: `F-4(재외동포) 체류 자격은 관련 법령에 따라 단순노무 직종 취업이 제한됩니다. 해당 기업의 업종코드(${induty})는 단순노무형 생산 작업으로 분류되어 고용이 불가합니다.`
             };
         }
         const desc = company.PRDCT_DESC || "";
@@ -388,7 +388,7 @@ function checkVisaRegulation(company, visaType) {
             if (desc.includes(kw)) {
                 return {
                     passed: false,
-                    reason: `F-4(재외동포) 비자는 단순노무행위가 제한됩니다. 이 기업의 주요 직무('${kw}')는 법령상 단순노무로 식별되어 채용이 불가합니다.`
+                    reason: `F-4(재외동포) 체류 자격은 수작업 분류·단순 조립 등 단순노무 직무 취업이 제한됩니다. 해당 기업의 작업 내용 중 '${kw}' 직무가 식별되어 고용이 불가합니다.`
                 };
             }
         }
@@ -396,14 +396,14 @@ function checkVisaRegulation(company, visaType) {
         if (company.COMPANY_SCALE === "대기업" || company.EMPLOYEE_COUNT >= rule.max_employee_limit) {
             return {
                 passed: false,
-                reason: `H-2(방문취업) 비자는 상시근로자 300인 미만 중소기업에 한해 취업이 가능합니다. 이 기업은 ${company.COMPANY_SCALE}(근로자 ${company.EMPLOYEE_COUNT}명)로 분류되어 법적으로 고용이 제한됩니다.`
+                reason: `H-2(방문취업) 체류 자격은 상시근로자 300인 미만 중소 제조업체에 한해 취업이 허용됩니다. 해당 기업은 대기업 규모(근로자 ${company.EMPLOYEE_COUNT}명)로 분류되어 고용이 불가합니다.`
             };
         }
     } else if (visaType === "E-9") {
         if (!company.E9_FOREIGN_LICENSE) {
             return {
                 passed: false,
-                reason: "E-9(비전문취업) 비자는 관할 고용센터의 외국인 고용허가(E-9 쿼터)를 취득하지 않은 기업에 근무하는 것이 법적으로 금지됩니다."
+                reason: "E-9(비전문취업) 체류 자격은 관할 고용센터의 고용허가서(E-9 쿼터)를 발급받지 않은 사업장 근무가 제한됩니다."
             };
         }
     }
@@ -466,7 +466,7 @@ function executeMatchingLocal(seekerResume, visaType, companyPool) {
         return {
             ...company,
             match_score: score,
-            matching_type: "어휘 맥락 유사도 (Standalone)"
+            matching_type: "직무 적합성 분석 (자연어 맥락 매칭)"
         };
     });
 
@@ -500,7 +500,7 @@ matchingForm.addEventListener("submit", async (e) => {
     try {
         const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
         let companies = MOCK_COMPANIES;
-        let dataSource = "MockData (Local Preset - OpenAPI 키 미입력)";
+        let dataSource = "내장 가상 데이터셋 (안산 반월산단 기반)";
 
         // [단계 1] 데이터 조회
         stepData.classList.add("active");
@@ -515,7 +515,7 @@ matchingForm.addEventListener("submit", async (e) => {
                 }
             } catch (err) {
                 console.warn("OpenAPI Fetch failed, using fallback mock.", err);
-                dataSource = `MockData (Local Preset - OpenAPI 오류 fallback: ${err.message})`;
+                dataSource = `내장 가상 데이터셋 (API 호출 예외 fallback: ${err.message})`;
             }
         }
         
@@ -561,13 +561,13 @@ function resetTimeline() {
 }
 
 function renderMatchingResults(data, seekerName, dataSource) {
-    resSourceBadge.textContent = `데이터 출처: ${dataSource}`;
+    resSourceBadge.textContent = `데이터 수집 채널: ${dataSource}`;
     
     const totalChecked = data.total_screened_in + data.total_screened_out;
-    resStatText.textContent = `안산 스마트허브 관내 기업 ${totalChecked}개 전수 조사 | 1단계 법적 통과: ${data.total_screened_in}개 | 2단계 AI 문맥 추천 완료`;
+    resStatText.textContent = `관내 기업 풀 ${totalChecked}개 전수 대조 | 1단계 적법성 통과: ${data.total_screened_in}개 | 2단계 직무 매칭 진단 완료`;
     
     // AI 모델 텍스트 상태 변경 (Standalone 모드로 표기)
-    nlpModelText.textContent = "Lexical Context Matcher (Vercel Standalone)";
+    nlpModelText.textContent = "직무 맥락 분석 엔진 활성";
     nlpModelText.parentElement.querySelector(".badge-dot").className = "badge-dot green";
 
     // 🏆 추천 TOP 3 기업 카드 렌더링
@@ -591,7 +591,7 @@ function renderMatchingResults(data, seekerName, dataSource) {
                     </div>
                     <div class="match-score-badge">
                         <span class="score-num">${comp.match_score}%</span>
-                        <span class="score-lbl">유사도 스코어</span>
+                        <span class="score-lbl">직무 추천율</span>
                     </div>
                 </div>
                 <p class="comp-desc">${comp.PRDCT_DESC}</p>
@@ -606,7 +606,7 @@ function renderMatchingResults(data, seekerName, dataSource) {
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                     </svg>
-                    <span>출입국관리법 기준 비자 취업 적격 판정 (고용 안전성 보장)</span>
+                    <span>체류 자격 기준 적법 고용 안심 기업 (법적 고용 안정성 확보)</span>
                 </div>
             `;
             recommendationsContainer.appendChild(card);
@@ -614,7 +614,7 @@ function renderMatchingResults(data, seekerName, dataSource) {
     } else {
         recommendationsContainer.innerHTML = `
             <div class="empty-state" style="min-height: 200px;">
-                <p>1단계 법적 규제 필터링 결과, 구직자의 비자 등급으로 일할 수 있는 적격 제조업체가 존재하지 않거나, 매칭되는 문맥 정보가 부족합니다.</p>
+                <p>1단계 비자 자격 필터링 결과, 구직자의 체류 비자로 일할 수 있는 적격 제조업체가 존재하지 않거나 매칭률이 낮습니다.</p>
             </div>
         `;
     }
@@ -630,7 +630,7 @@ function renderMatchingResults(data, seekerName, dataSource) {
             card.innerHTML = `
                 <div class="screened-card-top">
                     <span>⚠️ ${comp.BZPLC_NM}</span>
-                    <span>[차단됨]</span>
+                    <span>[제한 대상]</span>
                 </div>
                 <div class="comp-meta" style="margin-bottom: 6px;">
                     <span>업종코드: ${comp.INDUTY_CD}</span>
@@ -650,14 +650,14 @@ function renderMatchingResults(data, seekerName, dataSource) {
 
 // --- 7. 정책 모니터링 통계 대시보드 로드 및 렌더링 ---
 async function loadAndRenderForeignerStats(apiKey) {
-    let dataSource = "MockData (Local Preset)";
+    let dataSource = "내장 가상 데이터셋 (안산시 기반)";
     let stats = MOCK_FOREIGNER_STATS;
 
     if (apiKey && apiKey.trim()) {
         try {
             const data = await fetchGgOpenapiData(apiKey.trim(), "Fgnrpopltn");
             if (data.Fgnrpopltn) {
-                dataSource = "경기데이터드림 OpenAPI (실시간)";
+                dataSource = "경기도 OpenAPI (실시간)";
                 const rows = data.Fgnrpopltn[1].row;
                 
                 let f4_cnt = 0;

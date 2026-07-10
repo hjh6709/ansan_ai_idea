@@ -752,8 +752,8 @@ input[type="text"]:focus, textarea:focus {
 }
 
 .screened-card {
-    background: rgba(239, 68, 68, 0.02);
-    border: 1px solid rgba(239, 68, 68, 0.15);
+    background: rgba(244, 63, 94, 0.02);
+    border: 1px solid rgba(244, 63, 94, 0.15);
     border-radius: 8px;
     padding: 12px 16px;
     font-size: 0.85rem;
@@ -763,14 +763,14 @@ input[type="text"]:focus, textarea:focus {
     display: flex;
     justify-content: space-between;
     font-weight: 600;
-    color: #fca5a5;
+    color: #fda2b9;
     margin-bottom: 6px;
 }
 
 .screened-reason {
-    color: #ef4444;
+    color: #f43f5e;
     line-height: 1.4;
-    background: rgba(239, 68, 68, 0.05);
+    background: rgba(244, 63, 94, 0.05);
     padding: 8px 10px;
     border-radius: 4px;
     margin-top: 4px;
