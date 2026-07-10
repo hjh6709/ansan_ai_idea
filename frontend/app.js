@@ -871,6 +871,12 @@ const TRANSLATIONS = {
         "api-status-disconnected": "연동 대기 중",
         "summary-title-text": "체류자격 적법성 진단 완료",
         "screened-collapse-title": "비자 규정 위반 취업 제한 기업 목록",
+        "api-val-title-1": "실시간 데이터 정합성 보장",
+        "api-val-desc-1": "안산 스마트허브 내 수만 개 제조사의 폐업, 이전, 상시 근로자 수 변동 및 신규 공장 등록 정보를 경기도청(경기데이터드림) OpenAPI와 100% 실시간 동기화하여 수동 엑셀 업데이트가 불필요한 상시 청정 매칭망을 유지합니다.",
+        "api-val-title-2": "행정/법적 리스크 원천 차단",
+        "api-val-desc-2": "출입국관리법 비자 규정(F-4 단순노무 금지, H-2 대기업 근무 제한 등)을 OpenAPI 기업 규모/업종 데이터와 1차적으로 완전 대조함으로써, 공공 일자리 센터의 불법 고용 알선 리스크 및 과태료 행정 처분 확률을 0%로 통제합니다.",
+        "api-val-title-3": "안산시 스마트 행정 자동화",
+        "api-val-desc-3": "기존에 다문화가족 및 외국인 구직자 상담 시 상담원이 두꺼운 출입국 업무 지침서와 기업 대장을 일일이 수동 대조하던 행정 낭비를 AI의 자연어 이력 파싱과 OpenAPI 전수 스크리닝을 통해 단 1초 만에 자동 완성시킵니다.",
         "ai-report-title": "🤖 AI 이력 분석 요약 리포트",
         "ai-extract-title": "AI가 추출한 구직자 핵심 역량",
         "feedback-mct": "구직자 {name}님은 정밀 기계 조작 및 생산 공정 제어 분야에서 숙련된 실무 역량을 보유하고 있습니다. 반월산단 내 기계 가공 및 조립 제조 현장과의 직무 연관성 및 생산 효율성이 매우 높게 평가되어 법적 규정을 준수하는 해당 가공 기업을 우선 추천합니다.",
@@ -959,6 +965,12 @@ const TRANSLATIONS = {
         "api-status-disconnected": "Waiting for Connection",
         "summary-title-text": "Visa Law Compliance Diagnostic Completed",
         "screened-collapse-title": "List of Restricted Companies due to Visa Regulations",
+        "api-val-title-1": "Guaranteed Real-time Data Integrity",
+        "api-val-desc-1": "By syncing corporate datasets of Ansan manufacturers directly from Gyeonggi's open API, we maintain a clean matching index reflecting closing, relocation, and employee fluctuations in real time.",
+        "api-val-title-2": "Prevent Legal & Admin Risks",
+        "api-val-desc-2": "Comparing immigration laws (F-4 simple labor ban, H-2 large enterprise limits) with OpenAPI metadata prevents illegal brokering risks and potential administrative fines for the City Council.",
+        "api-val-title-3": "Smart Administration Automation",
+        "api-val-desc-3": "Reduces heavy counseling overhead by automating manual checks between immigration guidelines and factory papers down to a 1-second AI semantic scanning pipeline.",
         "ai-report-title": "🤖 AI Resume Analysis Report",
         "ai-extract-title": "AI-Extracted Core Competency",
         "feedback-mct": "Job seeker {name} exhibits professional competency in precision machine operation and production line control. Highly compatible with manufacturing facilities in Banwon, yielding legal safety and productivity.",
@@ -1047,6 +1059,12 @@ const TRANSLATIONS = {
         "api-status-disconnected": "Đang chờ kết nối",
         "summary-title-text": "Chẩn đoán tuân thủ Luật Thị thực hoàn tất",
         "screened-collapse-title": "Danh sách doanh nghiệp bị hạn chế theo quy định Visa",
+        "api-val-title-1": "Bảo đảm tính toàn vẹn dữ liệu thực tế",
+        "api-val-desc-1": "Đồng bộ dữ liệu của doanh nghiệp Ansan trực tiếp từ API của Gyeonggi, duy trì hệ thống đối chiếu sạch phản ánh chính xác việc đóng cửa, thay đổi lao động.",
+        "api-val-title-2": "Ngăn ngừa rủi ro hành chính & pháp lý",
+        "api-val-desc-2": "Đối chiếu luật thị thực (F-4 cấm lao động chân tay, H-2 giới hạn quy mô) với OpenAPI loại bỏ rủi ro môi giới bất hợp pháp và các mức phạt hành chính.",
+        "api-val-title-3": "Tự động hóa hành chính thông minh",
+        "api-val-desc-3": "Giảm bớt gánh nặng tư vấn thủ công bằng cách tự động đối chiếu hướng dẫn thị thực với hồ sơ nhà máy thông qua hệ thống AI chỉ trong 1 giây.",
         "ai-report-title": "🤖 Báo cáo phân tích lý lịch của AI",
         "ai-extract-title": "Kỹ năng cốt lõi được trích xuất bởi AI",
         "feedback-mct": "Người tìm việc {name} có năng lực vận hành máy móc cơ khí chính xác và kiểm soát dây chuyền sản xuất. Rất tương thích với các nhà máy sản xuất tại Banwon, đảm bảo tính hợp pháp và năng suất cao.",
@@ -1135,6 +1153,12 @@ const TRANSLATIONS = {
         "api-status-disconnected": "等待连接中",
         "summary-title-text": "滞留资格合规性诊断完成",
         "screened-collapse-title": "因签证法规限制就业的企业列表",
+        "api-val-title-1": "确保实时数据一致性",
+        "api-val-desc-1": "将安山制造企业的法人数据直接与京畿道开放API进行100%实时同步，确保在企业倒闭、搬迁、员工人数变动时能自动更新，免去手动维护的麻烦。",
+        "api-val-title-2": "从源头上防范行政法律风险",
+        "api-val-desc-2": "将出入境法规与企业规模/行业代码进行自动对比，确保平台推荐的职位完全合法，将非法雇用的几率和行政罚款的风险降至0%。",
+        "api-val-title-3": "智能政务审批流程自动化",
+        "api-val-desc-3": "大幅缩短咨询窗口的业务处理时间。通过AI语义解析和OpenAPI过滤，将以往人工翻阅出入境手册和企业台账的复杂流程缩短至1秒钟。",
         "ai-report-title": "🤖 AI 简历分析综合报告",
         "ai-extract-title": "AI 提取的求职者核心能力",
         "feedback-mct": "求职者 {name} 在精密机械操作和生产流程控制方面具备熟练的实践能力。系统评估认为，您与半月工业园内的机械加工和装配制造岗位的契合度极高，推荐这几家合规企业。",
@@ -1223,6 +1247,12 @@ const TRANSLATIONS = {
         "api-status-disconnected": "Ожидание подключения",
         "summary-title-text": "Проверка визового соответствия завершена",
         "screened-collapse-title": "Список ограниченных предприятий из-за визовых законов",
+        "api-val-title-1": "Гарантия актуальности данных",
+        "api-val-desc-1": "Синхронизация данных заводов Ансана напрямую с OpenAPI Кёнгидо гарантирует моментальное отражение закрытия компаний, изменения штата и переезда без ручных таблиц.",
+        "api-val-title-2": "Исключение административных рисков",
+        "api-val-desc-2": "Автоматическое сопоставление законов (ограничения F-4 и H-2) с метаданными компаний исключает риски незаконного найма со стороны администрации города.",
+        "api-val-title-3": "Автоматизация умного администрирования",
+        "api-val-desc-3": "Снижает нагрузку на консультантов, переводя проверку регламентов иммиграции и реестров заводов в секундный ИИ-конвейер.",
         "ai-report-title": "🤖 AI-Отчет об анализе резюме",
         "ai-extract-title": "Ключевые компетенции соискателя",
         "feedback-mct": "Соискатель {name} обладает профессиональной компетентностью в управлении высокоточными станками и производственными линиями. Отличная совместимость с заводами в Панвоне с соблюдением всех визовых законов.",
@@ -1311,6 +1341,12 @@ const TRANSLATIONS = {
         "api-status-disconnected": "Menunggu Koneksi",
         "summary-title-text": "Diagnosis Kepatuhan Visa Selesai",
         "screened-collapse-title": "Daftar Perusahaan yang Dibatasi karena Aturan Visa",
+        "api-val-title-1": "Jaminan Integritas Data Real-time",
+        "api-val-desc-1": "Dengan menyinkronkan dataset korporat produsen Ansan dari API Gyeonggi, kami menjaga indeks pencocokan bersih yang mencerminkan penutupan atau perpindahan secara instan.",
+        "api-val-title-2": "Mengegah Risiko Hukum & Administrasi",
+        "api-val-desc-2": "Membandingkan aturan imigrasi dengan metadata OpenAPI mencegah risiko perantara ilegal dan menghindari potensi denda administrasi bagi dinas kota.",
+        "api-val-title-3": "Otomatisasi Administrasi Pintar",
+        "api-val-desc-3": "Mengurangi beban konsultasi manual dengan mengotomatiskan pencocokan dokumen pabrik dan aturan visa menjadi sistem pemindaian semantik AI dalam 1 detik.",
         "ai-report-title": "🤖 AI Laporan Analisis Resume",
         "ai-extract-title": "Kompetensi Utama Hasil Analisis AI",
         "feedback-mct": "Pencari kerja {name} memiliki kompetensi kerja yang teruji dalam pengoperasian mesin perkakas presisi dan kontrol lini produksi. Sangat cocok dengan pabrik manufaktur di Banwon, terjamin legal dan produktif.",
@@ -1428,6 +1464,18 @@ function changeLanguage(lang) {
     const screenedCollapseTitleEl = document.getElementById("screened-collapse-title");
     if (screenedCollapseTitleEl && t["screened-collapse-title"]) {
         screenedCollapseTitleEl.textContent = t["screened-collapse-title"];
+    }
+
+    // OpenAPI 시너지 카드 실시간 번역
+    for (let i = 1; i <= 3; i++) {
+        const titleEl = document.getElementById(`api-val-title-${i}`);
+        if (titleEl && t[`api-val-title-${i}`]) {
+            titleEl.textContent = t[`api-val-title-${i}`];
+        }
+        const descEl = document.getElementById(`api-val-desc-${i}`);
+        if (descEl && t[`api-val-desc-${i}`]) {
+            descEl.textContent = t[`api-val-desc-${i}`];
+        }
     }
 
     // 4. 진단 폼 카드
