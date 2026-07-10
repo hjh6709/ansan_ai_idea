@@ -767,12 +767,12 @@ input[type="text"]:focus, textarea:focus {
 
 .tab-btn {
     flex: 1;
-    max-width: 240px;
+    max-width: 280px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 12px 20px;
+    padding: 12px 24px;
     background: #ffffff;
     border: 1.5px solid #191e2e;
     border-radius: var(--border-radius-md);
@@ -782,6 +782,7 @@ input[type="text"]:focus, textarea:focus {
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 2px 2px 0px rgba(25, 30, 46, 0.1);
+    white-space: nowrap;
 }
 
 .tab-btn:hover {
