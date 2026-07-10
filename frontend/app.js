@@ -576,7 +576,35 @@ function renderMatchingResults(data, seekerName, dataSource) {
         data.recommended.forEach((comp, idx) => {
             const card = document.createElement("div");
             card.className = "company-card glass";
-            const rankLabel = idx === 0 ? "🏆 BEST MATCH" : `RANK ${idx + 1}`;
+            
+            // Mynavi/Yokohama 하이브리드 스타일 가이드
+            const rankLabel = idx === 0 ? "🏆 최적 추천 기업 (BEST)" : `추천 일자리 RANK ${idx + 1}`;
+
+            // 업종 및 기업 맞춤형 태그 생성 (Mynavi 가이드 스타일)
+            let tags = ["제조업", "반월산단"];
+            let checkPoint = "";
+            if (comp.INDUTY_CD.startsWith("C29") || comp.INDUTY_CD.startsWith("C30")) {
+                tags.push("정밀 기계", "금형 가공");
+                checkPoint = "기계 조작 및 가공 경력자 우대";
+            } else if (comp.INDUTY_CD.startsWith("C26") || comp.INDUTY_CD.startsWith("C28")) {
+                tags.push("PCB 기판", "전수 검사");
+                checkPoint = "현미경 검사 및 세밀 조립 작업";
+            } else if (comp.INDUTY_CD.startsWith("C20")) {
+                tags.push("화학 배합", "설비 모니터링");
+                checkPoint = "화학 물질 배합 및 실험 장비 관리";
+            } else {
+                tags.push("일반 제조", "창고 관리");
+                checkPoint = "교대 근무 가능 및 초보자 지원 가능";
+            }
+
+            if (comp.COMPANY_SCALE === "중소기업") {
+                tags.push("중소기업 특별지원");
+            }
+            if (comp.EMPLOYEE_COUNT >= 40) {
+                tags.push("기숙사/통근버스");
+            }
+
+            const tagsHtml = tags.map(t => `<span class="tag-item" style="font-size: 0.72rem; font-weight: 600; color: var(--secondary); background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.15); padding: 2px 8px; border-radius: 4px; margin-right: 4px;">#${t}</span>`).join(" ");
 
             card.innerHTML = `
                 <div class="card-top">
@@ -594,19 +622,30 @@ function renderMatchingResults(data, seekerName, dataSource) {
                         <span class="score-lbl">직무 추천율</span>
                     </div>
                 </div>
+                <div class="tag-container" style="margin-bottom: 14px; display: flex; flex-wrap: wrap; gap: 6px;">
+                    ${tagsHtml}
+                </div>
                 <p class="comp-desc">${comp.PRDCT_DESC}</p>
+                <div class="safety-indicator" style="background: rgba(16, 185, 129, 0.03); border: 1px solid rgba(16, 185, 129, 0.15); padding: 8px 12px; border-radius: 4px; font-size: 0.78rem; color: var(--primary); display: flex; align-items: center; gap: 8px; margin-bottom: 10px; margin-top: 14px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <span><strong>안심 고용:</strong> 체류 자격 기준 적법 고용 안심 기업 (법적 고용 안정성 확보)</span>
+                </div>
+                <div class="mypoint-indicator" style="font-size: 0.78rem; background: rgba(59, 130, 246, 0.04); border: 1px solid rgba(59, 130, 246, 0.12); color: #93c5fd; padding: 8px 12px; border-radius: 4px; display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    <span><strong>체크 포인트:</strong> ${checkPoint}</span>
+                </div>
                 <div class="comp-addr">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                         <circle cx="12" cy="10" r="3"/>
                     </svg>
                     <span>${comp.REFINE_ROADNM_ADDR}</span>
-                </div>
-                <div class="safety-indicator">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                    <span>체류 자격 기준 적법 고용 안심 기업 (법적 고용 안정성 확보)</span>
                 </div>
             `;
             recommendationsContainer.appendChild(card);
